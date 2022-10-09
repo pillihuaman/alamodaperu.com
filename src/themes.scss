@@ -1,0 +1,16 @@
+@import '~@nebular/theme/styles/theming';
+$nb-enable-css-custom-properties: true; // <-- enable css custom properties
+@import '~@nebular/theme/styles/themes/corporate';
+@import '~@nebular/theme/styles/themes/dark';
+@import '~@nebular/theme/styles/themes/cosmic';
+@import '~@nebular/theme/styles/themes/default';
+
+$nb-themes: nb-register-theme((header-background-color:#1D6EB7,
+    header-text-color:#d9e1e9, header-padding:4.25rem),
+  corporate,
+  corporate);
+$nb-themes: nb-register-theme((), default, default);
+
+$nb-themes: nb-register-theme((), dark, dark);
+
+$nb-themes: nb-register-theme((), cosmic, cosmic);

@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=EDGE" />
+<meta name="viewport"
+	content="initial-scale = 1.0, user-scalable = no,  width=device-width">
+<title>CONSULTA Y REPORTES DE EXPEDIENTESS</title>
+<jsp:include page="ExpVirtCommonHeader.jsp" flush="true" />  
+  
+<!--[if lt IE 10]>
+	<script src="../a/js/libs/bootstrap/3.3.2/plugins/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="../a/js/libs/bootstrap/3.3.2/plugins/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+		<style type="text/css">
+			.div100{
+				width : 100% !important;
+			}
+			.blockUI h1{
+				font-size: 10px !important;
+				font-weight: bold !important;
+			}
+			h1{
+				font-size: 1.7em;
+			}
+			
+			.header div{
+				padding-left: 0 !important;
+			}
+			
+			.imgLogo{
+				height: 2.5em;
+				margin-top: 1em;
+			}
+			
+			.text-left-important{
+				text-align: left !important;
+			}
+			
+			.hiddenDiv {
+				display: none !important;
+			}
+			
+			.disabled-link {
+				pointer-events: none;
+				color: Gray;
+			}
+				
+		/*IE8*/
+		#codRegistro{ 
+			text-transform: uppercase; 
+		}
+		
+		table.dataTable td.dataTables_empty {
+			text-align: left !important; 
+		}
+		
+		.input-group-addon {
+			padding-bottom:0px !important;
+			padding-top:0px !important;
+			padding-left: 6px !important;
+			padding-right: 6px !important;
+		}
+		
+		.form-control {
+			font-size:12px !important;
+			height:24px !important;
+			padding-top:3px !important;
+			padding-bottom:3px !important;
+			padding-left:5px !important;
+			padding-right:5px !important;
+		}
+		
+		.btn{
+			padding-top:3px !important;
+			padding-bottom:3px !important;
+			font-size:12px !important;
+		}
+		
+
+		body {
+			font-size: 12px;
+		}
+		
+		table.dataTable thead th {
+			padding-bottom:3px !important;
+			padding-top:3px !important;
+			padding-left:5px !important;
+			padding-right:5px !important;
+		
+		
+			border: 1px solid gray;
+			border-collapse: collapse;
+			background: Gainsboro !important;
+		}
+		
+		table.dataTable tbody tr:hover {
+			background: CornflowerBlue !important;
+		}
+		
+		table.dataTable tbody tr {
+			cursor: pointer;
+		}
+		
+		table.dataTable tbody td {
+			padding-bottom:3px !important;
+			padding-top:3px !important;
+		
+			border-right: 1px solid gray !important;
+		}
+		
+		.dataTables_wrapper {
+			background: Gainsboro !important;
+			border: 1px solid gray !important;
+			border-collapse: collapse !important;
+		}
+		
+		.dataTables_paginate {
+			padding-top: 0px !important;
+		}
+		
+		.paginate_button {
+			padding-bottom:3px !important;
+			padding-top:3px !important;
+			padding-left:3px !important;
+			padding-right:3px !important;
+			
+			border: 1px solid gray !important;
+			margin-left: 0px !important;
+		}
+		
+		.dataTables_wrapper .dataTables_info {
+			padding-top : 3px !important;
+		}
+		
+		/* other */
+		.current {
+			background: CornflowerBlue !important;
+		}
+	
+		.marginedDiv {
+		  /*margin: 15px 15px !important;*/
+		  /*border: 1px #337ab7;*/
+		  border: 1px groove #ddd !important;
+		  border-style: solid;
+		  padding:10px !important;
+		}
+		
+		hr {
+			border-top: 1px solid #000 !important;
+		}
+			
+			fieldset.scheduler-border {
+				border: 1px groove #ddd !important;
+				padding: 0 1.2em 0.4em 1.4em !important;
+				margin: 0 0 1.5em 0 !important;
+				-webkit-box-shadow: 0px 0px 0px 0px #000;
+				box-shadow: 0px 0px 0px 0px #000;
+			}
+			
+			legend.scheduler-border {
+			width: inherit; /* Or auto */
+			padding: 0 2px; /* To give a bit of padding on the left and right */
+			border-bottom: none;
+			margin-bottom: 0;
+			font-size: 14px;
+			}
+			.dataTables_wrapper .dataTables_paginate {
+				float: initial !important;
+				text-align: center !important;
+				padding-top: 0.25em;
+			}
+			.alinearCentrado {
+				vertical-align: middle !important;
+			}
+			.panel-scroll {
+			max-height: auto;
+			min-height: 0px;
+			overflow-y: auto;
+			overflow-x: auto;
+			}
+		
+			
+		</style>
+	
+</head>
+<body>
+<div id="container" class="container" style="width: 95%">
+			<div class="row">
+				<div class="panel panel-primary">
+					<div class="panel-heading" align="center">
+						<h3 class="panel-title" align="center">CONSULTA Y REPORTES DE EXPEDIENTES</h3>
+						<form id="frmPrincipal" class="form-horizontal" role="form">
+						</form>
+					</div>
+				</div>	
+				<div class="panel panel-primary">
+					<form class="form-horizontal" role="form" name="frmFiltroBusquedaEspecificaEspecifica" id="frmFiltroBusquedaEspecifica" method="post">
+						<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+								<legend class="scheduler-border"> Consulta Espec&iacute;fica </legend>
+								<div class="form-group">
+									<div class="col-md-3"><Strong>N&deg; de Expediente:</Strong></div>
+									<div class="col-md-4">
+										<input name="numExp" id="txtNumeroExpediente" type="text" class="form-control tamanoMaximo" placeHolder="" ></input>
+										<input id="numAcumulador" name="numAcumulador" type="hidden"/>
+									</div>
+								</div>
+						</fieldset>		
+					</form>	
+					<form class="form-horizontal" role="form" name="frmFiltroBusquedaAvanzada" id="frmFiltroBusquedaAvanzada" method="post">
+						<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+							<legend class="scheduler-border" > Consulta Avanzada </legend>
+							<div class="form-group">								
+								<div class="col-md-1"><Strong>Proceso:</Strong></div>
+								<div class="col-md-3">
+									<select name="codProceso" id="selCodigoProceso" onchange="cargarTiposExpedientes()" class="form-control tamanoMaximo"> 
+										<option value="">Seleccione</option>
+									</select>
+								</div>
+								<div class="col-md-1"><Strong>Tipo de Expediente:</Strong></div>
+								<div class="col-md-3">
+									<select name="codTipexp" id="selCodigoTipoExpendiente" class="form-control tamanoMaximo"> 
+										<option value="">Seleccione</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-1"><Strong>Fecha de:</Strong></div>
+								<div class="col-md-3">
+									<select name="codTipBusquedaFecha" id="selTipoBusquedaFecha" onchange="resetearFormularioConEsp(event)" class="form-control tamanoMaximo"> 
+										<option value="">Seleccione</option>
+									</select>
+								</div>
+								<div class="col-md-1"><Strong>Desde:</Strong></div>
+								<div class="col-md-3">
+									<div class='input-group date tamanoMaximo' id="divFechaDesde">
+											<input type='text' class="form-control tamanoMaximo"  onkeypress="resetearFormularioConEsp(event)" id='txtfechaDesde' name='fecDesde' placeHolder="dd/mm/aaaa" maxlength="10" readonly="readonly" /> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									</div>
+								</div>
+								<div class="col-md-1"><Strong>Hasta:</Strong></div>
+								<div class="col-md-3">
+									<div class='input-group date tamanoMaximo' id="divFechaHasta">
+											<input type='text' class="form-control tamanoMaximo" onkeypress="resetearFormularioConEsp(event)" id='txtfechaHasta' name='fecHasta' placeHolder="dd/mm/aaaa" maxlength="10" readonly="readonly" /> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-1"><Strong>Estado:</Strong></div>
+								<div class="col-md-3">
+									<select name="codEstado" id="selCodigoEstado" class="form-control tamanoMaximo"> 
+										<option value="">Seleccione</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-1"><Strong>Ruc:</Strong></div>
+								<div class="col-md-3">
+									<input name="numRuc" id="txtRuc" type="text" class="form-control tamanoMaximo" onkeypress="resetearFormularioConEsp(event)" maxlength="11" ></input>
+								</div>
+								<div class="col-md-1"><Strong>Raz&oacute;n Social:</Strong></div>
+								<div class="col-md-7">
+									<input name="razonSocial" id="txtRazonSocial" type="text" class="form-control tamanoMaximo" disabled></input>
+								</div>
+							</div>							
+						</fieldset>	
+						<div style="margin : 15px 15px !important">
+							<div class="row content-box">
+								<div class="col-md-12 text-right">
+									<input type="button" class="btn btn-primary" value="Limpiar" id="btnLimpiar" onClick="limpiar()"></input>
+									<input type="button" class="btn btn-primary" id="btnConsultar" intermediateChanges="false" onClick="revalidarFormulario()" value="Consultar"></input>
+								</div>
+							</div>
+						</div>
+						<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+							<legend class="scheduler-border"> Listado de Expedientes </legend>
+							<div class="form-group">
+								<div class="col-md-12">
+								<div class="tab-content">
+								<div id="accionesFiscalizacion" class="tab-pane fade in active">
+								<div class="form-group" style="margin : 12px 5px !important" id="expediente">
+								<div class="border-line panel-scroll">
+									<table id="tblExpedientes" class="table display" cellspacing="0" style="width: 100%;">
+										<thead>
+											<tr>
+												<th width="5%" class="text-center">N&deg;</th>
+												<th width="8%" class="text-center">N&deg; de Expediente Origen</th>
+												<th width="8%" class="text-center">N&deg; de Expediente Acumulador</th>
+												<th width="4%" class="text-center">Indicador de Acumulaci&oacute;n</th>
+												<th width="8%" class="text-center">RUC</th>
+												<th width="8%" class="text-center">Raz&oacute;n Social</th>
+												<th width="8%" class="text-center">Proceso</th>
+												<th width="4%" class="text-center">Tipo de Expediente</th>
+												<th width="6%" class="text-center">Estado Expediente</th>
+												<th width="7%" class="text-center">Estado Cierre</th>
+												<th width="5%" class="text-center">Fecha de Registro del Expediente</th>
+												<th width="5%" class="text-center">Fecha del Documento Origen</th>
+												<th width="8%" class="text-center">Fecha de Notificaci&oacute;n</th>
+												<th width="8%" class="text-center">Forma de Notificaci&oacute;n</th>
+												<th width="5%" class="text-center">Origen</th>
+												<th width="2%" class="text-center">Opci&oacute;n</th>
+											</tr>
+										</thead>
+									</table>
+									</div>
+									</div>
+									</div>
+								</div>		
+							</div>
+							</div>
+							
+							
+							<div class="form-group" id="expedienteFisca" style="display: none">
+								<div class="border-line panel-scroll">		
+										<table id="tblExpedientesFisca" class="table display" cellspacing="0" style="width: 100%;">
+											<thead >
+													<tr>
+														<th width="5%" class="text-center">N&deg;</th>
+														<th width="8%" class="text-center">N&deg; de Expediente</th>
+														<th width="8%" class="text-center">Profesional Responsable</th>												
+														<th width="8%" class="text-center">RUC</th>														
+														<th width="8%" class="text-center">Raz&oacute;n Social</th>													
+														<th width="8%" class="text-center">Proceso</th>														
+														<th width="4%" class="text-center">Tipo de Expediente</th>
+														<th width="6%" class="text-center">Estado Expediente</th>														
+														<th width="5%" class="text-center">Fecha de Expediente</th>							
+														<th width="5%" class="text-center">Origen</th>														
+														<th width="2%" class="text-center">Opci&oacute;n</th>														
+												  </tr>
+											</thead>
+										<tbody></tbody>
+									</table>	
+								</div>
+							</div>
+
+							<div class="form-group" id="expedienteImpugna" style="display: none">
+								<div class="border-line panel-scroll">		
+										<table id="tblExpedientesImpugna" class="table display" cellspacing="0" style="width: 100%;">
+											<thead >
+													<tr>
+														<th width="5%" class="text-center">N&deg;</th>
+														<th width="5%" class="text-center">N&deg; de Expediente</th>
+														<th width="5%" class="text-center">N&deg; Expediente Acumulador</th>
+														<th width="5%" class="text-center">Indicador de Acumulaci&oacute;n</th>
+														<th width="8%" class="text-center">Profesional Responsable</th>												
+														<th width="8%" class="text-center">Tipo de Documento de Administrado</th>
+														<th width="6%" class="text-center">N&deg; de Documento de Administrado</th>														
+														<th width="8%" class="text-center">Raz&oacute;n Social</th>													
+														<th width="6%" class="text-center">Proceso</th>														
+														<th width="8%" class="text-center">Tipo de Expediente</th>
+														<th width="8%" class="text-center">Estado Expediente</th>														
+														<th width="8%" class="text-center">Fecha de Presentaci&oacute;n</th>							
+														<th width="8%" class="text-center">Etapa Proceso</th>														
+														<th width="2%" class="text-center">Opci&oacute;n</th>														
+												  </tr>
+											</thead>
+										<tbody></tbody>
+									</table>	
+								</div>
+							</div>
+							<!-- FIN CVG 21092020 -->
+						</fieldset>
+						<div class="form-group">
+							<div class="col-md-12"  align="center">
+									<button type="button" class="btn btn-primary" intermediateChanges="false" id="exportar" onclick="exportarExcel()">Exportar a Excel</button>
+								</div>	
+						</div>		
+					</form>
+					<form id="formPrincipal" class="form-horizontal" role="form">	
+						<div class="col-md-5" align="right" id="dvSecBotones01">	
+							<input id="campoHiddenExp" type="hidden" name="listadoExpedientesCadena"/>
+						</div>	
+					</form>	
+				</div>		
+			</div>
+	  </div>
+	
+		<!-- 	Inicio LLRB 12/12	MODAL LISTA ARCHIVO  -->
+		
+		<div id="modalExpVinculado" class="modal fade" role="dialog" style="width: 95%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+			<input type="hidden" name="numExpeVirtualVinculadoModal" id="numExpeVirtualVinculadoModal">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+								</button>
+								<div id="dlgTtitleExpVinculadoModal"></div>
+							</div>
+								<div class="row">
+									<div class="panel panel-primary">
+										<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+											<legend class="scheduler-border">Datos del Expediente</legend>
+											<div class="form-group" id="vinculados">	
+											<div class="panel-body">
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>RUC: </label>
+													</div>
+													<div id="txtCampoRuc" class="col-md-3">
+														<input id="numRucExpVinculadosModal" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div id="txtCampoRazonSocial" class="col-md-6">
+														<input id="razonSocialExpVinculadosModal" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>Proceso:</label>
+													</div>
+													<div id="txtCampo4" class="col-md-3">
+														<input id="desProcesoExpVinculadosModal" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div class="col-md-3">
+														<label>Tipo de expediente:</label>
+													</div>
+													<div id="txtCampo5" class="col-md-3">
+														<input id="desExpVinculadosModal" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+													</div>													
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+												<div class="col-md-3">
+														<label>N&deg; Expediente :</label>
+													</div>
+													<div id="txtCampo2" class="col-md-3">
+														<input id="numExpeOrigenExpVinculadosModal" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div class="col-md-3">
+														<label>Fecha del expediente:</label>
+													</div>
+													<div id="txtCampo8" class="col-md-3">														
+														<input id="fechaVirtualExpVinculadosModal" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>Estado del Expediente:</label>
+													</div>
+													<div id="txtCampo3" class="col-md-3">
+														<input id="estExpedienteExpVinculadosModal" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+											</div>
+											</div>											
+										</fieldset>
+										<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+											<legend class="scheduler-border">Listado de Expedientes Vinculados</legend>
+												<div class="panel-body">
+												<div class="tab-content">
+												<div id="accionesFiscalizacion" class="tab-pane fade in active">
+												<div class="border-line panel-scroll">	
+													<table id="tableExpVinculados" class="table display" cellspacing="0" style="width: 100%;"><!--table table-striped table-bordered-->
+														<thead>
+															<tr>
+																<th width="5%" class="text-center">N&deg;</th>
+																<th width="8%" class="text-center">N&deg; de Expediente</th>
+																<th width="8%" class="text-center">Profesional Responsable</th>												
+																<th width="8%" class="text-center">RUC</th>														
+																<th width="8%" class="text-center">Raz&oacute;n Social</th>													
+																<th width="8%" class="text-center">Proceso</th>														
+																<th width="4%" class="text-center">Tipo de Expediente</th>
+																<th width="6%" class="text-center">Estado Expediente</th>														
+																<th width="5%" class="text-center">Fecha de Expediente</th>							
+																<th width="5%" class="text-center">Origen</th>														
+																<th width="2%" class="text-center">Opci&oacute;n</th>													
+															</tr>
+														</thead>
+													</table>
+													</div>
+													</div>
+													</div>
+												</div>
+										</fieldset>
+										<div style="margin : 15px 15px !important">
+											<div class="row content-box">
+												<div class="col-md-3">
+												</div>
+												<div class="col-md-2">
+													
+												</div>
+												<div class="col-md-2">
+													<button type="button" class="btn btn-primary" id='exportarExpVinculados' onclick="exportarExpVinculadosModal()">Exportar a Excel</button>
+												</div>
+												<div class="col-md-2">
+													
+												</div>
+												<div class="col-md-3">
+												</div>
+											</div>
+										</div>
+										<form id="formExpedienteModal" class="form-horizontal" role="form">
+											<input id="hiddenListaExpExpedienteModal" type="hidden" name="hiddenListaExp"/>		
+											<input id="hiddenNumRucExpedienteModal" type="hidden" name="hiddenNumRuc"/>
+											<input id="hiddenRazonSocialExpedienteModal" type="hidden" name="hiddenRazonSocial"/>
+											<input id="hiddenNumExpOrigenExpedienteModal" type="hidden" name="hiddenNumExpOrigen"/>
+											<input id="hiddenNumExpVirtualExpedienteModal" type="hidden" name="hiddenNumExpVirtual"/>
+											<input id="hiddenEstExpedienteExpedienteModal" type="hidden" name="hiddenEstExpediente"/>
+											<input id="hiddenTipoProcesoExpedienteModal" type="hidden" name="hiddenTipoProceso"/>
+											<input id="hiddenTipoExpedienteExpedienteModal" type="hidden" name="hiddenTipoExpediente"/>
+											<input id="hiddenDescOrigenExpedienteModal" type="hidden" name="hiddenDescOrigen"/>
+											<input id="hiddenFechaGeneracionExpedienteModal" type="hidden" name="hiddenFechaGeneracion"/>
+											<input id="hiddenFechaOrigenExpedienteModal" type="hidden" name="hiddenFechaOrigen"/>
+										</form>		
+									</div>
+								</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- MODAL DOCUMENTOS Detalle de Documentos -->
+		<div id="modalDocumentos" class="modal fade" role="dialog" style="width: 100%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<div id="dlgTitleModalDocumentos"></div>
+							</div>
+							<div class="row">
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+										<legend class="scheduler-border">Datos del Expediente</legend>
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>RUC: </label>
+												</div>
+												<div id="txtCampoRuc" class="col-md-2">
+													<input id="numRucDocumentoModal" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div id="txtCampoRazonSocial" class="col-md-8">
+													<input id="razonSocialDocumentoModal" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>N&deg; Expediente Origen:</label>
+												</div>
+												<div id="txtCampo1" class="col-md-2">   
+													<input id="numExpeOrigenDocumentoModal" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>N&deg; Expediente Virtual:</label>
+												</div>
+												<div id="txtCampo2" class="col-md-3">
+													<input id="numExpeVirtualDocumentoModal" name="numeroExpeVirtual" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-1">
+													<label>Estado expediente:</label>
+												</div>
+												<div id="txtCampo3" class="col-md-2">
+													<input id="estExpedienteDocumentoModal" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>												
+											</div>	
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">												
+												<div class="col-md-2">
+													<label>Proceso:</label>
+												</div>
+												<div id="txtCampo4" class="col-md-2">
+													<input id="desProcesoDocumentoModal" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Tipo de expediente:</label>
+												</div>
+												<div id="txtCampo5" class="col-md-3">
+													<input id="desExpedienteDocumentoModal" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-1">
+													<label>Origen:</label>
+												</div>
+												<div id="txtCampo6" class="col-md-2">
+													<input id="desOrigenDocumentoModal" name="descripcionOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>													
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>Fecha de registro:</label>
+												</div>
+												<div id="txtCampo7" class="col-md-2">
+													<input id="fechaVirtualDocumentoModal" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Fecha de documento origen:</label>
+												</div>
+												<div id="txtCampo8" class="col-md-2">														
+													<input id="fechaOrigenDocumentoModal" name="fechaOrigenExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+								<div class="row">
+									<div class="col-md-4"></div>
+									<div class="col-md-4"  style="color:#ff0000" id="divErrorExtension"></div>
+									<div class="col-md-4"></div>
+								</div>
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">			
+										<legend class="scheduler-border">Listado de Documentos </legend>
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="tab-content">
+													<div id="accionesFiscalizacion" class="tab-pane fade in active">
+														<div class="border-line panel-scroll">		
+															<table id="tableDocumentoModal" class="table display" cellspacing="0" style="width: 100%;">
+																<thead >
+																	<tr>
+																		<th width="3%">N&deg;</th>
+																		<th width="20%">Tipo de Documento</th>
+																		<th width="10%">N&uacute;mero de Documento</th>																
+																		<th width="10%">Origen registro documento</th>
+																		<th width="5%">N&deg; Requerimiento (Si corresponde)</th>
+																		<th width="22%">Responsable registro documento</th>
+																		<th width="5%">Fecha registro documento</th>
+																		<th width="5%">Fecha emisi&oacute;n documento</th>
+																		<th width="10%" >Fecha de Notificaci&oacute;n</th>
+																		<th width="10%" >Forma de Notificaci&oacute;n</th>
+																		<th width="5%">N&deg; de Expediente Origen</th>																	
+																		<th width="5%">Ver archivo</th>
+																		<th width="5%">Copia Personalizada</th>
+																		<th width="5%">Representaci&oacute;n <br> Impresa</th>
+																	</tr>
+																</thead>
+																<tbody></tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>		
+										</div>
+									</fieldset>
+									<div class="form-group">
+										<div class="col-md-12" align="center" id="dvSecBotones01">	
+											<button type="button" class="btn btn-primary" intermediateChanges="false" id ='exportarDocumentos' onclick="exportarDocumentosModal()">Exportar a Excel</button>
+										</div>
+									</div>	
+								</div>	
+								<form id="formDocumentoModal" class="form-horizontal" role="form">
+									<input id="hiddenListaExpDocumentoModal" type="hidden" name="hiddenListaExpDocumentoModal"/>		
+									<input id="hiddenNumRucDocumentoModal" type="hidden" name="hiddenNumRucDocumentoModal"/>
+									<input id="hiddenRazonSocialDocumentoModal" type="hidden" name="hiddenRazonSocialDocumentoModal"/>
+									<input id="hiddenNumExpOrigenDocumentoModal" type="hidden" name="hiddenNumExpOrigenDocumentoModal"/>
+									<input id="hiddenNumExpVirtualDocumentoModal" type="hidden" name="hiddenNumExpVirtualDocumentoModal"/>
+									<input id="hiddenEstExpedienteDocumentoModal" type="hidden" name="hiddenEstExpedienteDocumentoModal"/>
+									<input id="hiddenTipoProcesoDocumentoModal" type="hidden" name="hiddenTipoProcesoDocumentoModal"/>
+									<input id="hiddenTipoExpedienteDocumentoModal" type="hidden" name="hiddenTipoExpedienteDocumentoModal"/>
+									<input id="hiddenDescOrigenDocumentoModal" type="hidden" name="hiddenDescOrigenDocumentoModal"/>
+									<input id="hiddenFechaGeneracionDocumentoModal" type="hidden" name="hiddenFechaGeneracionDocumentoModal"/>
+									<input id="hiddenFechaOrigenDocumentoModal" type="hidden" name="hiddenFechaOrigenDocumentoModal"/>
+									<input id="hiddenfechaNotificacionModal" type="hidden" name="hiddenfechaNotificacionModal"/>
+									<input id="hiddenforhaNotificacionModal" type="hidden" name="hiddenforhaNotificacionModal"/>										
+								</form>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- PAS20191U210500144 Inicio 400104 RF03 PSALDARRIAGA -->
+		<!-- MODAL DOCUMENTOS Detalle de Documentos TIPO 430, 431 -->
+		<div id="modalDocumentosFis" class="modal fade" role="dialog" style="width: 100%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<div id="dlgTitleModalDocumentosFis"></div>
+							</div>
+							<div class="row">
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+										<legend class="scheduler-border">Datos del Expediente</legend>
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>RUC: </label>
+												</div>
+												<div id="txtCampoRuc" class="col-md-2">
+													<input id="numRucDocumentoModalFis" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div id="txtCampoRazonSocial" class="col-md-8">
+													<input id="razonSocialDocumentoModalFis" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>N&deg; Expediente:</label>
+												</div>
+												<div id="txtCampo1" class="col-md-2">
+													<input id="numExpeOrigenDocumentoModalFis" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-1">
+													<label>Estado expediente:</label>
+												</div>
+												<div id="txtCampo3" class="col-md-2">
+													<input id="estExpedienteDocumentoModalFis" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>												
+											</div>	
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">												
+												<div class="col-md-2">
+													<label>Proceso:</label>
+												</div>
+												<div id="txtCampo4" class="col-md-2">
+													<input id="desProcesoDocumentoModalFis" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Tipo de expediente:</label>
+												</div>
+												<div id="txtCampo5" class="col-md-3">
+													<input id="desExpedienteDocumentoModalFis" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-1">
+													<label>Origen:</label>
+												</div>
+												<div id="txtCampo6" class="col-md-2">
+													<input id="desOrigenDocumentoModalFis" name="descripcionOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>													
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>Fecha de registro:</label>
+												</div>
+												<div id="txtCampo7" class="col-md-2">
+													<input id="fechaVirtualDocumentoModalFis" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Fecha de documento origen:</label>
+												</div>
+												<div id="txtCampo8" class="col-md-2">														
+													<input id="fechaOrigenDocumentoModalFis" name="fechaOrigenExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+								<div class="row">
+									<div class="col-md-4"></div>
+									<div class="col-md-4"  style="color:#ff0000" id="divErrorExtension"></div>
+									<div class="col-md-4"></div>
+								</div>
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">			
+										<legend class="scheduler-border">Listado de Documentos </legend>
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="tab-content">
+													<div id="accionesFiscalizacion" class="tab-pane fade in active">
+														<div class="border-line panel-scroll">		
+															<table id="tableDocumentoModalFis" class="table display" cellspacing="0" style="width: 100%;">
+																<thead >
+																	<tr>
+																		<th width="3%">N&deg;</th>
+																		<th width="19%">Tipo de Documento</th>
+																		<th width="9%">N&uacute;mero de Documento</th>																
+																		<th width="9%">Origen registro documento</th>
+																		<th width="4%">Visible al Contrib.</th>
+																		<th width="4%">Con Reserva Tributaria</th>
+																		<th width="22%">Responsable registro documento</th>
+																		<th width="5%">Fecha registro documento</th>
+																		<th width="5%">Fecha emisi&oacute;n documento</th>
+																		<th width="9%" >Fecha de Notificaci&oacute;n</th>
+																		<th width="9%" >Forma de Notificaci&oacute;n</th>
+																		<th width="5%">N&deg; de Expediente</th>																
+																		<th width="5%">Tip. Doc. Relacionado</th>
+																		<th width="5%">Num. Doc. Relacionado</th>
+																		<th width="5%">Ver archivo</th>
+																		<th width="5%">Copia Personalizada</th>
+																		<th width="5%">Representaci&oacute;n <br> Impresa</th>
+																	</tr>
+																</thead>
+																<tbody></tbody>
+															</table>	
+														</div>
+													</div>
+												</div>
+											</div>		
+										</div>
+									</fieldset>
+									<div class="form-group">
+										<div class="col-md-12" align="center" id="dvSecBotones01">	
+											<button type="button" class="btn btn-primary" intermediateChanges="false" id ='exportarDocumentosFis' onclick="exportarDocumentosModalFis()">Exportar a Excel</button>
+										</div>
+									</div>	
+								</div>	
+								<form id="formDocumentoModalFis" class="form-horizontal" role="form">
+									<input id="hiddenListaExpDocumentoModalFis" type="hidden" name="hiddenListaExpDocumentoModalFis"/>		
+									<input id="hiddenNumRucDocumentoModalFis" type="hidden" name="hiddenNumRucDocumentoModalFis"/>
+									<input id="hiddenRazonSocialDocumentoModalFis" type="hidden" name="hiddenRazonSocialDocumentoModalFis"/>
+									<input id="hiddenNumExpOrigenDocumentoModalFis" type="hidden" name="hiddenNumExpOrigenDocumentoModalFis"/>
+									<input id="hiddenNumExpVirtualDocumentoModalFis" type="hidden" name="hiddenNumExpVirtualDocumentoModalFis"/>
+									<input id="hiddenEstExpedienteDocumentoModalFis" type="hidden" name="hiddenEstExpedienteDocumentoModalFis"/>
+									<input id="hiddenTipoProcesoDocumentoModalFis" type="hidden" name="hiddenTipoProcesoDocumentoModalFis"/>
+									<input id="hiddenTipoExpedienteDocumentoModalFis" type="hidden" name="hiddenTipoExpedienteDocumentoModalFis"/>
+									<input id="hiddenDescOrigenDocumentoModalFis" type="hidden" name="hiddenDescOrigenDocumentoModalFis"/>
+									<input id="hiddenFechaGeneracionDocumentoModalFis" type="hidden" name="hiddenFechaGeneracionDocumentoModalFis"/>
+									<input id="hiddenFechaOrigenDocumentoModalFis" type="hidden" name="hiddenFechaOrigenDocumentoModalFis"/>
+									<input id="hiddenfechaNotificacionModalFis" type="hidden" name="hiddenfechaNotificacionModalFis"/>
+									<input id="hiddenforhaNotificacionModalFis" type="hidden" name="hiddenforhaNotificacionModalFis"/>	
+									<input id="hiddenIndVisibleModal" type="hidden" name="hiddenIndVisibleModal"/>
+									<input id="hiddenIndReserTribModal" type="hidden" name="hiddenIndReserTribModal"/>
+									<input id="hiddenTipoDocRelacionadoModal" type="hidden" name="hiddenTipoDocRelacionadoModal"/>
+									<input id="hiddenNumDocRelacionadoModal" type="hidden" name="hiddenNumDocRelacionadoModal"/>
+								</form>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- MODAL DOCUMENTOS Detalle de Documentos TIPO DEVOLUCIONES -->
+		<div id="modalDocumentosDevol" class="modal fade" role="dialog" style="width: 100%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<div id="dlgTitleModalDocumentosDevol"></div>
+							</div>
+							<div class="row">
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+										<legend class="scheduler-border">Datos del Expediente</legend>
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>RUC: </label>
+												</div>
+												<div id="txtCampoRuc" class="col-md-2">
+													<input id="numRucDocumentoModalDevol" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div id="txtCampoRazonSocial" class="col-md-8">
+													<input id="razonSocialDocumentoModalDevol" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>N&deg; Expediente:</label>
+												</div>
+												<div id="txtCampo1" class="col-md-2">
+													<input id="numExpeOrigenDocumentoModalDevol" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-1">
+													<label>Estado expediente:</label>
+												</div>
+												<div id="txtCampo3" class="col-md-2">
+													<input id="estExpedienteDocumentoModalDevol" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>												
+											</div>	
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">												
+												<div class="col-md-2">
+													<label>Proceso:</label>
+												</div>
+												<div id="txtCampo4" class="col-md-2">
+													<input id="desProcesoDocumentoModalDevol" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Tipo de expediente:</label>
+												</div>
+												<div id="txtCampo5" class="col-md-3">
+													<input id="desExpedienteDocumentoModalDevol" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-1">
+													<label>Origen:</label>
+												</div>
+												<div id="txtCampo6" class="col-md-2">
+													<input id="desOrigenDocumentoModalDevol" name="descripcionOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>													
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>Fecha de registro:</label>
+												</div>
+												<div id="txtCampo7" class="col-md-2">
+													<input id="fechaVirtualDocumentoModalDevol" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Fecha de documento origen:</label>
+												</div>
+												<div id="txtCampo8" class="col-md-2">														
+													<input id="fechaOrigenDocumentoModalDevol" name="fechaOrigenExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+								<div class="row">
+									<div class="col-md-4"></div>
+									<div class="col-md-4"  style="color:#ff0000" id="divErrorExtension"></div>
+									<div class="col-md-4"></div>
+								</div>
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">			
+										<legend class="scheduler-border">Listado de Documentos </legend>
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="tab-content">
+													<div id="accionesFiscalizacion" class="tab-pane fade in active">
+														<div class="border-line panel-scroll">		
+															<table id="tableDocumentoModalDevol" class="table display" cellspacing="0" style="width: 100%;">
+																<thead >
+																	<tr>
+																		<th width="3%">N&deg;</th>
+																		<th width="19%">Tipo de Documento</th>
+																		<th width="9%">N&uacute;mero de Documento</th>																
+																		<th width="9%">Origen registro documento</th>
+																		<th width="4%">Visible al Contrib.</th>
+																		<th width="4%">Con Reserva Tributaria</th>
+																		<th width="22%">Responsable registro documento</th>
+																		<th width="5%">Fecha registro documento</th>
+																		<th width="5%">Fecha emisi&oacute;n documento</th>
+																		<th width="9%" >Fecha de Notificaci&oacute;n</th>
+																		<th width="9%" >Forma de Notificaci&oacute;n</th>
+																		<th width="5%">N&deg; de Expediente</th>																
+																		<th width="5%">Tip. Doc. Relacionado</th>
+																		<th width="5%">Num. Doc. Relacionado</th>
+																		<th width="5%">Ver archivo</th>
+																		<th width="5%">Copia Personalizada</th>
+																		<th width="5%">Representaci&oacute;n <br> Impresa</th>
+																	</tr>
+																</thead>
+																<tbody></tbody>
+															</table>	
+														</div>
+													</div>
+												</div>
+											</div>		
+										</div>
+									</fieldset>
+									<div class="form-group">
+										<div class="col-md-12" align="center" id="dvSecBotones01">	
+											<button type="button" class="btn btn-primary" intermediateChanges="false" id ='exportarDocumentosDevol' onclick="exportarDocumentosModalDevol()">Exportar a Excel</button>
+										</div>
+									</div>	
+								</div>	
+								<form id="formDocumentoModalDevol" class="form-horizontal" role="form">
+									<input id="hiddenListaExpDocumentoModalDevol" type="hidden" name="hiddenListaExpDocumentoModalDevol"/>		
+									<input id="hiddenNumRucDocumentoModalDevol" type="hidden" name="hiddenNumRucDocumentoModalDevol"/>
+									<input id="hiddenRazonSocialDocumentoModalDevol" type="hidden" name="hiddenRazonSocialDocumentoModalDevol"/>
+									<input id="hiddenNumExpOrigenDocumentoModalDevol" type="hidden" name="hiddenNumExpOrigenDocumentoModalDevol"/>
+									<input id="hiddenNumExpVirtualDocumentoModalDevol" type="hidden" name="hiddenNumExpVirtualDocumentoModalDevol"/>
+									<input id="hiddenEstExpedienteDocumentoModalDevol" type="hidden" name="hiddenEstExpedienteDocumentoModalDevol"/>
+									<input id="hiddenTipoProcesoDocumentoModalDevol" type="hidden" name="hiddenTipoProcesoDocumentoModalDevol"/>
+									<input id="hiddenTipoExpedienteDocumentoModalDevol" type="hidden" name="hiddenTipoExpedienteDocumentoModalDevol"/>
+									<input id="hiddenDescOrigenDocumentoModalDevol" type="hidden" name="hiddenDescOrigenDocumentoModalFis"/>
+									<input id="hiddenFechaGeneracionDocumentoModalDevol" type="hidden" name="hiddenFechaGeneracionDocumentoModalDevol"/>
+									<input id="hiddenFechaOrigenDocumentoModalDevol" type="hidden" name="hiddenFechaOrigenDocumentoModalDevol"/>
+									<input id="hiddenfechaNotificacionModalDevol" type="hidden" name="hiddenfechaNotificacionModalDevol"/>
+									<input id="hiddenforhaNotificacionModalDevol" type="hidden" name="hiddenforhaNotificacionModalDevol"/>	
+									<input id="hiddenIndVisibleModal" type="hidden" name="hiddenIndVisibleModal"/>
+									<input id="hiddenIndReserTribModal" type="hidden" name="hiddenIndReserTribModal"/>
+									<input id="hiddenTipoDocRelacionadoModal" type="hidden" name="hiddenTipoDocRelacionadoModal"/>
+									<input id="hiddenNumDocRelacionadoModal" type="hidden" name="hiddenNumDocRelacionadoModal"/>
+								</form>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+				
+		<div id="modalObservaciones" class="modal fade" role="dialog" style="width: 95%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+						<div class="panel-heading">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+							</button>
+							<div id="dlgTitleModalObservaciones"></div>
+						</div>
+							<div class="row">
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+									<legend class="scheduler-border">Datos del Expediente</legend>
+									  <div class="form-group" id="observaciones">
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>RUC: </label>
+												</div>
+												<div id="txtCampoRuc" class="col-md-2">
+													<input id="numRucObservacionModal" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div id="txtCampoRazonSocial" class="col-md-8">
+													<input id="razonSocialObservacionModal" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>N&deg; Expediente Origen:</label>
+												</div>
+												<div id="txtCampo1" class="col-md-2">
+													<input id="numExpeOrigenObservacionModal" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>N&deg; Expediente Virtual:</label>
+												</div>
+												<div id="txtCampo2" class="col-md-2">
+													<input id="numExpeVirtualObservacionModal" name="numeroExpeVirtual" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Estado expediente:</label>
+												</div>
+												<div id="txtCampo3" class="col-md-2">
+													<input id="estExpedienteObservacionModal" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>										
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>Proceso:</label>
+												</div>
+												<div id="txtCampo4" class="col-md-2">
+													<input id="desProcesoObservacionModal" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Tipo de expediente:</label>
+												</div>
+												<div id="txtCampo5" class="col-md-2">
+													<input id="desExpedienteObservacionModal" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>	
+												<div class="col-md-2">
+													<label>Origen:</label>
+												</div>
+												<div id="txtCampo6" class="col-md-2">
+													<input id="desOrigenObservacionModal" name="descripcionOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>											
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>Fecha de registro:</label>
+												</div>
+												<div id="txtCampo7" class="col-md-2">
+													<input id="fechaVirtualObservacionModal" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Fecha de documento origen:</label>
+												</div>
+												<div id="txtCampo8" class="col-md-2">
+													<input id="fechaOrigenObservacionModal" name="fechaOrigenExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+											</div>
+										</div>
+										<!-- INICIO[LLRB 15012020] -->
+										  <div class="form-group" id="observacionesFisca">
+										<div class="panel-body">
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>RUC: </label>
+												</div>
+												<div id="txtCampoRuc" class="col-md-2">
+													<input id="numRucObservacionModal_f" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div id="txtCampoRazonSocial" class="col-md-8">
+													<input id="razonSocialObservacionModal_f" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>N&deg; Expediente:</label>
+												</div>
+												<div id="txtCampo1" class="col-md-2">
+													<input id="numExpeOrigenObservacionModal_f" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Estado expediente:</label>
+												</div>
+												<div id="txtCampo3" class="col-md-2">
+													<input id="estExpedienteObservacionModal_f" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>										
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>Proceso:</label>
+												</div>
+												<div id="txtCampo4" class="col-md-2">
+													<input id="desProcesoObservacionModal_f" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Tipo de expediente:</label>
+												</div>
+												<div id="txtCampo5" class="col-md-2">
+													<input id="desExpedienteObservacionModal_f" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>	
+												<div class="col-md-2">
+													<label>Origen:</label>
+												</div>
+												<div id="txtCampo6" class="col-md-2">
+													<input id="desOrigenObservacionModal_f" name="descripcionOrigen" type="text" class="form-control" disabled="disabled"/>
+												</div>											
+											</div>
+											<div class="row content-box">&nbsp;</div>
+											<div class="row content-box">
+												<div class="col-md-2">
+													<label>Fecha de registro:</label>
+												</div>
+												<div id="txtCampo7" class="col-md-2">
+													<input id="fechaVirtualObservacionModal_f" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+												</div>
+												<div class="col-md-2">
+													<label>Fecha de documento origen:</label>
+												</div>
+												<div id="txtCampo8" class="col-md-2">
+													<input id="fechaOrigenObservacionModal_f" name="fechaOrigenExpediente" type="text" class="form-control" disabled="disabled"/>
+												</div>
+											</div>
+											</div>
+										</div>
+										<!-- FIN[LLRB 15012020] -->
+									</fieldset>									
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+										<legend class="scheduler-border">Listado de Observaciones </legend>
+											<div class="panel-body">
+												<div class="tab-content">
+												<div id="accionesFiscalizacion" class="tab-pane fade in active">
+												<div class="border-line panel-scroll">	
+												<table id="tableObservaciones" class="table display" cellspacing="0" style="width: 100%;">
+													<thead>
+														<tr class="active">
+															<th width="5%">N&deg;</th>
+															<th width="40%">Observaci&oacute;n</th>
+															<th width="40%">Usuario Registro</th>
+															<th width="15%">Fecha de registro</th>
+														</tr>
+													</thead>
+												</table>
+												</div>
+												</div>
+												</div>
+											</div>
+									</fieldset>
+									
+									<div style="margin : 15px 15px !important">
+										<div class="row content-box">
+											<div class="col-md-3">
+											</div>
+											<div class="col-md-2">
+												
+											</div>
+											<div class="col-md-2">
+												<button type="button" class="btn btn-primary" id='exportarObservaciones' onclick="exportarObservacionesModal()">Exportar a Excel</button>
+											</div>
+											<div class="col-md-2">
+												
+											</div>
+											<div class="col-md-3">
+											</div>
+										</div>
+									</div>
+									<form id="formObservacionesModal" class="form-horizontal" role="form">
+										<input id="hiddenListaExpObservacionModal" type="hidden" name="hiddenListaExp"/>		
+										<input id="hiddenNumRucObservacionModal" type="hidden" name="hiddenNumRuc"/>
+										<input id="hiddenRazonSocialObservacionModal" type="hidden" name="hiddenRazonSocial"/>
+										<input id="hiddenNumExpOrigenObservacionModal" type="hidden" name="hiddenNumExpOrigen"/>
+										<input id="hiddenNumExpVirtualObservacionModal" type="hidden" name="hiddenNumExpVirtual"/>
+										<input id="hiddenEstExpedienteObservacionModal" type="hidden" name="hiddenEstExpediente"/>
+										<input id="hiddenTipoProcesoObservacionModal" type="hidden" name="hiddenTipoProceso"/>
+										<input id="hiddenTipoExpedienteObservacionModal" type="hidden" name="hiddenTipoExpediente"/>
+										<input id="hiddenDescOrigenObservacionModal" type="hidden" name="hiddenDescOrigen"/>
+										<!-- inicio JEFFIO -->
+										<input id="hiddenfechaNotificacion" type="hidden" name="hiddenfecNotificacion"/>
+										<input id="hiddenforhaNotificacion" type="hidden" name="hiddenforNotificacion"/>										
+										<!-- fin -->
+										<input id="hiddenFechaGeneracionObservacionModal" type="hidden" name="hiddenFechaGeneracion"/>
+										<input id="hiddenFechaOrigenObservacionModal" type="hidden" name="hiddenFechaOrigen"/>
+									</form>		
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="modalArchivos" class="modal fade" role="dialog" style="width: 95%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+						<div class="panel-heading">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+							</button>
+							<div id="dlgTitleModalArchivos"></div>
+						</div>
+							<div class="row">
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+									<legend class="scheduler-border">Lista de Archivos</legend>
+									</fieldset>									
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+										<div class="panel-body">
+												<div class="tab-content">
+												<div id="accionesFiscalizacion" class="tab-pane fade in active">
+												<div class="border-line panel-scroll">	
+												<table id="tableArchivoModal" class="table display" cellspacing="0" style="width: 100%;">
+													<thead>
+														<tr class="active">
+															<th width="20%">N&deg;</th>
+															<th width="13%">N&uacute;mero de Archivo</th>
+															<th width="20%">Nombre de Archivo</th>
+															<th width="5%">Item</th>
+															<th width="12%">Tama&ntilde;o de archivo</th>
+															<th width="5%">Folios</th>
+															<th width="10%">Ver archivo</th>
+															<th width="10%">Representaci&oacute;n <br> Impresa</th>
+														</tr>
+													</thead>
+												</table>
+												</div>
+												</div>
+												<div class="row">
+												<div class="col-md-4"></div>
+												<div class="col-md-4"  style="color:#ff0000" id="divErrorExtensionArchivo"></div>
+												<div class="col-md-4"></div>
+										</div>
+												</div>
+											</div>
+									</fieldset>
+									
+									<div style="margin : 15px 15px !important">
+										<div class="row content-box">
+											<div class="col-md-3">
+											</div>
+											<div class="col-md-2">
+												
+											</div>
+											<div class="col-md-2">
+																						
+												<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+											</div>
+											<div class="col-md-2">
+												
+											</div>
+											<div class="col-md-3">
+											</div>
+										</div>
+									</div>
+									<form id="formArchivosModal" class="form-horizontal" role="form">
+										<input id="hiddenListaArchivosModal" type="hidden" name="hiddenListaArc"/>		
+										<input id="hiddenNumDocModal" type="hidden" name="hiddenNumDocVirtual"/>
+										<input id="hiddenTipoExpedienteModal" type="hidden" name="hiddenTipoExpediente"/>
+									</form>		
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- 	Fin LLRB 12/12	MODAL LISTA ARCHIVO  -->
+	<!-- 	Inicio LLRB 16/01/2020	MODAL LISTA COPIAS  -->
+		<div id="modalCopias" class="modal fade" role="dialog" style="width: 95%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+						<div class="panel-heading">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+							</button>
+							<div id="dlgTitleModalCopias"></div>
+						</div>
+							<div class="row">
+								<div class="panel panel-primary">
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">								
+									</fieldset>									
+									<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+										<div class="panel-body">
+												<div class="tab-content">
+												<div id="accionesFiscalizacion" class="tab-pane fade in active">
+												<div class="border-line panel-scroll">	
+												<table id="tableCopiasModal" class="table display" cellspacing="0" style="width: 100%;">
+													<thead>
+														<tr class="active">
+															<th width="8%">N&deg;Copia</th>															
+															<th width="30%">Nombre de Archivo</th>														
+															<th width="12%">Tama&ntilde;o de archivo</th>	
+															<th width="10%">Ver archivo</th>
+															<th width="12%">Registro de usuario</th>	
+															<th width="12%">Fecha de registro</th>														
+															
+															
+														</tr>
+													</thead>
+												</table>
+												</div>
+												</div>
+												<div class="row">
+												<div class="col-md-4"></div>
+												<div class="col-md-4"  style="color:#ff0000" id="divErrorExtensionArchivo"></div>
+												<div class="col-md-4"></div>
+										</div>
+												</div>
+											</div>
+									</fieldset>
+									
+									<div style="margin : 15px 15px !important">
+										<div class="row content-box">
+											<div class="col-md-3">
+											</div>
+											<div class="col-md-2">
+												
+											</div>
+											<div class="col-md-2">
+																						
+												<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+											</div>
+											<div class="col-md-2">
+												
+											</div>
+											<div class="col-md-3">
+											</div>
+										</div>
+									</div>
+									<form id="formCopiasModal" class="form-horizontal" role="form">
+										<input id="hiddenListaCopiasModal" type="hidden" name="hiddenListaCop"/>		
+										<input id="hiddenNumDocModal" type="hidden" name="hiddenNumDocVirtual"/>
+										<input id="hiddenTipoExpedienteModal" type="hidden" name="hiddenTipoExpediente"/>
+									</form>		
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Dialogo -->
+	  <div id="modalDlg" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+						</button>
+						<div id="dlgTitle">TITULO</div>
+					</div>
+					<div class="panel-body">
+						<div id="dlgMsj" class="modal-body text-center">TEXTO</div>
+						<div id="dlgBtns" class="text-center">
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>				
+	  <div id="modalExpedienteOrigen" class="modal fade" role="dialog" style="width: 95%">
+			<div class="modal-dialog" style="width: 1000px !important;">
+			<input type="hidden" name="numExpeVirtualExpedienteModal" id="numExpeVirtualExpedienteModal">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div>
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+								</button>
+								<div id="titleExpedienteOrigenModal"></div>
+							</div>
+								<div class="row">
+									<div class="panel panel-primary">
+										<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+											<legend class="scheduler-border">Datos del Expediente Or&iacute;gen</legend>
+											<div class="form-group" id="trazabilidad">	
+											<div class="panel-body">
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>RUC: </label>
+													</div>
+													<div id="txtCampoRuc" class="col-md-3">
+														<input id="numRucExpedienteModal" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div id="txtCampoRazonSocial" class="col-md-6">
+														<input id="razonSocialExpedienteModal" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>Proceso:</label>
+													</div>
+													<div id="txtCampo4" class="col-md-3">
+														<input id="desProcesoExpedienteModal" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div class="col-md-3">
+														<label>Tipo de expediente:</label>
+													</div>
+													<div id="txtCampo5" class="col-md-3">
+														<input id="desExpedienteExpedienteModal" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+													</div>													
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+												<div class="col-md-3">
+														<label>N&deg; Expediente Origen:</label>
+													</div>
+													<div id="txtCampo2" class="col-md-3">
+														<input id="numExpeOrigenExpedienteModal" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div class="col-md-3">
+														<label>Fecha del expediente:</label>
+													</div>
+													<div id="txtCampo8" class="col-md-3">														
+														<input id="fechaVirtualExpedienteModal" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>Estado del Expediente:</label>
+													</div>
+													<div id="txtCampo3" class="col-md-3">
+														<input id="estExpedienteExpedienteModal" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+											</div>
+											</div>
+											<!-- INICIO[LLRB 16012020] -->
+											<div class="form-group" id="trazabilidadFisca">	
+											<div class="panel-body">
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>RUC: </label>
+													</div>
+													<div id="txtCampoRuc" class="col-md-3">
+														<input id="numRucExpedienteModal_f" name="numeroRuc" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div id="txtCampoRazonSocial" class="col-md-6">
+														<input id="razonSocialExpedienteModal_f" name="razonSocialRuc" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>Proceso:</label>
+													</div>
+													<div id="txtCampo4" class="col-md-3">
+														<input id="desProcesoExpedienteModal_f" name="descripcionProceso" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div class="col-md-3">
+														<label>Tipo de expediente:</label>
+													</div>
+													<div id="txtCampo5" class="col-md-3">
+														<input id="desExpedienteExpedienteModal_f" name="descripcionExpediente" type="text" class="form-control" disabled="disabled"/>
+													</div>													
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+												<div class="col-md-3">
+														<label>N&deg; Expediente:</label>
+													</div>
+													<div id="txtCampo2" class="col-md-3">
+														<input id="numExpeOrigenExpedienteModal_f" name="numeroExpeOrigen" type="text" class="form-control" disabled="disabled"/>
+													</div>
+													<div class="col-md-3">
+														<label>Fecha del expediente:</label>
+													</div>
+													<div id="txtCampo8" class="col-md-3">														
+														<input id="fechaVirtualExpedienteModal_f" name="fechaExpedienteVirtual" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+												<div class="row content-box">&nbsp;</div>
+												<div class="row content-box">
+													<div class="col-md-3">
+														<label>Estado del Expediente:</label>
+													</div>
+													<div id="txtCampo3" class="col-md-3">
+														<input id="estExpedienteExpedienteModal_f" name="estadoExpediente" type="text" class="form-control" disabled="disabled"/>
+													</div>
+												</div>
+											</div>
+											</div>
+											<!-- FIN[LLRB 16012020] -->
+										</fieldset>
+										<fieldset class="scheduler-border" style="margin : 15px 15px !important">
+											<legend class="scheduler-border">Listado de Estados - Etapas del Expediente Origen</legend>
+												<div class="panel-body">
+												<div class="tab-content">
+												<div id="accionesFiscalizacion" class="tab-pane fade in active">
+												<div class="border-line panel-scroll">	
+													<table id="tableExpediente" class="table display" cellspacing="0" style="width: 100%;"><!--table table-striped table-bordered-->
+														<thead>
+															<tr class="active">
+																<th width="5%">N&deg;</th>
+																<th width="55%">Tipo de documento</th>
+																<th width="10%">N&deg; documento</th>
+																<th width="10%">Estado</th>
+																<th width="10%">Etapa</th>
+																<th width="10%">Fecha de registro</th>
+															</tr>
+														</thead>
+													</table>
+													</div>
+													</div>
+													</div>
+												</div>
+										</fieldset>
+										<div style="margin : 15px 15px !important">
+											<div class="row content-box">
+												<div class="col-md-3">
+												</div>
+												<div class="col-md-2">
+													
+												</div>
+												<div class="col-md-2">
+													<button type="button" class="btn btn-primary" id='exportarTrazabilidadModal' onclick="exportarExpedienteModal()">Exportar a Excel</button>
+												</div>
+												<div class="col-md-2">
+													
+												</div>
+												<div class="col-md-3">
+												</div>
+											</div>
+										</div>
+										<form id="formExpedienteModal" class="form-horizontal" role="form">
+											<input id="hiddenListaExpExpedienteModal" type="hidden" name="hiddenListaExp"/>		
+											<input id="hiddenNumRucExpedienteModal" type="hidden" name="hiddenNumRuc"/>
+											<input id="hiddenRazonSocialExpedienteModal" type="hidden" name="hiddenRazonSocial"/>
+											<input id="hiddenNumExpOrigenExpedienteModal" type="hidden" name="hiddenNumExpOrigen"/>
+											<input id="hiddenNumExpVirtualExpedienteModal" type="hidden" name="hiddenNumExpVirtual"/>
+											<input id="hiddenEstExpedienteExpedienteModal" type="hidden" name="hiddenEstExpediente"/>
+											<input id="hiddenTipoProcesoExpedienteModal" type="hidden" name="hiddenTipoProceso"/>
+											<input id="hiddenTipoExpedienteExpedienteModal" type="hidden" name="hiddenTipoExpediente"/>
+											<input id="hiddenDescOrigenExpedienteModal" type="hidden" name="hiddenDescOrigen"/>
+											<input id="hiddenFechaGeneracionExpedienteModal" type="hidden" name="hiddenFechaGeneracion"/>
+											<input id="hiddenFechaOrigenExpedienteModal" type="hidden" name="hiddenFechaOrigen"/>
+										</form>		
+									</div>
+								</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+
+
+
+</script>
+</body>	
+</html>	

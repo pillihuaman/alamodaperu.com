@@ -1,0 +1,24 @@
+<div *ngIf="!data.lazyLoad">
+    <div mat-dialog-content *ngIf="data.code===1"
+        style="display: flex;flex-direction: column; margin:1rem auto; max-width: 800px; padding: 1rem;">
+        <img src="../../../../assets/imgs/icons8-done.svg">
+        <span class="success">{{data.message}}</span>
+    </div>
+    <div mat-dialog-content *ngIf="data.code===2"
+        style="display: flex;flex-direction: column; margin:1rem auto; max-width: 800px; padding: 1rem;">
+        <img src="../../../../assets/imgs/error-10379.svg">
+        <span class="success">{{data.message}}</span>
+    </div>
+    <div mat-dialog-content *ngIf="data.code===3"
+        style="display: flex;flex-direction: column; margin:1rem auto; max-width: 800px; padding: 1rem;">
+        <img src="../../../../assets/imgs/warning-sign-9743.svg">
+        <span class="success">{{data.message}}</span>
+    </div>
+    <button nbButton fullWidth status="basic" (click)="cancelar()">Close </button>
+</div>
+
+<div *ngIf="data.lazyLoad" style="margin-left:10px">
+    <div mat-dialog-content>
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</div>
