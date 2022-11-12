@@ -10,11 +10,11 @@ const routes: Routes = [
     component: PageComponent,
     children: [
       {
-        path: 'Register-product',
+        path: 'register-product',
         component: RegisterProductComponent,
       },
       {
-        path: 'Register-imagen-product',
+        path: 'register-imagen-product',
         component: RegisterImageByProductComponent,
       },
     ],

@@ -10,6 +10,7 @@ export class Const {
   public static ACCEPT_COOKIE: string;
   public static API_SEGURIDAD: string;
   static API_PROCESS: any;
+  static API_SUPPORT: any;
   static URL_TYPE_ACCESS: any;
   constructor(private http: HttpClient) {
     Const.ACCEPT_COOKIE = 'ACCEPT_COOKIE';
@@ -22,6 +23,7 @@ export class Const {
       .then((config: any) => {
         Const.API_SEGURIDAD = config.public_base_url_seguridad;
         Const.API_PROCESS = config.public_base_url_process;
+        Const.API_SUPPORT = config.public_base_url_support;
         Const.URL_TYPE_ACCESS = config.url_type_access;
       })
       .catch((err: any) => {

@@ -5,7 +5,8 @@ import { SupportRoutingModule } from './support-routing.module';
 import { RegisterProductComponent } from './register-product/register-product.component';
 import { RegisterImageByProductComponent } from './register-image-by-product/register-image-by-product.component';
 import { CommonComponentModule } from '../../@common-components/common-component.module';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NbCardModule, NbListModule, NbSelectModule } from '@nebular/theme';
 @NgModule({
   declarations: [RegisterProductComponent, RegisterImageByProductComponent],
   imports: [
@@ -13,6 +14,11 @@ import { CommonComponentModule } from '../../@common-components/common-component
     SupportRoutingModule,
     CommonModule,
     CommonComponentModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbListModule,
+    NbCardModule,
+    NbSelectModule,
   ],
 })
 export class SupportModule {}

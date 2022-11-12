@@ -1,1 +1,90 @@
-<p>register-image-by-product works!</p>
+<form [formGroup]="myForm">
+  <div class="form-row">
+    <div class="contener">
+      <label for="formGroupExampleInput">*Product</label>
+      <div class="form-group paddingObect col-sm-4">
+        <nb-select placeholder="Default" listProductByUser>
+          <nb-option
+            *ngFor="let prod of listProductByUser"
+            value="{{ prod.idProduct }}"
+            >{{ prod.name }}</nb-option
+          >
+        </nb-select>
+      </div>
+    </div>
+
+    <div class="contener">
+      <div class="form-group paddingObect col-sm-4">
+        <div class="class">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contener">
+      <div class="form-group paddingObect col-sm-4">
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Description</label
+          >
+          <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+    </div>
+    <div
+      class="foto-editor-item buttonCloseMain"
+      *ngIf="filePath1 && filePath1 !== ''"
+    >
+      <label class="buttonClose" (click)="close(1)">X</label>
+      <img [src]="filePath1" [alt]="myForm.value.name" class="tempImagen" />
+    </div>
+    <div
+      class="foto-editor-item buttonCloseMain"
+      *ngIf="filePath2 && filePath2 !== ''"
+    >
+      <label class="buttonClose" (click)="close(2)">X</label>
+      <img [src]="filePath2" [alt]="myForm.value.name" class="tempImagen" />
+    </div>
+    <div
+      *ngIf="filePath3 && filePath3 !== ''"
+      class="foto-editor-item buttonCloseMain"
+    >
+      <img [src]="filePath3" [alt]="myForm.value.name" class="tempImagen" />
+    </div>
+    <label class="buttonClose" (click)="close(3)">X</label>
+    <div
+      class="foto-editor-item buttonCloseMain"
+      *ngIf="filePath4 && filePath4 !== ''"
+    >
+      <label class="buttonClose" (click)="close(4)">X</label>
+
+      <img [src]="filePath4" [alt]="myForm.value.name" class="tempImagen" />
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="formFileSm" class="form-label">Attach Image</label>
+    <input
+      enctype="multipart/form-data"
+      class="form-control form-control-sm"
+      id="formFileSm"
+      type="file"
+      accept="imagen/*"
+      #inputFile
+      (change)="loadFile($event)"
+    />
+  </div>
+
+  <div class="form-group paddingObect">
+    <div class="col-sm-10">
+      <button (click)="save()" class="btn btn-primary">Register</button>
+    </div>
+  </div>
+</form>

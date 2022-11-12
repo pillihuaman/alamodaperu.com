@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import     { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
@@ -31,6 +31,7 @@ import {
   NbWindowModule,
   NbInputModule,
   NbButtonModule,
+  NbSelectModule,
 } from '@nebular/theme';
 import { CommonComponentModule } from './@presentation/@common-components/common-component.module';
 import { HomeModule } from './@presentation/home/home.module';
@@ -81,8 +82,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     FormsModule,
     MatTableModule,
-    MatDialogModule
-    
+    MatDialogModule,
   ],
   providers: [
     {

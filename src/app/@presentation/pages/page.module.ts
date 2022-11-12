@@ -28,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SupportModule } from './support/support.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [PageComponent],
@@ -57,6 +58,7 @@ import { SupportModule } from './support/support.module';
     MatButtonModule,
     CommonComponentModule,
     SupportModule,
+    ReactiveFormsModule,
   ],
 })
 export class PageModule {}

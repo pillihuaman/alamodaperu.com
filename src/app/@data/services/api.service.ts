@@ -5,10 +5,14 @@ import { Injectable } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
+  HttpEvent,
   HttpHeaders,
+  HttpParams,
+  HttpRequest,
 } from '@angular/common/http';
 import { ModalComponent } from 'src/app/@presentation/@common-components/modal/modal.component';
 import { GeneralConstans } from 'src/app/utils/generalConstant';
+import { ImagenTemp } from '../model/imagen/imagenTemp';
 
 @Injectable()
 export class ApiService {
@@ -79,9 +83,9 @@ export class ApiService {
 
   post(path: string, body: any): Observable<any> {
     //
-    this.dialog.open(ModalComponent, {
-      data: GeneralConstans.lazyLoadmodel,
-    });
+    // this.dialog.open(ModalComponent, {
+    // data: GeneralConstans.lazyLoadmodel,
+    //});
     return this.http.post(path, body).pipe(
       catchError((error) => {
         //mensje
@@ -90,6 +94,42 @@ export class ApiService {
     );
   }
 
+  /*postToFile(path: string, body: any, file: any): Observable<any> {
+    const formData: FormData = new FormData();
+    debugger;
+
+    formData.append('archivo', file);
+
+    let params = new HttpParams();
+    params = params.append('archivo', file);
+
+    const req = new HttpRequest('POST', path, params, {
+      reportProgress: true,
+      responseType: 'json',
+    });
+
+    return this.http.request(req);
+  }
+*/
+  postToFile(path: string, body: ImagenTemp): Observable<any> {
+    //let params = new HttpParams();
+    // params = params.append('archivo', formData);
+    //
+    /// debugger;
+
+    return this.http.post(path, body).pipe(
+      catchError((error) => {
+        //mensje
+        return this.formatErrors(error);
+      })
+    );
+  }
+  createFormdata(imagenTemp: ImagenTemp) {
+    const formdata = new FormData();
+    //    const json = JSON.stringify(body);
+    //formdata.append('archivo', imagenTemp?.imagenTempFile?.file);
+    return formdata;
+  }
   putHTML(path: string, body: object = {}): Observable<any> {
     return this.http
       .put(path, body, {

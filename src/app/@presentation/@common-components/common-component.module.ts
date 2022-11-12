@@ -91,7 +91,6 @@ const materialModules = [MatIconModule];
     RouterModule,
     NbCardModule,
     MatProgressSpinnerModule,
-    FormsModule,
   ],
   exports: [...COMPONENTS, ...materialModules],
   entryComponents: [...COMPONENTS],

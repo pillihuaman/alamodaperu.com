@@ -90,7 +90,7 @@ export class AuthenticationService extends AuthenticationRepository {
     headers = headers.set('Content-Type', consumes);
     headers = headers.set('username', login);
     headers = headers.set('password', clave);
-    const url = `${Const.API_SEGURIDAD}/authenticate`;
+    const url = `${Const.API_SEGURIDAD}/security/authenticate`;
     const params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', login);

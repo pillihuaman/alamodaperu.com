@@ -1,3 +1,5 @@
+import { Observable, ReplaySubject } from 'rxjs';
+
 export function getBase64(file: File) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -39,6 +41,15 @@ export function base64ToFilePromise(base64: any, filename: any, mimeType: any) {
   return fetch(base64)
     .then((res) => res.arrayBuffer())
     .then((buf) => new File([buf], filename, { type: mimeType }));
+}
+
+export function fileToBase64(file: File): Observable<string> {
+  const result = new ReplaySubject<string>(1);
+  const reader = new FileReader();
+  reader.readAsBinaryString(file);
+  reader.onload = (event) =>
+    result.next(btoa(event?.target?.result?.toString()!));
+  return result;
 }
 
 export function removeDuplicatedItems(array: any[]) {
