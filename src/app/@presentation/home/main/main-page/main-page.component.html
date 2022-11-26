@@ -1,45 +1,27 @@
 <div class="container">
   <div class="row">
     <div
-      *ngFor="let listImagenes of listarArrayImages2; let j = index"
+      *ngFor="let listImagenes of lstIMf; let j = index"
       class="col-md-12 col-sm-12 col-lg-6 custom"
       [attr.id]="listImagenes.tokenCol"
     >
       <div
-        *ngIf="listarArrayImages2 && listarArrayImages2.length > 0"
+        *ngIf="
+          listImagenes.lstCorouseImages &&
+          listImagenes.lstCorouseImages.length > 0
+        "
         class="carousel-container"
       >
         <div
-          *ngFor="let image of listImagenes.lstCorouseImages; let i = index"
+          *ngFor="let image of listImagenes.lstCorouseImages"
           class="imagenContainer"
         >
           <div
             *ngIf="
-              indicators || image.imageCountainerToken === selectCountainerToken
+              image.indicators !== null ||
+              image.imageCountainerToken === selectCountainerToken
             "
           >
-            <!--<div
-            *ngIf="
-              indicators &&
-              listImagenes.tokenCol === selectCol &&
-              image.imagetoken === selectToken
-            "
-            class="row-left"
-            (click)="changeImageBack(image)"
-            #backid
-          >
-            <span
-              *ngIf="
-                indicators &&
-                listImagenes.tokenCol === selectCol &&
-                image.imagetoken === selectToken
-              "
-              class="material-icons dot"
-            >
-              arrow_back_ios
-            </span>
-          </div>-->
-
             <div
               (click)="changeImageBack(image, listImagenes)"
               [ngClass]="[
@@ -48,17 +30,17 @@
             >
               <span class="material-icons dot"> arrow_back_ios </span>
             </div>
+
             <img
-              [src]="image.imageSrc"
+              [src]="concateInput(urlApiImagen, image.imageSrc)"
               [alt]="image.imageAlt"
               [attr.id]="image.imagetoken"
               [ngClass]="[
-                image.firstObject !== undefined
-                  ? 'image-active'
-                  : 'image-active-off'
+                image.firstObject !== null ? 'image-active' : 'image-active-off'
               ]"
               (mouseover)="changeImage(listImagenes, image)"
             />
+
             <!-- <app-imagen-visor
             (mouseover)="changeImage(listImagenes, image)"
             [image]="image"
@@ -78,7 +60,6 @@
             <div
               (click)="changeImageNext(image, listImagenes)"
               [ngClass]="[
-                image.firstObject !== undefined ||
                 image.imagetoken === selectToken
                   ? 'row-detail'
                   : 'row-right-off'

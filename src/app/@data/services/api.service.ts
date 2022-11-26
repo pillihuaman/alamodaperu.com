@@ -112,11 +112,6 @@ export class ApiService {
   }
 */
   postToFile(path: string, body: ImagenTemp): Observable<any> {
-    //let params = new HttpParams();
-    // params = params.append('archivo', formData);
-    //
-    /// debugger;
-
     return this.http.post(path, body).pipe(
       catchError((error) => {
         //mensje

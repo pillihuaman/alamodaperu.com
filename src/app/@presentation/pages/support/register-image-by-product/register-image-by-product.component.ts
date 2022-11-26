@@ -38,6 +38,7 @@ export class RegisterImageByProductComponent implements OnInit {
   img4?: ImagenDetail;
   myForm: FormGroup;
   lstfilePath?: ImagenDetail[] = [];
+  idProductSelect: any;
   @ViewChild('inputFile') inputFile: ElementRef = {} as ElementRef;
   constructor(
     private imagenTempService: ImagenTempService,
@@ -46,10 +47,13 @@ export class RegisterImageByProductComponent implements OnInit {
     this.myForm = this.fb.group({
       img: [null],
       filename: [''],
+      name: [''],
+      description: [''],
+      idProduct: [''],
     });
   }
   ngOnInit(): void {
-    let prod: Product = { idUser: 12 };
+    let prod: Product = { idUser: 1 };
     this.imagenTempService.listProdutByUser(prod).subscribe(
       (value) => {
         this.listProductByUser = value.payload;
@@ -75,8 +79,8 @@ export class RegisterImageByProductComponent implements OnInit {
         this.filePath1 = readers.result as string;
         this.img1 = {
           name: this.selectImagen?.name,
-          value:
-            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
+          value: this.filePath1,
+          index: 0,
         };
       };
       readers.readAsDataURL(this.selectImagen!);
@@ -88,6 +92,7 @@ export class RegisterImageByProductComponent implements OnInit {
         this.img2 = {
           name: this.selectImagen?.name,
           value: this.filePath2,
+          index: 1,
         };
       };
       readers1.readAsDataURL(this.selectImagen!);
@@ -99,6 +104,7 @@ export class RegisterImageByProductComponent implements OnInit {
         this.img3 = {
           name: this.selectImagen?.name,
           value: this.filePath3,
+          index: 2,
         };
       };
       readers1.readAsDataURL(this.selectImagen!);
@@ -110,6 +116,7 @@ export class RegisterImageByProductComponent implements OnInit {
         this.img4 = {
           name: this.selectImagen?.name,
           value: this.filePath4,
+          index: 3,
         };
       };
       readers1.readAsDataURL(this.selectImagen!);
@@ -132,8 +139,10 @@ export class RegisterImageByProductComponent implements OnInit {
   }
   save() {
     //debugger;
+    this.lstfilePath = [];
     if (this.filePath1 && this.filePath1 !== '') {
       this.lstfilePath?.push(this.img1!);
+      console.log(this.img1);
     }
     if (this.filePath2 && this.filePath2 !== '') {
       this.lstfilePath?.push(this.img2!);
@@ -146,10 +155,13 @@ export class RegisterImageByProductComponent implements OnInit {
     }
 
     if (this.lstfilePath && this.lstfilePath.length > 0) {
+      //debugger;
       let imageTem: ImagenTemp = {
         count: this.count,
-        name: '',
+        name: this.myForm.get('name')?.value,
+        description: this.myForm.get('description')?.value,
         uniqueKeyHash: UUID.UUID(),
+        idProduct: this.idProductSelect,
         listImagen: this.lstfilePath,
       };
 
@@ -158,5 +170,8 @@ export class RegisterImageByProductComponent implements OnInit {
         (error) => {}
       );
     }
+  }
+  changeProduct(values: any) {
+    this.idProductSelect = values;
   }
 }

@@ -6,5 +6,7 @@ export interface ImagenTemp {
   name?: string;
   uniqueKeyHash?: string;
   count?: number;
+  idProduct?: number;
+  description?: string;
   listImagen?: ImagenDetail[];
 }

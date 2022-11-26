@@ -11,6 +11,8 @@ export class Const {
   public static API_SEGURIDAD: string;
   static API_PROCESS: any;
   static API_SUPPORT: any;
+  public static API_SEARCH: string;
+  public static URL_IMAGEN: string;
   static URL_TYPE_ACCESS: any;
   constructor(private http: HttpClient) {
     Const.ACCEPT_COOKIE = 'ACCEPT_COOKIE';
@@ -24,7 +26,9 @@ export class Const {
         Const.API_SEGURIDAD = config.public_base_url_seguridad;
         Const.API_PROCESS = config.public_base_url_process;
         Const.API_SUPPORT = config.public_base_url_support;
+        Const.API_SEARCH = config.public_base_url_search;
         Const.URL_TYPE_ACCESS = config.url_type_access;
+        Const.URL_IMAGEN = config.public_base_url_imagen;
       })
       .catch((err: any) => {
         console.error(err);

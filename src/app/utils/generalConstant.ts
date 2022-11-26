@@ -8,6 +8,8 @@ export class GeneralConstans {
   public static errorMessage: string = 'Error !';
   public static warningMessage: string = 'Warning !';
   public static lazyLoad: boolean = false;
+  public static page: number = 0;
+  public static perPage: number = 20;
 
   public static datamodelError: ModalModel = {
     code: GeneralConstans.errorCode,

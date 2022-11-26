@@ -11,6 +11,7 @@ import { ImagenTemp } from '../model/imagen/imagenTemp';
 import { Product } from '../model/product/product';
 import { RequestBody } from '../model/general/requestBody';
 import { ResponseBody } from '../model/general/responseBody';
+import { GeneralConstans } from 'src/app/utils/generalConstant';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class ImagenTempService extends ImagenTempRepository {
     const url =
       `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCESS}` +
-      `/v1/imagen/saveImagenTemp`;
+      `/v1/imagen/saveImagenByProduct`;
     return this.apiService.postToFile(url, imagenTemp);
   }
   listProdutByUser(product: Product): Observable<ResponseBody> {
@@ -43,5 +44,15 @@ export class ImagenTempService extends ImagenTempRepository {
       `/${Const.URL_TYPE_ACCESS}` +
       `/v1/listProductbyUser`;
     return this.apiService.post(url, req);
+  }
+  listMainTopImagen(page: number, perPage: number): Observable<ResponseBody> {
+    const url =
+      `${Const.API_SEARCH}` +
+      `/${Const.URL_TYPE_ACCESS}` +
+      `/v1/search/getTopImagen?page=` +
+      GeneralConstans.page +
+      `&perPage=` +
+      GeneralConstans.perPage;
+    return this.apiService.get(url, null);
   }
 }

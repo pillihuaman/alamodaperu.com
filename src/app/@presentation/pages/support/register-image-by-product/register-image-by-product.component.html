@@ -3,13 +3,19 @@
     <div class="contener">
       <label for="formGroupExampleInput">*Product</label>
       <div class="form-group paddingObect col-sm-4">
-        <nb-select placeholder="Default" listProductByUser>
-          <nb-option
-            *ngFor="let prod of listProductByUser"
-            value="{{ prod.idProduct }}"
-            >{{ prod.name }}</nb-option
+        <mat-form-field>
+          <mat-select
+            placeholder="Product"
+            (selectionChange)="changeProduct($event.value)"
           >
-        </nb-select>
+            <mat-option
+              *ngFor="let prod of listProductByUser"
+              [value]="prod.idProduct"
+            >
+              {{ prod.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
 
@@ -23,6 +29,7 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-sm"
+              formControlName="name"
             />
           </div>
         </div>
@@ -34,7 +41,11 @@
           <label for="exampleFormControlTextarea1" class="form-label"
             >Description</label
           >
-          <textarea name="" id="" cols="30" rows="10"></textarea>
+          <textarea
+            formControlName="description"
+            cols="30"
+            rows="10"
+          ></textarea>
         </div>
       </div>
     </div>

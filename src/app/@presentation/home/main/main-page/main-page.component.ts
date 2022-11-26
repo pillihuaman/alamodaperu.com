@@ -5,6 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { DataService } from 'src/app/@data/services/data.service';
 import { Utils } from 'src/app/utils/utils';
 import { GuidGenerator } from 'src/app/@data/model/general/guid-generator';
+import { ImagenTempService } from 'src/app/@data/services/imagenTemp.service';
+import { GeneralConstans } from 'src/app/utils/generalConstant';
+import { ImagenTemp } from 'src/app/@data/model/imagen/imagenTemp';
+import { Const } from 'src/app/utils/const';
 
 @Component({
   selector: 'app-main-page',
@@ -12,7 +16,10 @@ import { GuidGenerator } from 'src/app/@data/model/general/guid-generator';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-  constructor(private imagenData: DataService) {}
+  constructor(
+    private imagenData: DataService,
+    private imagenTempService: ImagenTempService
+  ) {}
   @Input() images: Array<corouselImage> = [
     {
       imageSrc:
@@ -107,7 +114,7 @@ export class MainPageComponent implements OnInit {
   @Input() listArrayImages?: listCorouseImages;
   @Input() listArrayImages2?: listCorouseImages;
   @Input() listArrayImages3?: listCorouseImages;
-  @Input() listarArrayImages2: listCorouseImages[] = [];
+  lstIMf: listCorouseImages[] = [];
   @Input() maincou?: listCorouseImages;
   imagenSelected: corouselImage = {};
   cont = 0;
@@ -118,8 +125,28 @@ export class MainPageComponent implements OnInit {
   hiddenInput?: string;
   nextRowImagen: any;
   selectCountainerToken: any;
+  urlApiImagen: String =
+    `${Const.URL_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
+
   @Output() updateImagen = new EventEmitter<corouselImage>();
   ngOnInit(): void {
+    //debugger;
+    this.imagenTempService
+      .listMainTopImagen(GeneralConstans.page, GeneralConstans.perPage)
+      .subscribe(
+        (value) => {
+          let lstCorouse: listCorouseImages[] = [];
+          if (value) {
+            if (value.payload) {
+              this.lstIMf = value.payload;
+              console.log(JSON.stringify(value));
+              //console.log(JSON.stringify(this.lstIMf));
+            }
+          }
+        },
+        (error) => {}
+      );
+    /*
     this.listArrayImages = {
       lstCorouseImages: this.images,
       tokenCol: '3C363836CF4E16666669A25DA280A1865C2D2874',
@@ -138,7 +165,7 @@ export class MainPageComponent implements OnInit {
 
     this.listarArrayImages2.forEach((element) => {
       //console.log(element.lstCorouseImages);
-    });
+    });*/
   }
 
   selectImagen(corouselImage: any, indice: number, listImagenes: any): void {
@@ -151,24 +178,15 @@ export class MainPageComponent implements OnInit {
     console.log('main anterior', this.selectCol);
   }
   changeImage(listImagenes: any, image: any) {
-    //debugger;
-    //this.indicators = true;
     this.selectCol = listImagenes.tokenCol;
     this.nextRowImagen = GuidGenerator.newGuid();
-    //this.listArrayImages3 = listImagenes;
-    //debugger;
     this.selectToken = image.imagetoken;
     this.selectCountainerToken = image.imageCountainerToken;
-    //elementPost[0].className = 'row-right';
     console.log(this.nextRowImagen);
-
-    //console.log(listImagenes)
-    //    console.log(  this.listArrayImages3)
-    //console.log(this.selectToken, 'token Imagen');
-    //console.log(this.selectCol, 'token columna');
   }
 
   changeImageNext(image: any, listImagenes: listCorouseImages) {
+    //debugger;
     // this.updateImagen.emit(image);
     this.cont++;
     //this.imagenSelected = image;
@@ -213,6 +231,7 @@ export class MainPageComponent implements OnInit {
   }
 
   changeImageBack(image: any, listImagenes: listCorouseImages) {
+    //debugger;
     this.cont++;
     console.log(image, 'Privios');
     let inde = image.index;
@@ -253,4 +272,9 @@ export class MainPageComponent implements OnInit {
     console.log(image);
   }
   findClass(img: any) {}
+
+  concateInput(str1: any, str2: any) {
+    console.log(str1.concat(str2));
+    return str1.concat(str2);
+  }
 }

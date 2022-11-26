@@ -7,6 +7,7 @@ import { RegisterImageByProductComponent } from './register-image-by-product/reg
 import { CommonComponentModule } from '../../@common-components/common-component.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbCardModule, NbListModule, NbSelectModule } from '@nebular/theme';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [RegisterProductComponent, RegisterImageByProductComponent],
   imports: [
@@ -19,6 +20,7 @@ import { NbCardModule, NbListModule, NbSelectModule } from '@nebular/theme';
     NbListModule,
     NbCardModule,
     NbSelectModule,
+    MatSelectModule,
   ],
 })
 export class SupportModule {}
