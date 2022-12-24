@@ -9,6 +9,7 @@ import { ImagenTempService } from 'src/app/@data/services/imagenTemp.service';
 import { GeneralConstans } from 'src/app/utils/generalConstant';
 import { ImagenTemp } from 'src/app/@data/model/imagen/imagenTemp';
 import { Const } from 'src/app/utils/const';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -127,6 +128,8 @@ export class MainPageComponent implements OnInit {
   selectCountainerToken: any;
   urlApiImagen: String =
     `${Const.URL_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
+  countImagen?: any;
+  eventsSubject: Subject<void> = new Subject<void>();
 
   @Output() updateImagen = new EventEmitter<corouselImage>();
   ngOnInit(): void {
@@ -135,12 +138,13 @@ export class MainPageComponent implements OnInit {
       .listMainTopImagen(GeneralConstans.page, GeneralConstans.perPage)
       .subscribe(
         (value) => {
+          debugger;
           let lstCorouse: listCorouseImages[] = [];
           if (value) {
             if (value.payload) {
               this.lstIMf = value.payload;
-              console.log(JSON.stringify(value));
-              //console.log(JSON.stringify(this.lstIMf));
+              // //console.log(JSON.stringify(value));
+              ////console.log(JSON.stringify(this.lstIMf));
             }
           }
         },
@@ -164,7 +168,7 @@ export class MainPageComponent implements OnInit {
     this.listarArrayImages2.push(this.listArrayImages3);
 
     this.listarArrayImages2.forEach((element) => {
-      //console.log(element.lstCorouseImages);
+      ////console.log(element.lstCorouseImages);
     });*/
   }
 
@@ -172,26 +176,26 @@ export class MainPageComponent implements OnInit {
     this.selectToken = corouselImage.imagetoken;
     this.selectCol = listImagenes.tokenCol;
     //this.hiddenInput = this.selectToken;
-    console.log('Toke seleccionado', this.selectToken);
-    console.log('Entidad seleccianda', corouselImage);
-    console.log('indice seleccianda', indice);
-    console.log('main anterior', this.selectCol);
+    //console.log('Toke seleccionado', this.selectToken);
+    //console.log('Entidad seleccianda', corouselImage);
+    //console.log('indice seleccianda', indice);
+    //console.log('main anterior', this.selectCol);
   }
   changeImage(listImagenes: any, image: any) {
     this.selectCol = listImagenes.tokenCol;
     this.nextRowImagen = GuidGenerator.newGuid();
     this.selectToken = image.imagetoken;
     this.selectCountainerToken = image.imageCountainerToken;
-    console.log(this.nextRowImagen);
+    ////console.log(this.nextRowImagen);
   }
 
   changeImageNext(image: any, listImagenes: listCorouseImages) {
-    //debugger;
+    debugger;
     // this.updateImagen.emit(image);
     this.cont++;
     //this.imagenSelected = image;
     // this.imagenData.SendCorousel(this.imagenSelected);
-    console.log(image, 'Privios');
+    ////console.log(image, 'Privios');
     let inde = image.index;
     let count = 0;
     let newImage: any;
@@ -224,16 +228,16 @@ export class MainPageComponent implements OnInit {
       elementDot.className = 'row-right-off';
       // this.indicators = true;
     }
-    console.log(newImage, 'New');
-    // console.log(elementPre);
-    //console.log(image);
-    //console.log(listImagenes);
+    ////console.log(newImage, 'New');
+    // //console.log(elementPre);
+    ////console.log(image);
+    ////console.log(listImagenes);
   }
 
   changeImageBack(image: any, listImagenes: listCorouseImages) {
-    //debugger;
+    debugger;
     this.cont++;
-    console.log(image, 'Privios');
+    ////console.log(image, 'Privios');
     let inde = image.index;
     let count = 0;
     let newImage: any;
@@ -264,17 +268,21 @@ export class MainPageComponent implements OnInit {
       elementPost.className = 'image-active';
       elementDot.className = 'row-right-off';
     }
-    console.log(newImage, 'New');
+    //console.log(newImage, 'New');
   }
   addImagen(image: any) {
-    console.log('Init add Evente');
+    //console.log('Init add Evente');
     this.updateImagen.emit(image);
-    console.log(image);
+    //console.log(image);
   }
   findClass(img: any) {}
 
   concateInput(str1: any, str2: any) {
-    console.log(str1.concat(str2));
+    //console.log(str1.concat(str2));
     return str1.concat(str2);
+  }
+
+  enviarData(image: any) {
+    this.countImagen = image;
   }
 }

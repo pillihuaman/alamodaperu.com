@@ -6,4 +6,5 @@ export interface corouselImage {
   index?: number;
   imageCountainerToken?: string;
   indicators?: boolean;
+  idDetail?: string;
 }

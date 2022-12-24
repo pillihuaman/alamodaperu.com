@@ -40,6 +40,7 @@ import { ModalComponent } from './modal/modal.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ServPillihuamanFooterHomeComponent } from './serv-pillihuaman-footer-home/serv-pillihuaman-footer-home.component';
 import { ImagenVisorComponent } from './imagen-visor/imagen-visor.component';
+import { ImagenCatchInformationComponent } from './imagen-catch-information/imagen-catch-information.component';
 
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
@@ -48,6 +49,7 @@ const COMPONENTS = [
   ServPillihuamanFooterHomeComponent,
   ImagenVisorComponent,
   ModalComponent,
+  ImagenCatchInformationComponent,
 ];
 /*const DIRECTIVES = [
 

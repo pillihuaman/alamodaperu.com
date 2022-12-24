@@ -31,15 +31,16 @@
               <span class="material-icons dot"> arrow_back_ios </span>
             </div>
 
-            <img
-              [src]="concateInput(urlApiImagen, image.imageSrc)"
-              [alt]="image.imageAlt"
-              [attr.id]="image.imagetoken"
+            <app-imagen-catch-information
               [ngClass]="[
                 image.firstObject !== null ? 'image-active' : 'image-active-off'
               ]"
+              (click)="enviarData(image)"
               (mouseover)="changeImage(listImagenes, image)"
-            />
+              [image]="image"
+              [attr.id]="image.imagetoken"
+            >
+            </app-imagen-catch-information>
 
             <!-- <app-imagen-visor
             (mouseover)="changeImage(listImagenes, image)"
