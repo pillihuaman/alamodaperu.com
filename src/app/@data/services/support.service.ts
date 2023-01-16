@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 
 import { SupportRepository } from 'src/app/@domain/repository/repository/support.repository';
-import { corouselImage } from '../model/general/corouselImage';
+import { CorouselImage } from '../model/general/corouselImage';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +16,8 @@ export class SupportService extends SupportRepository {
     super();
   }
   saveClickCountImagen(
-    corouselImage: corouselImage
-  ): Observable<corouselImage[]> {
+    corouselImage: CorouselImage
+  ): Observable<CorouselImage[]> {
     const url =
       `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCESS}` +

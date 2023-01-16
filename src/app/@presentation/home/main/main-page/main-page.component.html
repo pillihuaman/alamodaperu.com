@@ -67,7 +67,9 @@
               ]"
               [attr.id]="image.imageCountainerToken"
             >
-              <a href="http://" class="link">Ver detalle </a>
+              <a [routerLink]="['/homedetail']" [state]="listImagenes"
+                >Ver Detalle</a
+              >
             </div>
           </div>
         </div>

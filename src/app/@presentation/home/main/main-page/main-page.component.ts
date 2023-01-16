@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { corouselImage } from 'src/app/@data/model/general/corouselImage';
 import { listCorouseImages } from 'src/app/@data/model/general/listCorouseImages';
 import { FormsModule } from '@angular/forms';
 import { DataService } from 'src/app/@data/services/data.service';
@@ -10,6 +9,7 @@ import { GeneralConstans } from 'src/app/utils/generalConstant';
 import { ImagenTemp } from 'src/app/@data/model/imagen/imagenTemp';
 import { Const } from 'src/app/utils/const';
 import { Subject } from 'rxjs';
+import { CorouselImage } from 'src/app/@data/model/general/corouselImage';
 
 @Component({
   selector: 'app-main-page',
@@ -21,7 +21,7 @@ export class MainPageComponent implements OnInit {
     private imagenData: DataService,
     private imagenTempService: ImagenTempService
   ) {}
-  @Input() images: Array<corouselImage> = [
+  @Input() images: Array<CorouselImage> = [
     {
       imageSrc:
         'https://tse1.mm.bing.net/th?id=OIP.PDYintG-XVq9UVFkSi3zIQHaES&pid=Api&P=0',
@@ -56,7 +56,7 @@ export class MainPageComponent implements OnInit {
       imageCountainerToken: 'ss8C4148BA0659547583297B45F3134F07ED831F7Eddd',
     },
   ];
-  @Input() images2: Array<corouselImage> = [
+  @Input() images2: Array<CorouselImage> = [
     {
       imageSrc:
         'https://tse3.mm.bing.net/th?id=OIP.N1SmDulpcXID9SwcQY1PgQHaEK&pid=Api&P=0',
@@ -84,7 +84,7 @@ export class MainPageComponent implements OnInit {
     },
   ];
 
-  @Input() images3: Array<corouselImage> = [
+  @Input() images3: Array<CorouselImage> = [
     {
       imageSrc:
         'https://tse1.mm.bing.net/th?id=OIP.2ND5DCR0oExmLBURf9p_ywHaEx&pid=Api&P=0',
@@ -117,7 +117,7 @@ export class MainPageComponent implements OnInit {
   @Input() listArrayImages3?: listCorouseImages;
   lstIMf: listCorouseImages[] = [];
   @Input() maincou?: listCorouseImages;
-  imagenSelected: corouselImage = {};
+  imagenSelected: CorouselImage = {};
   cont = 0;
   selectIndex = 0;
   selectToken?: string = '';
@@ -131,14 +131,13 @@ export class MainPageComponent implements OnInit {
   countImagen?: any;
   eventsSubject: Subject<void> = new Subject<void>();
 
-  @Output() updateImagen = new EventEmitter<corouselImage>();
+  @Output() updateImagen = new EventEmitter<CorouselImage>();
   ngOnInit(): void {
     //debugger;
     this.imagenTempService
       .listMainTopImagen(GeneralConstans.page, GeneralConstans.perPage)
       .subscribe(
         (value) => {
-          debugger;
           let lstCorouse: listCorouseImages[] = [];
           if (value) {
             if (value.payload) {
@@ -172,12 +171,12 @@ export class MainPageComponent implements OnInit {
     });*/
   }
 
-  selectImagen(corouselImage: any, indice: number, listImagenes: any): void {
-    this.selectToken = corouselImage.imagetoken;
+  selectImagen(CorouselImage: any, indice: number, listImagenes: any): void {
+    this.selectToken = CorouselImage.imagetoken;
     this.selectCol = listImagenes.tokenCol;
     //this.hiddenInput = this.selectToken;
     //console.log('Toke seleccionado', this.selectToken);
-    //console.log('Entidad seleccianda', corouselImage);
+    //console.log('Entidad seleccianda', CorouselImage);
     //console.log('indice seleccianda', indice);
     //console.log('main anterior', this.selectCol);
   }
@@ -190,7 +189,6 @@ export class MainPageComponent implements OnInit {
   }
 
   changeImageNext(image: any, listImagenes: listCorouseImages) {
-    debugger;
     // this.updateImagen.emit(image);
     this.cont++;
     //this.imagenSelected = image;
@@ -235,7 +233,6 @@ export class MainPageComponent implements OnInit {
   }
 
   changeImageBack(image: any, listImagenes: listCorouseImages) {
-    debugger;
     this.cont++;
     ////console.log(image, 'Privios');
     let inde = image.index;
@@ -284,5 +281,8 @@ export class MainPageComponent implements OnInit {
 
   enviarData(image: any) {
     this.countImagen = image;
+  }
+  detalleImage(image: any) {
+    //  this.router.navigate(['form', '0001']);
   }
 }

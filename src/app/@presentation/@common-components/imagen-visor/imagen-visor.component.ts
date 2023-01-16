@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChange,
 } from '@angular/core';
-import { corouselImage } from 'src/app/@data/model/general/corouselImage';
+import { CorouselImage } from 'src/app/@data/model/general/corouselImage';
 import { DataService } from 'src/app/@data/services/data.service';
 
 @Component({
@@ -16,8 +16,8 @@ import { DataService } from 'src/app/@data/services/data.service';
   styleUrls: ['./imagen-visor.component.scss'],
 })
 export class ImagenVisorComponent implements OnInit, OnChanges {
-  @Input() image: corouselImage = {};
-  @Input() secondimage: corouselImage = {};
+  @Input() image: CorouselImage = {};
+  @Input() secondimage: CorouselImage = {};
   Counter = 0;
   constructor(private dataImagen: DataService) {}
 

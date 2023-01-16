@@ -6,16 +6,16 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 
 import { UserRepository } from 'src/app/@domain/repository/repository/user.repository';
-import { corouselImage } from '../model/general/corouselImage';
+import { CorouselImage } from '../model/general/corouselImage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  private _imagenSource = new Subject<corouselImage>();
+  private _imagenSource = new Subject<CorouselImage>();
   corouseObject$ = this._imagenSource.asObservable();
   constructor() {}
-  SendCorousel(img: corouselImage) {
+  SendCorousel(img: CorouselImage) {
     this._imagenSource.next(img);
   }
 }

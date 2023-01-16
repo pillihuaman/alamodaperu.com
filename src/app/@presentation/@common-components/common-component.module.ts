@@ -41,6 +41,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ServPillihuamanFooterHomeComponent } from './serv-pillihuaman-footer-home/serv-pillihuaman-footer-home.component';
 import { ImagenVisorComponent } from './imagen-visor/imagen-visor.component';
 import { ImagenCatchInformationComponent } from './imagen-catch-information/imagen-catch-information.component';
+import { RouterButtonComponent } from './router-button/router-button.component';
 
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
@@ -61,7 +62,7 @@ const PIPES = [
 const materialModules = [MatIconModule];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, RouterButtonComponent],
   imports: [
     CommonModule,
     NbCardModule,

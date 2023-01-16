@@ -1,4 +1,4 @@
-export interface corouselImage {
+export interface CorouselImage {
   imageSrc?: String;
   imageAlt?: String;
   imagetoken?: string;

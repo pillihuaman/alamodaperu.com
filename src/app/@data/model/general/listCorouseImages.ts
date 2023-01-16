@@ -1,6 +1,5 @@
-import { corouselImage } from './corouselImage';
-
+import { CorouselImage } from './corouselImage';
 export interface listCorouseImages {
-  lstCorouseImages?: corouselImage[];
   tokenCol?: string;
+  lstCorouseImages?: CorouselImage[];
 }
