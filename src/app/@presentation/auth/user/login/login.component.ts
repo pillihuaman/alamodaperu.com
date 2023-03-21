@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { NbSidebarService } from '@nebular/theme';
 import { Observable, Subscription, timer } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { Control } from 'src/app/@data/model/general/control';
+import { RequestBody } from 'src/app/@data/model/general/requestBody';
+import { SupportService } from 'src/app/@data/services/support.service';
+import { User } from 'src/app/@domain/repository/models/user';
 import { AuthenticationRepository } from 'src/app/@domain/repository/repository/authentication.repository';
 
 @Component({
@@ -16,7 +20,7 @@ export class LoginComponent implements OnInit {
   estado: boolean = true;
   cantidadUsuario: number = 3;
   everySecond$: Observable<number> = timer(0, 100);
-  appName: string = 'Gamachicas.com';
+  appName: string = 'AlamodaPeru.com';
   logging: boolean = false;
   loginForm: FormGroup = this.formBuilder.group({
     user: [
@@ -36,7 +40,8 @@ export class LoginComponent implements OnInit {
     private sidebarService: NbSidebarService,
     private formBuilder: FormBuilder,
     private authService: AuthenticationRepository,
-    private router: Router
+    private router: Router, //
+    private supportService: SupportService
   ) {}
   get f() {
     return this.loginForm.controls;
@@ -49,8 +54,9 @@ export class LoginComponent implements OnInit {
       const loginSubscr = this.authService
         .login(this.f['user'].value, this.f['password'].value)
         .pipe(first())
-        .subscribe((user: any | undefined) => {
+        .subscribe((user: User) => {
           if (user) {
+            debugger;
             this.router.navigate([this.returnUrl]);
           } else {
             this.hasError = true;

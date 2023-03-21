@@ -1,5 +1,6 @@
-export class User {
+import { Control } from 'src/app/@data/model/general/control';
 
+export class User {
   token?: string;
   id?: string;
   name?: string;
@@ -9,5 +10,6 @@ export class User {
   jwToken?: string;
   refreshToken?: string;
   refreshTokenExpiration?: Date;
-
+  id_user?: string;
+  control?: Control[];
 }

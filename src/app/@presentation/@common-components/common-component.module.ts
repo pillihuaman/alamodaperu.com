@@ -42,6 +42,8 @@ import { ServPillihuamanFooterHomeComponent } from './serv-pillihuaman-footer-ho
 import { ImagenVisorComponent } from './imagen-visor/imagen-visor.component';
 import { ImagenCatchInformationComponent } from './imagen-catch-information/imagen-catch-information.component';
 import { RouterButtonComponent } from './router-button/router-button.component';
+import { ProductDescriptionComponent } from './product-description/product-description.component';
+import { LabelComponent } from './label/label.component';
 
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
@@ -51,6 +53,9 @@ const COMPONENTS = [
   ImagenVisorComponent,
   ModalComponent,
   ImagenCatchInformationComponent,
+  RouterButtonComponent,
+  ProductDescriptionComponent,
+  LabelComponent,
 ];
 /*const DIRECTIVES = [
 
@@ -62,7 +67,7 @@ const PIPES = [
 const materialModules = [MatIconModule];
 
 @NgModule({
-  declarations: [...COMPONENTS, RouterButtonComponent],
+  declarations: [...COMPONENTS],
   imports: [
     CommonModule,
     NbCardModule,

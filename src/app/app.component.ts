@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NbSidebarService, NbThemeService } from '@nebular/theme';
 import { Observable, timer } from 'rxjs';
 import { User } from '../app/@data/model/User/user';
+import { Control } from './@data/model/general/control';
 @Component({
   selector: 'serv-pillihuaman-app',
   template: `<router-outlet></router-outlet>`,
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   cantidadUsuario: number = 3;
   user: User | undefined;
   listaUsuario: Array<User> = [];
+  lstControlVariable?: Control[];
   everySecond$: Observable<number> = timer(0, 100);
   AppComponent() {}
   constructor(

@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class UserRegisterComponent implements OnInit {
   loginForm!: FormGroup;
   selectedItemType: any;
-  user !: User;
+  user!: User;
   selectedItem: any;
   consoles: String = 'exit';
 
@@ -26,7 +26,7 @@ export class UserRegisterComponent implements OnInit {
     private userRepository: UserRepository,
     private modalRepository: ModalRepository,
     private dialogService: NbDialogService,
-    public dialog: MatDialog 
+    public dialog: MatDialog
   ) {}
   get f() {
     return this.loginForm.controls;
@@ -77,6 +77,7 @@ export class UserRegisterComponent implements OnInit {
     });
   }
   submit() {
+    debugger;
     let data: User = {
       name: this.f['name'].value,
       lastName: this.f['lastName'].value,

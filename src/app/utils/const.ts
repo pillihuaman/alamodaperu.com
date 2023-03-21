@@ -9,11 +9,13 @@ export class Const {
   public static PASSWORD_SEGURIDAD: string;
   public static ACCEPT_COOKIE: string;
   public static API_SEGURIDAD: string;
-  static API_PROCESS: any;
-  static API_SUPPORT: any;
+  public static API_SUPPORT: any;
+  public static API_INTELLIGENCY_ARTIFICIAL: any;
   public static API_SEARCH: string;
   public static URL_IMAGEN: string;
-  static URL_TYPE_ACCESS: any;
+  static URL_TYPE_ACCES_PRIVATE: any;
+  static URL_TYPE_ACCES_PUBLIC: any;
+  public static KEY = '@@@@@dddd....dont be evil.....';
   constructor(private http: HttpClient) {
     Const.ACCEPT_COOKIE = 'ACCEPT_COOKIE';
   }
@@ -24,11 +26,13 @@ export class Const {
       .toPromise()
       .then((config: any) => {
         Const.API_SEGURIDAD = config.public_base_url_seguridad;
-        Const.API_PROCESS = config.public_base_url_process;
         Const.API_SUPPORT = config.public_base_url_support;
         Const.API_SEARCH = config.public_base_url_search;
-        Const.URL_TYPE_ACCESS = config.url_type_access;
+        Const.URL_TYPE_ACCES_PUBLIC = config.acces_public;
+        Const.URL_TYPE_ACCES_PRIVATE = config.acces_private;
         Const.URL_IMAGEN = config.public_base_url_imagen;
+        Const.API_INTELLIGENCY_ARTIFICIAL =
+          config.public_base_url_ingelligency_artificial;
       })
       .catch((err: any) => {
         console.error(err);

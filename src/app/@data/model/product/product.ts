@@ -4,7 +4,7 @@ export interface Product {
   idUser?: number;
   idHeadImagen?: number;
   idImagenTemp?: string;
-  idProduct?: number;
+  idProduct?: string;
   description?: number;
   idImagen?: number;
   idPrice?: number;

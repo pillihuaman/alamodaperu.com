@@ -8,8 +8,16 @@ import { CommonComponentModule } from '../../@common-components/common-component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbCardModule, NbListModule, NbSelectModule } from '@nebular/theme';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { RegisterStockComponent } from './register-stock/register-stock.component';
+import { RegisterControlComponent } from './register-control/register-control.component';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
-  declarations: [RegisterProductComponent, RegisterImageByProductComponent],
+  declarations: [
+    RegisterProductComponent,
+    RegisterImageByProductComponent,
+    RegisterStockComponent,
+    RegisterControlComponent,
+  ],
   imports: [
     CommonModule,
     SupportRoutingModule,
@@ -21,6 +29,7 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
     NbCardModule,
     NbSelectModule,
     MatSelectModule,
+    MatInputModule,
   ],
 })
 export class SupportModule {}

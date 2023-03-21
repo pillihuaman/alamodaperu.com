@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageComponent } from './page.component';
+import { RegisterControlComponent } from './support/register-control/register-control.component';
 import { RegisterImageByProductComponent } from './support/register-image-by-product/register-image-by-product.component';
 import { RegisterProductComponent } from './support/register-product/register-product.component';
+import { RegisterStockComponent } from './support/register-stock/register-stock.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,14 @@ const routes: Routes = [
       {
         path: 'register-imagen-product',
         component: RegisterImageByProductComponent,
+      },
+      {
+        path: 'register-product-stock',
+        component: RegisterStockComponent,
+      },
+      {
+        path: 'register-control',
+        component: RegisterControlComponent,
       },
     ],
   },

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 
 import { UserRepository } from 'src/app/@domain/repository/repository/user.repository';
+import { RequestBody } from '../model/general/requestBody';
 
 @Injectable({
   providedIn: 'root',
@@ -16,16 +17,21 @@ export class UserService extends UserRepository {
   }
   getusers(): Observable<User[]> {
     const url =
-      `${Const.API_PROCESS}` +
-      `/${Const.URL_TYPE_ACCESS}` +
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/user/register`;
     return this.apiService.post(url, {});
   }
   registerUser(user: User): Observable<User[]> {
+    debugger;
+    const request: RequestBody = {
+      data: user,
+      trace: { traceId: '01' },
+    };
     const url =
-      `${Const.API_PROCESS}` +
-      `/${Const.URL_TYPE_ACCESS}` +
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/user/register`;
-    return this.apiService.post(url, user);
+    return this.apiService.post(url, request);
   }
 }

@@ -44,6 +44,7 @@ import { AuthModule } from './@presentation/auth/auth.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicAuthInterceptor, ErrorInterceptor } from './@data/interceptors';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DataService } from './@data/services/data.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -117,6 +118,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
     ApiService,
     Title,
+    DataService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

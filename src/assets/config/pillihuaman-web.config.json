@@ -9,36 +9,19 @@
     "especialista": 105,
     "configurador": 28
   },
-  "maestraDetalle": {
-    "ley30057": "1",
-    "dl276": "2",
-    "dl728": "3",
-    "dl1401": "4",
-    "dl1057": "5",
-    "dl1024": "6",
-
-    "directivopublico": "1",
-
-    "pract_preprofesional": "1",
-    "pract_profesional": "2",
-
-    "egresado": "1",
-    "estudiante": "2",
-
-    "sit_acad_egresado": "1",
-    "sit_acad_bachiller": "2",
-    "sit_acad_titulo_lic": "3",
-    "sit_acad_maestria": "4",
-    "sit_acad_doctorado": "5",
-    "sit_acad_segunda_esp": "6",
-    "sit_acad_pregrado": "7",
-
-    "diplomado": "2",
-    "taller": "1",
-    "curso": "3"
-  },
-  "informes": {
-    "base_legal": "1",
-    "bonificaciones": "2"
-  }
+  "control":[
+    {
+  "objectId":"",
+  "idMenu":"",
+  "idSystem":"",
+  "idPage":"",
+  "description":"",
+  "icono":"",
+  "iconClass":"",
+  "status":"",
+  "styleClass":"",
+  "id_user":"",
+  "text":""
+    }
+  ]
 }

@@ -23,14 +23,14 @@ export class ImagenTempService extends ImagenTempRepository {
   getImagenTemp(): Observable<ImagenTemp[]> {
     const url =
       `${Const.API_SUPPORT}` +
-      `/${Const.URL_TYPE_ACCESS}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/imagen/getImagenTemp`;
     return this.apiService.post(url, {});
   }
   registerImagenTemp(imagenTemp: ImagenTemp): Observable<ImagenTemp[]> {
     const url =
       `${Const.API_SUPPORT}` +
-      `/${Const.URL_TYPE_ACCESS}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/imagen/saveImagenByProduct`;
     return this.apiService.postToFile(url, imagenTemp);
   }
@@ -41,14 +41,14 @@ export class ImagenTempService extends ImagenTempRepository {
 
     const url =
       `${Const.API_SUPPORT}` +
-      `/${Const.URL_TYPE_ACCESS}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/listProductbyUser`;
     return this.apiService.post(url, req);
   }
   listMainTopImagen(page: number, perPage: number): Observable<ResponseBody> {
     const url =
       `${Const.API_SEARCH}` +
-      `/${Const.URL_TYPE_ACCESS}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/search/getTopImagen?page=` +
       GeneralConstans.page +
       `&perPage=` +

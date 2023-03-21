@@ -1,6 +1,7 @@
-<button *ngIf="typeButton">
-  {{ textButton }}
-</button>
+<div *ngIf="control?.status">
+  <button [ngClass]="[control?.styleClass]"></button>
+</div>
+
 <!--<a
   [routerLink]="['/user/bob']"
   [queryParams]="{ debug: true }"

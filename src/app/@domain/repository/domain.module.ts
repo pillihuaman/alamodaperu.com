@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { DomainRoutingModule } from './domain-routing.module';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { UserRepository } from './repository/user.repository';
+import { ChatRepository } from './repository/chat.repository';
+import { ChatService } from 'src/app/@data/services/chat.service';
 const DATA_SERVICES = [
   {
     provide: UserRepository,
@@ -29,6 +31,10 @@ const DATA_SERVICES = [
   {
     provide: ModalRepository,
     useClass: ModalService,
+  },
+  {
+    provide: ChatRepository,
+    useClass: ChatService,
   },
 ];
 
