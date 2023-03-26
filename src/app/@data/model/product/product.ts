@@ -1,7 +1,7 @@
 export interface Product {
   name?: string;
   file?: File;
-  idUser?: number;
+  idUser?: string;
   idHeadImagen?: number;
   idImagenTemp?: string;
   idProduct?: string;

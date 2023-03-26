@@ -1,4 +1,5 @@
 import { Sort } from '@angular/material/sort';
+import { LocaleService } from '../@data/services/localeService';
 
 export function getMiliseconds() {
   const dt = new Date();
@@ -20,52 +21,6 @@ export function getHash(value: string): number {
     hash = (hash << 5) + hash + value.charCodeAt(i);
   }
   return hash;
-}
-
-export function sortDataTableComponent(
-  sortParameters: Sort,
-  arrayToSort: any[]
-) {
-  const keyName = sortParameters.active;
-  if (sortParameters.direction === 'asc') {
-    arrayToSort.sort((a: any, b: any) => {
-      const value1 = a[keyName];
-      const value2 = b[keyName];
-      let result = null;
-      if (value1 == null && value2 != null) {
-        result = -1;
-      } else if (value1 != null && value2 == null) {
-        result = 1;
-      } else if (value1 == null && value2 == null) {
-        result = 0;
-      } else if (typeof value1 === 'string' && typeof value2 === 'string') {
-        result = value1.localeCompare(value2);
-      } else {
-        result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
-      }
-      return result;
-    });
-  } else if (sortParameters.direction === 'desc') {
-    arrayToSort.sort((a: any, b: any) => {
-      const value1 = b[keyName];
-      const value2 = a[keyName];
-      let result = null;
-      if (value1 == null && value2 != null) {
-        result = -1;
-      } else if (value1 != null && value2 == null) {
-        result = 1;
-      } else if (value1 == null && value2 == null) {
-        result = 0;
-      } else if (typeof value1 === 'string' && typeof value2 === 'string') {
-        result = value1.localeCompare(value2);
-      } else {
-        result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
-      }
-      return result;
-    });
-  } else {
-    return arrayToSort;
-  }
 }
 
 export function requestFilter(request: any): string {

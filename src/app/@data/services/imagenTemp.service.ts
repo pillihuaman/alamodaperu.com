@@ -47,7 +47,7 @@ export class ImagenTempService extends ImagenTempRepository {
   }
   listMainTopImagen(page: number, perPage: number): Observable<ResponseBody> {
     const url =
-      `${Const.API_SEARCH}` +
+      `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/search/getTopImagen?page=` +
       GeneralConstans.page +

@@ -5,10 +5,7 @@
 
       <div class="form-group paddingObect col-sm-4">
         <mat-form-field>
-          <mat-select
-            placeholder="Product"
-            (selectionChange)="changeProduct($event.value)"
-          >
+          <mat-select placeholder="Product" formControlName="idProduct">
             <mat-option
               *ngFor="let prod of listProductByUser"
               [value]="prod.idProduct"
@@ -19,24 +16,7 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="contener">
-      <label for="formGroupExampleInput">*Type Product</label>
-      <div class="form-group paddingObect col-sm-4">
-        <mat-form-field>
-          <mat-select
-            placeholder="Type Product"
-            (selectionChange)="changeProduct($event.value)"
-          >
-            <mat-option
-              *ngFor="let prod of listProductByUser"
-              [value]="prod.idProduct"
-            >
-              {{ prod.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
+
     <div class="contener">
       <div class="form-group paddingObect col-sm-4">
         <div class="class">
@@ -74,6 +54,28 @@
       </div>
     </div>
 
+    <div class="contener">
+      <div class="form-group paddingObect col-sm-4">
+        <div class="class">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm"
+              >Expiration Date</span
+            >
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm"
+              formControlName="expirationDate"
+            />
+          </div>
+
+          <input [nbDatepicker]="rangepicker" />
+          <nb-rangepicker #rangepicker></nb-rangepicker>
+        </div>
+      </div>
+    </div>
+
     <div
       class="foto-editor-item buttonCloseMain"
       *ngIf="filePath1 && filePath1 !== ''"
@@ -97,6 +99,10 @@
   </div>
 
   <div class="form-group paddingObect">
-    <app-router-button [idCode]="'111saveSave Stock'"></app-router-button>
+    <app-router-button
+      [idCode]="'111saveSave Stock'"
+      (click)="save()"
+    ></app-router-button>
+    {{ locale }}
   </div>
 </form>

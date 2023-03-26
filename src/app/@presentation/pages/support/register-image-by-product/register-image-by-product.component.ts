@@ -9,6 +9,7 @@ import { ImagenTempFile } from 'src/app/@data/model/imagen/imagenTemFile';
 import { fileToBase64 } from 'src/app/utils/converterFile';
 import { ImagenDetail } from 'src/app/@data/model/imagen/imagenDetail';
 import { Product } from 'src/app/@data/model/product/product';
+import { AuthenticationRepository } from 'src/app/@domain/repository/repository/authentication.repository';
 @Component({
   selector: 'app-register-image-by-product',
   templateUrl: './register-image-by-product.component.html',
@@ -42,7 +43,8 @@ export class RegisterImageByProductComponent implements OnInit {
   @ViewChild('inputFile') inputFile: ElementRef = {} as ElementRef;
   constructor(
     private imagenTempService: ImagenTempService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private authenticationService: AuthenticationRepository
   ) {
     this.myForm = this.fb.group({
       img: [null],
@@ -53,7 +55,8 @@ export class RegisterImageByProductComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    let prod: Product = { idUser: 1 };
+    const currentUser = this.authenticationService.getCurrentUserValue;
+    let prod: Product = { idUser: currentUser.id_user };
     this.imagenTempService.listProdutByUser(prod).subscribe(
       (value) => {
         this.listProductByUser = value.payload;

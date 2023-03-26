@@ -45,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicAuthInterceptor, ErrorInterceptor } from './@data/interceptors';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DataService } from './@data/services/data.service';
+import { LocaleService } from './@data/services/localeService';
 
 @NgModule({
   declarations: [AppComponent],
@@ -99,7 +100,14 @@ import { DataService } from './@data/services/data.service';
       multi: true,
     },
 
-    { provide: LOCALE_ID, useValue: 'es-ES' },
+    {
+      provide: LOCALE_ID,
+      useFactory: (localeService: LocaleService) => {
+        console.log('locale ID', localeService.language);
+        return localeService.language;
+      },
+      deps: [LocaleService],
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BasicAuthInterceptor,

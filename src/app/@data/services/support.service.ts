@@ -9,22 +9,22 @@ import { SupportRepository } from 'src/app/@domain/repository/repository/support
 import { CorouselImage } from '../model/general/corouselImage';
 import { Control } from '../model/general/control';
 import { RequestBody } from '../model/general/requestBody';
+import { Product } from '../model/product/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupportService extends SupportRepository {
-  constructor(private http: HttpClient, private apiService: ApiService) {
-    super();
-  }
-  saveClickCountImagen(
-    corouselImage: CorouselImage
-  ): Observable<CorouselImage[]> {
+  saveProduct(product: Product): Observable<Product> {
+    const request: RequestBody = { data: product, trace: { traceId: '01' } };
     const url =
       `${Const.API_SUPPORT}` +
-      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
-      `/v1/save/saveClickCountImagen`;
-    return this.apiService.post(url, corouselImage);
+      `/${Const.URL_TYPE_ACCES_PRIVATE}` +
+      `/v1/product/saveProduct`;
+    return this.apiService.post(url, request);
+  }
+  constructor(private http: HttpClient, private apiService: ApiService) {
+    super();
   }
   saveControl(control: Control): Observable<Control> {
     const request: RequestBody = { data: control, trace: { traceId: '01' } };
@@ -41,5 +41,15 @@ export class SupportService extends SupportRepository {
       `/${Const.URL_TYPE_ACCES_PRIVATE}` +
       `/v1/control/listControl`;
     return this.apiService.get(url, request);
+  }
+
+  saveClickCountImagen(
+    corouselImage: CorouselImage
+  ): Observable<CorouselImage[]> {
+    const url =
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/save/saveClickCountImagen`;
+    return this.apiService.post(url, corouselImage);
   }
 }

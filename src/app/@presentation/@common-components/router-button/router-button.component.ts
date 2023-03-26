@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Control } from 'src/app/@data/model/general/control';
+import { AuthenticationService } from 'src/app/@data/services/authentication.service';
 import { DataService } from 'src/app/@data/services/data.service';
 
 @Component({
@@ -17,23 +18,17 @@ export class RouterButtonComponent implements OnInit {
   lstControl?: Control[];
   subscription?: Subscription;
   control?: Control;
-  constructor(private dataService: DataService) {
-    this.subscription = this.dataService.getData().subscribe((data) => {
-      this.lstControl = data;
-    });
-  }
+  constructor(
+    private dataService: DataService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
-    debugger;
-    // this.lstControl =
-    if (this.lstControl) {
-      if (this.lstControl.length > 0) {
-        this.lstControl.forEach((element) => {
-          if (element.idCode === this.idCode) {
-            this.control = element;
-          }
-        });
+    let us = this.authenticationService.getCurrentUserValue.control;
+    us?.forEach((element) => {
+      if (element.idCode === this.idCode) {
+        this.control = element;
       }
-    }
+    });
   }
 }

@@ -15,6 +15,8 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { UserRepository } from './repository/user.repository';
 import { ChatRepository } from './repository/chat.repository';
 import { ChatService } from 'src/app/@data/services/chat.service';
+import { SupportService } from 'src/app/@data/services/support.service';
+import { SupportRepository } from './repository/support.repository';
 const DATA_SERVICES = [
   {
     provide: UserRepository,
@@ -35,6 +37,10 @@ const DATA_SERVICES = [
   {
     provide: ChatRepository,
     useClass: ChatService,
+  },
+  {
+    provide: SupportRepository,
+    useClass: SupportService,
   },
 ];
 

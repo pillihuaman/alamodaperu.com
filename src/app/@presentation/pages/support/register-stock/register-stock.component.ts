@@ -14,6 +14,9 @@ import { AuthenticationRepository } from 'src/app/@domain/repository/repository/
 import { AuthenticationService } from 'src/app/@data/services/authentication.service';
 import { Control } from 'src/app/@data/model/general/control';
 import { DataService } from 'src/app/@data/services/data.service';
+import { Stock } from 'src/app/@data/model/product/stock';
+import { Size } from 'src/app/@data/model/product/size';
+import { LocaleService } from 'src/app/@data/services/localeService';
 
 @Component({
   selector: 'app-register-stock',
@@ -51,11 +54,15 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
   btn: any = 'btn btn-primary';
   truus: boolean = true;
   lstControl?: Control[];
+  myDate?: any;
+  datepicker?: any;
+  locale?: any;
   @ViewChild('inputFile') inputFile: ElementRef = {} as ElementRef;
   constructor(
     private imagenTempService: ImagenTempService,
     public fb: FormBuilder,
-    private dataService: DataService
+    private dataService: DataService,
+    private authenticationService: AuthenticationRepository
   ) {
     super();
     this.myForm = this.fb.group({
@@ -65,17 +72,20 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
       description: [''],
       idProduct: [''],
       barCode: [''],
+      count: [''],
+      expirationDate: [''],
     });
-    debugger;
     this.lstButton;
     this.dataService.getData().subscribe((data) => {
       this.lstControl = data;
+      this.locale = LocaleService.getLocaleIdValue();
     });
 
     console.log(this.lstControl);
   }
   override ngOnInit(): void {
-    let prod: Product = { idUser: 1 };
+    let us = this.authenticationService.getCurrentUserValue.id_user;
+    let prod: Product = { idUser: us };
     this.imagenTempService.listProdutByUser(prod).subscribe(
       (value) => {
         this.listProductByUser = value.payload;
@@ -85,7 +95,6 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
   }
 
   loadFile(event: any) {
-    debugger;
     this.count++;
     const file: File[] = event.target.files;
     this.selectImagen = event.target.files[0];
@@ -160,7 +169,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     this.inputFile.nativeElement.value = null;
   }
   save() {
-    //debugger;
+    debugger;
     this.lstfilePath = [];
     if (this.filePath1 && this.filePath1 !== '') {
       this.lstfilePath?.push(this.img1!);
@@ -178,19 +187,19 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
 
     if (this.lstfilePath && this.lstfilePath.length > 0) {
       //debugger;
-      let imageTem: ImagenTemp = {
-        count: this.count,
-        name: this.myForm.get('name')?.value,
-        description: this.myForm.get('description')?.value,
-        uniqueKeyHash: UUID.UUID(),
+      let size: Size[] = [];
+      let imageTem: Stock = {
         idProduct: this.idProductSelect,
-        listImagen: this.lstfilePath,
+        barCode: this.myForm.get('barCode')?.value,
+        expirationDate: this.myForm.get('expirationDate')?.value,
+        size: size,
+        count: this.myForm.get('count')?.value,
       };
 
-      this.imagenTempService.registerImagenTemp(imageTem).subscribe(
+      /*  this.imagenTempService.registerImagenTemp(imageTem).subscribe(
         (value) => {},
         (error) => {}
-      );
+      );*/
     }
   }
   changeProduct(values: any) {

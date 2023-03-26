@@ -105,7 +105,6 @@ export class AuthenticationService extends AuthenticationRepository {
     return this.http.post<User>(url, body, { headers: headers }).pipe(
       // timeout(2000),
       map((response: User) => {
-        debugger;
         const usuario = response as User;
         localStorage.setItem('usuario', JSON.stringify(usuario));
         this.currentUserSubject.next({
@@ -117,7 +116,6 @@ export class AuthenticationService extends AuthenticationRepository {
             JSON.stringify(response.control),
             Const.KEY
           ).toString();
-
           localStorage.setItem('control', cryp + '');
           // this.dataService.setData(response.control);
         }
