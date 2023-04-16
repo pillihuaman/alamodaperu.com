@@ -16,7 +16,8 @@ import { Control } from 'src/app/@data/model/general/control';
 import { DataService } from 'src/app/@data/services/data.service';
 import { Stock } from 'src/app/@data/model/product/stock';
 import { Size } from 'src/app/@data/model/product/size';
-import { LocaleService } from 'src/app/@data/services/localeService';
+import { LocaleService } from 'src/app/@data/services/locale.service';
+import { LocalRepository } from 'src/app/@domain/repository/repository/local.repository';
 
 @Component({
   selector: 'app-register-stock',
@@ -61,8 +62,8 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
   constructor(
     private imagenTempService: ImagenTempService,
     public fb: FormBuilder,
-    private dataService: DataService,
-    private authenticationService: AuthenticationRepository
+    private dataService: DataService, private localservice: LocalRepository,
+    private authenticationService: AuthenticationRepository,
   ) {
     super();
     this.myForm = this.fb.group({
@@ -78,9 +79,12 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     this.lstButton;
     this.dataService.getData().subscribe((data) => {
       this.lstControl = data;
-      this.locale = LocaleService.getLocaleIdValue();
-    });
 
+
+    });
+  ;
+  debugger;
+    console.log(  this.localservice.getLanguageCode());
     console.log(this.lstControl);
   }
   override ngOnInit(): void {
@@ -90,7 +94,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
       (value) => {
         this.listProductByUser = value.payload;
       },
-      (error) => {}
+      (error) => { }
     );
   }
 

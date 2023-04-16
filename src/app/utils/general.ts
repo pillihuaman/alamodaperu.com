@@ -1,5 +1,5 @@
 import { Sort } from '@angular/material/sort';
-import { LocaleService } from '../@data/services/localeService';
+import { LocaleService } from '../@data/services/locale.service';
 
 export function getMiliseconds() {
   const dt = new Date();

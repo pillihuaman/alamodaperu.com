@@ -167,6 +167,7 @@ export class RegisterImageByProductComponent implements OnInit {
         idProduct: this.idProductSelect,
         listImagen: this.lstfilePath,
       };
+      debugger;
 
       this.imagenTempService.registerImagenTemp(imageTem).subscribe(
         (value) => {},

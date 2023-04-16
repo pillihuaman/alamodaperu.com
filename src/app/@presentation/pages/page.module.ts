@@ -40,7 +40,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbButtonModule,
     NbCardModule,
     NbContextMenuModule,
-    NbDatepickerModule,
     NbFormFieldModule,
     NbIconModule,
     NbInputModule,
@@ -58,7 +57,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     CommonComponentModule,
     SupportModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
 })
 export class PageModule {}

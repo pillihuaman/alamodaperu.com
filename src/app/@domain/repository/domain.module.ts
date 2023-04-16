@@ -17,6 +17,8 @@ import { ChatRepository } from './repository/chat.repository';
 import { ChatService } from 'src/app/@data/services/chat.service';
 import { SupportService } from 'src/app/@data/services/support.service';
 import { SupportRepository } from './repository/support.repository';
+import { LocaleService } from 'src/app/@data/services/locale.service';
+import { LocalRepository } from './repository/local.repository';
 const DATA_SERVICES = [
   {
     provide: UserRepository,
@@ -41,6 +43,10 @@ const DATA_SERVICES = [
   {
     provide: SupportRepository,
     useClass: SupportService,
+  },
+  {
+    provide: LocalRepository,
+    useClass: LocaleService,
   },
 ];
 

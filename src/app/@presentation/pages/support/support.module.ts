@@ -8,7 +8,6 @@ import { CommonComponentModule } from '../../@common-components/common-component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NbCardModule,
-  NbDatepickerModule,
   NbListModule,
   NbSelectModule,
   NbThemeModule,
@@ -18,6 +17,8 @@ import { RegisterStockComponent } from './register-stock/register-stock.componen
 import { RegisterControlComponent } from './register-control/register-control.component';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     RegisterProductComponent,
@@ -38,8 +39,7 @@ import { BrowserModule } from '@angular/platform-browser';
     NbCardModule,
     NbSelectModule,
     MatSelectModule,
-    MatInputModule,
-    NbDatepickerModule,
+    MatInputModule,MatNativeDateModule,MatDatepickerModule
   ],
 })
 export class SupportModule {}

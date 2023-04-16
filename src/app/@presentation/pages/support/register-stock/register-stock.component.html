@@ -1,7 +1,8 @@
 <form [formGroup]="myForm">
   <div class="form-row">
+
     <div class="contener">
-      <label for="formGroupExampleInput">*Product</label>
+      <label for="formGroupExampleInput" i18n>*Product</label>
 
       <div class="form-group paddingObect col-sm-4">
         <mat-form-field>
@@ -21,7 +22,7 @@
       <div class="form-group paddingObect col-sm-4">
         <div class="class">
           <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm"
+            <span class="input-group-text" id="inputGroup-sizing-sm" i18n
               >Bar Code</span
             >
             <input
@@ -39,7 +40,7 @@
       <div class="form-group paddingObect col-sm-4">
         <div class="class">
           <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm"
+            <span class="input-group-text" id="inputGroup-sizing-sm" i18n
               >Count</span
             >
             <input
@@ -58,20 +59,9 @@
       <div class="form-group paddingObect col-sm-4">
         <div class="class">
           <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm"
-              >Expiration Date</span
-            >
-            <input
-              type="text"
-              class="form-control"
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm"
-              formControlName="expirationDate"
-            />
+     <app-date-picker [placeholder]="'Expiration Date'"></app-date-picker>
           </div>
-
-          <input [nbDatepicker]="rangepicker" />
-          <nb-rangepicker #rangepicker></nb-rangepicker>
+       
         </div>
       </div>
     </div>
@@ -86,7 +76,7 @@
   </div>
 
   <div class="mb-3">
-    <label for="formFileSm" class="form-label">Attach Image</label>
+    <label for="formFileSm" class="form-label" i18n>Attach Image</label>
     <input
       enctype="multipart/form-data"
       class="form-control form-control-sm"
@@ -98,8 +88,9 @@
     />
   </div>
 
+
   <div class="form-group paddingObect">
-    <app-router-button
+    <app-router-button i18n
       [idCode]="'111saveSave Stock'"
       (click)="save()"
     ></app-router-button>

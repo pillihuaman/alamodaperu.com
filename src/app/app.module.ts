@@ -21,7 +21,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
-  NbDatepickerModule,
   NbDialogModule,
   NbMenuModule,
   NbSidebarModule,
@@ -45,8 +44,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicAuthInterceptor, ErrorInterceptor } from './@data/interceptors';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DataService } from './@data/services/data.service';
-import { LocaleService } from './@data/services/localeService';
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { InjectionToken, } from '@angular/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { LocalRepository } from './@domain/repository/repository/local.repository';
+export function localeInitializer() {
+  debugger
+  console.log(navigator.language+" lo");
+  debugger
+  let id=navigator.language.toString().split('-')
+  return () => navigator.language || 'en';
+}
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -58,7 +67,6 @@ import { LocaleService } from './@data/services/localeService';
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
     NbEvaIconsModule,
-    NbDatepickerModule.forRoot(),
     NbDialogModule.forRoot(),
     NbMenuModule.forRoot(),
     NbSidebarModule.forRoot(),
@@ -85,6 +93,7 @@ import { LocaleService } from './@data/services/localeService';
     FormsModule,
     MatTableModule,
     MatDialogModule,
+    MatNativeDateModule,MatDatepickerModule
   ],
   providers: [
     {
@@ -100,14 +109,26 @@ import { LocaleService } from './@data/services/localeService';
       multi: true,
     },
 
-    {
+   /* {
       provide: LOCALE_ID,
       useFactory: (localeService: LocaleService) => {
-        console.log('locale ID', localeService.language);
-        return localeService.language;
+        console.log('locale ID', LocaleService.getLocaleIdValue);
+        return LocaleService.getLocaleIdValue;
       },
       deps: [LocaleService],
-    },
+    },*/
+  { provide: LOCALE_ID, useValue:   window.navigator.language},
+  
+ { provide: MAT_DATE_LOCALE, useValue:  window.navigator.language},
+    //LocaleService,
+   // { provide: MAT_DATE_LOCALE, useValue:localeInitializer },
+    /*{
+      provide: LOCALE_ID,
+      useFactory: localeInitializer,
+      multi: true
+    },*/
+    { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID },
+  
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BasicAuthInterceptor,

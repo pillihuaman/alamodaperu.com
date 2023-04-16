@@ -44,7 +44,9 @@ import { ImagenCatchInformationComponent } from './imagen-catch-information/imag
 import { RouterButtonComponent } from './router-button/router-button.component';
 import { ProductDescriptionComponent } from './product-description/product-description.component';
 import { LabelComponent } from './label/label.component';
-
+import { DatePickerComponent } from './date-picker/date-picker.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
   ServPillihuamanSidebarHomeComponent,
@@ -55,7 +57,7 @@ const COMPONENTS = [
   ImagenCatchInformationComponent,
   RouterButtonComponent,
   ProductDescriptionComponent,
-  LabelComponent,
+  LabelComponent,DatePickerComponent
 ];
 /*const DIRECTIVES = [
 
@@ -98,7 +100,7 @@ const materialModules = [MatIconModule];
     MatIconModule,
     RouterModule,
     NbCardModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinnerModule, MatNativeDateModule,MatDatepickerModule
   ],
   exports: [...COMPONENTS, ...materialModules],
   entryComponents: [...COMPONENTS],

@@ -62,3 +62,5 @@ export const HTTP_HEADERS_TOKEN = new HttpHeaders({
   'Content-Type': 'application/x-www-form-urlencoded',
   Authorization: 'Basic ' + CREDENCIALES,
 });
+
+export const DEFAULT_LANG  = 'en-US';

@@ -28,6 +28,7 @@ export class ImagenTempService extends ImagenTempRepository {
     return this.apiService.post(url, {});
   }
   registerImagenTemp(imagenTemp: ImagenTemp): Observable<ImagenTemp[]> {
+    debugger;
     const url =
       `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCES_PUBLIC}` +
