@@ -24,7 +24,7 @@ export class RegisterProductComponent implements OnInit {
 
   ngOnInit(): void {}
   save() {
-    debugger;
+    
     const currentUser = this.authenticationService.getCurrentUserValue;
     let product: Product = {
       name: this.myForm.get('name')?.value,

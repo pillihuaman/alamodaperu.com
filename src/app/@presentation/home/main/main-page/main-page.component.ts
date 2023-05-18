@@ -143,7 +143,7 @@ export class MainPageComponent implements OnInit {
             if (value.payload) {
               this.lstIMf = value.payload;
               // //console.log(JSON.stringify(value));
-              ////console.log(JSON.stringify(this.lstIMf));
+              ////console.log(JSON.stringify(this.lstIMf)) 
             }
           }
         },

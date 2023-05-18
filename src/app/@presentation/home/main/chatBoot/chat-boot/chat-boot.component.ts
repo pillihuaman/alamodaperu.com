@@ -23,7 +23,7 @@ export class ChatBootComponent implements OnInit {
 
   ngOnInit(): void {}
   submit() {
-    debugger;
+
     const chat: ReqSpeech = {
       keyWord: this.chatForm.get('keyWord')?.value,
     };

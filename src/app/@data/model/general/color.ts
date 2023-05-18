@@ -1,6 +1,6 @@
 import { ImagenDetail } from '../imagen/imagenDetail';
 
 export interface Color {
-  idProduct?: string;
+  count?: number;
   listImagen?: ImagenDetail[];
 }

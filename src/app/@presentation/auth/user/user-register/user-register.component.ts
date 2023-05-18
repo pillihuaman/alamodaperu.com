@@ -77,7 +77,7 @@ export class UserRegisterComponent implements OnInit {
     });
   }
   submit() {
-    debugger;
+
     let data: User = {
       name: this.f['name'].value,
       lastName: this.f['lastName'].value,

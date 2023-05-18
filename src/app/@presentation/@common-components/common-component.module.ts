@@ -18,6 +18,7 @@ import {
   NbMenuModule,
   NbContextMenuModule,
   NbDialogModule,
+  NbTreeGridModule,
 } from '@nebular/theme';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -47,6 +48,8 @@ import { LabelComponent } from './label/label.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { TableDatasourceComponent } from './table-datasource/table-datasource.component';;
+import { DynamicComponent } from './dynamic/dynamic.component';
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
   ServPillihuamanSidebarHomeComponent,
@@ -57,7 +60,7 @@ const COMPONENTS = [
   ImagenCatchInformationComponent,
   RouterButtonComponent,
   ProductDescriptionComponent,
-  LabelComponent,DatePickerComponent
+  LabelComponent,DatePickerComponent,TableDatasourceComponent, DynamicComponent
 ];
 /*const DIRECTIVES = [
 
@@ -84,7 +87,7 @@ const materialModules = [MatIconModule];
     MatButtonModule,
     NbFormFieldModule,
     NbInputModule,
-    NbThemeModule,
+    NbThemeModule.forRoot({ name: 'default' }),
     MatRippleModule,
     MatAutocompleteModule,
     NbSelectModule,
@@ -100,7 +103,8 @@ const materialModules = [MatIconModule];
     MatIconModule,
     RouterModule,
     NbCardModule,
-    MatProgressSpinnerModule, MatNativeDateModule,MatDatepickerModule
+    MatProgressSpinnerModule, MatNativeDateModule,MatDatepickerModule,NbTreeGridModule,
+
   ],
   exports: [...COMPONENTS, ...materialModules],
   entryComponents: [...COMPONENTS],

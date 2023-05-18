@@ -19,12 +19,14 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ParametersComponent } from './parameters/parameters.component';
 @NgModule({
   declarations: [
     RegisterProductComponent,
     RegisterImageByProductComponent,
     RegisterStockComponent,
     RegisterControlComponent,
+    ParametersComponent,
   ],
   imports: [
     BrowserModule,

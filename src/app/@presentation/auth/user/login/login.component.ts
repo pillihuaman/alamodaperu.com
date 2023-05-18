@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe((user: User) => {
           if (user) {
-            debugger;
+
             this.router.navigate([this.returnUrl]);
           } else {
             this.hasError = true;

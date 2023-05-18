@@ -114,7 +114,7 @@
               type="text"
               placeholder="Style Class"
               [maxLength]="100"
-              required
+              required 
               formControlName="styleClass"
             />
           </mat-form-field>
@@ -123,6 +123,7 @@
     </div>
 
     <div class="form-group">
+      <button (click)="save()">save</button>
       <app-router-button (click)="save()"></app-router-button>
     </div>
   </div>

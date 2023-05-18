@@ -1,12 +1,10 @@
 <form [formGroup]="myForm">
   <div class="form-row">
 
-    <div class="contener">
-      <label for="formGroupExampleInput" i18n>*Product</label>
 
-      <div class="form-group paddingObect col-sm-4">
+        <div class="form-group paddingObect col-md-6">
         <mat-form-field>
-          <mat-select placeholder="Product" formControlName="idProduct">
+          <mat-select  i18n placeholder="Product" formControlName="idProduct">
             <mat-option
               *ngFor="let prod of listProductByUser"
               [value]="prod.idProduct"
@@ -18,10 +16,9 @@
       </div>
     </div>
 
-    <div class="contener">
-      <div class="form-group paddingObect col-sm-4">
+      <div class="form-group paddingObect col-md-2">
         <div class="class">
-          <div class="input-group input-group-sm mb-3">
+          <div class="input-group input-group-sm">
             <span class="input-group-text" id="inputGroup-sizing-sm" i18n
               >Bar Code</span
             >
@@ -35,11 +32,10 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="contener">
-      <div class="form-group paddingObect col-sm-4">
+<br>
+      <div class="form-group paddingObect col-md-2">
         <div class="class">
-          <div class="input-group input-group-sm mb-3">
+          <div class="input-group input-group-sm">
             <span class="input-group-text" id="inputGroup-sizing-sm" i18n
               >Count</span
             >
@@ -53,29 +49,24 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="contener">
-      <div class="form-group paddingObect col-sm-4">
+      <br>
+      <div class="form-group paddingObect col-md-4">
         <div class="class">
-          <div class="input-group input-group-sm mb-3">
+          <div class="input-group input-group-sm">
      <app-date-picker [placeholder]="'Expiration Date'"></app-date-picker>
           </div>
        
         </div>
       </div>
-    </div>
 
-    <div
-      class="foto-editor-item buttonCloseMain"
-      *ngIf="filePath1 && filePath1 !== ''"
-    >
-      <label class="buttonClose" (click)="close(1)">X</label>
-      <img [src]="filePath1" [alt]="myForm.value.name" class="tempImagen" />
+      <div class="col-md-12">
+        <div  #container class="foto-editor">
     </div>
-  </div>
+      </div>
+ 
 
-  <div class="mb-3">
+
+  <div class="col-md-4">
     <label for="formFileSm" class="form-label" i18n>Attach Image</label>
     <input
       enctype="multipart/form-data"
@@ -87,8 +78,15 @@
       (change)="loadFile($event)"
     />
   </div>
-
-
+  <br>
+  <div class="col-md-8">
+    <nb-card>
+      <nb-card-body>
+  <app-table-datasource  [datas]=datas [customColumnInput]=customColumnInput [defaultColumnsInput]=defaultColumnsInput></app-table-datasource>
+</nb-card-body>
+</nb-card>
+   
+  </div>
   <div class="form-group paddingObect">
     <app-router-button i18n
       [idCode]="'111saveSave Stock'"
@@ -97,3 +95,4 @@
     {{ locale }}
   </div>
 </form>
+  

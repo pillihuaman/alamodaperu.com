@@ -36,7 +36,7 @@ export class RegisterControlComponent implements OnInit {
 
   searchUser() {}
   save() {
-    debugger;
+
     const control: Control = {
       description: this.myForm.get('description')?.value,
       iconClass: this.myForm.get('iconClass')?.value,

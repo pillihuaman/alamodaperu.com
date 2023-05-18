@@ -31,6 +31,9 @@ import {
   NbInputModule,
   NbButtonModule,
   NbSelectModule,
+  NbTreeGridModule,
+  NbFilterInputDirective,
+  NbFilterDirective,
 } from '@nebular/theme';
 import { CommonComponentModule } from './@presentation/@common-components/common-component.module';
 import { HomeModule } from './@presentation/home/home.module';
@@ -50,9 +53,9 @@ import { InjectionToken, } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LocalRepository } from './@domain/repository/repository/local.repository';
 export function localeInitializer() {
-  debugger
+
   console.log(navigator.language+" lo");
-  debugger
+
   let id=navigator.language.toString().split('-')
   return () => navigator.language || 'en';
 }
@@ -93,7 +96,8 @@ export function localeInitializer() {
     FormsModule,
     MatTableModule,
     MatDialogModule,
-    MatNativeDateModule,MatDatepickerModule
+    MatNativeDateModule,MatDatepickerModule,NbTreeGridModule
+
   ],
   providers: [
     {

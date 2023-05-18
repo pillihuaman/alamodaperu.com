@@ -1,5 +1,8 @@
+import { MatCardSmImage } from "@angular/material/card";
+import { pseudoRandomBytes } from "crypto";
+
 export interface Parameter {
-  idParameter?: string;
+  id?: string;
   idCode?: string;
   name?: string;
   description?: string;

@@ -12,11 +12,11 @@ export class LocaleService extends LocalRepository {
     super();
   }
   setLocale(localeId: string) {
-    debugger;
+
     this.dateAdapter.setLocale(localeId || 'en-US');
   }
   getLanguageCode(): string {
-    debugger;
+
     return navigator.language;
   }
   
