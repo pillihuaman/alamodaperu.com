@@ -6,4 +6,5 @@ export interface Parameter {
   idCode?: string;
   name?: string;
   description?: string;
+  parameterItems?:any[];
 }

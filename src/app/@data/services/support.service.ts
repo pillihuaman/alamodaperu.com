@@ -10,11 +10,22 @@ import { CorouselImage } from '../model/general/corouselImage';
 import { Control } from '../model/general/control';
 import { RequestBody } from '../model/general/requestBody';
 import { Product } from '../model/product/product';
+import { Parameter } from '../model/general/parameter';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupportService extends SupportRepository {
+  override getParameterbyIdCode(para: Parameter): Observable<Parameter[]> {
+    debugger;
+    const params: any= { "idCode": 1223 };
+    const url =
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/getParameterbyIdCode`;
+    return this.apiService.get(url, params);
+
+  }
   saveProduct(product: Product): Observable<Product> {
     const request: RequestBody = { data: product, trace: { traceId: '01' } };
     const url =
@@ -51,5 +62,13 @@ export class SupportService extends SupportRepository {
       `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/save/saveClickCountImagen`;
     return this.apiService.post(url, corouselImage);
+  }
+  saveParameter(para: Parameter): Observable<Parameter> {
+    const request: RequestBody = { data: para, trace: { traceId: '01' } };
+    const url =
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/saveParameter`;
+    return this.apiService.post(url, request);
   }
 }

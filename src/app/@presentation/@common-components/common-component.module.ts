@@ -50,6 +50,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TableDatasourceComponent } from './table-datasource/table-datasource.component';;
 import { DynamicComponent } from './dynamic/dynamic.component';
+import { SelectAndInputControlComponent } from './select-and-input-control/select-and-input-control.component';
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
   ServPillihuamanSidebarHomeComponent,
@@ -60,7 +61,7 @@ const COMPONENTS = [
   ImagenCatchInformationComponent,
   RouterButtonComponent,
   ProductDescriptionComponent,
-  LabelComponent,DatePickerComponent,TableDatasourceComponent, DynamicComponent
+  LabelComponent,DatePickerComponent,TableDatasourceComponent, DynamicComponent,SelectAndInputControlComponent
 ];
 /*const DIRECTIVES = [
 
