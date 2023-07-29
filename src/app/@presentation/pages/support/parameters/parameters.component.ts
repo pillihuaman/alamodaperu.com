@@ -32,6 +32,12 @@ export class ParametersComponent implements OnInit {
       idCode: new FormControl(''),
       description: new FormControl(''),
     });
+
+    this.myForm.get('name')?.valueChanges.subscribe((newValue) => {
+      this.updateIdCode(newValue);
+    });
+
+
     
   }
   ngOnInit(): void {
@@ -111,5 +117,8 @@ export class ParametersComponent implements OnInit {
     this.booleanControSelect=false;
     return true;
 
+  }
+  updateIdCode(newValue: string) {
+    this.myForm.get('idCode')?.setValue(newValue);
   }
 }

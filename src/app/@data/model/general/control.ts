@@ -3,8 +3,10 @@ export interface Control {
   idMenu?: number;
   idSystem?: number;
   idPage?: number;
+  idArea?: number;
   description?: string;
   icono?: string;
+  idModulo?: string;
   iconClass?: string;
   status?: number;
   styleClass?: string;

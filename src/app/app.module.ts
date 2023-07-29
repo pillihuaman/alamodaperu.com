@@ -34,6 +34,7 @@ import {
   NbTreeGridModule,
   NbFilterInputDirective,
   NbFilterDirective,
+  NbAutocompleteModule,
 } from '@nebular/theme';
 import { CommonComponentModule } from './@presentation/@common-components/common-component.module';
 import { HomeModule } from './@presentation/home/home.module';
@@ -96,7 +97,7 @@ export function localeInitializer() {
     FormsModule,
     MatTableModule,
     MatDialogModule,
-    MatNativeDateModule,MatDatepickerModule,NbTreeGridModule
+    MatNativeDateModule,MatDatepickerModule,NbTreeGridModule,NbAutocompleteModule
 
   ],
   providers: [

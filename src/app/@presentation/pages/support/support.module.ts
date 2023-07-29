@@ -7,6 +7,7 @@ import { RegisterImageByProductComponent } from './register-image-by-product/reg
 import { CommonComponentModule } from '../../@common-components/common-component.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  NbAutocompleteModule,
   NbCardModule,
   NbListModule,
   NbSelectModule,
@@ -41,7 +42,7 @@ import { ParametersComponent } from './parameters/parameters.component';
     NbCardModule,
     NbSelectModule,
     MatSelectModule,
-    MatInputModule,MatNativeDateModule,MatDatepickerModule
+    MatInputModule,MatNativeDateModule,MatDatepickerModule,NbAutocompleteModule
   ],
 })
 export class SupportModule {}
