@@ -51,8 +51,9 @@ export class ParametersComponent implements OnInit {
 
 
   save() {
+
     let array=this.parameterItems.getRawValue();
-    debugger;
+
     const control: Parameter = {
       description: this.myForm.get('description')?.value,
       idCode: this.myForm.get('idCode')?.value,
@@ -60,7 +61,10 @@ export class ParametersComponent implements OnInit {
       parameterItems:array
     };
     this.supportService.saveParameter(control).subscribe(
-      (value) => { },
+      (value) => {
+      debugger;
+
+       },
       (error) => { }
     );
     this.controlType = "text";
