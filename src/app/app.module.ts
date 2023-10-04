@@ -35,6 +35,7 @@ import {
   NbFilterInputDirective,
   NbFilterDirective,
   NbAutocompleteModule,
+  NbToastrConfig,
 } from '@nebular/theme';
 import { CommonComponentModule } from './@presentation/@common-components/common-component.module';
 import { HomeModule } from './@presentation/home/home.module';
@@ -43,7 +44,6 @@ import { PageModule } from './@presentation/pages/page.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DomainModule } from './@domain/repository/domain.module';
 import { Const } from './utils/const';
-import { AuthModule } from './@presentation/auth/auth.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicAuthInterceptor, ErrorInterceptor } from './@data/interceptors';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -53,6 +53,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { InjectionToken, } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LocalRepository } from './@domain/repository/repository/local.repository';
+import { AuthModule } from './@presentation/auth/auth.module';
 export function localeInitializer() {
 
   console.log(navigator.language+" lo");
@@ -148,6 +149,14 @@ export function localeInitializer() {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptor,
       multi: true,
+    },
+    {
+      provide: NbToastrConfig,
+      useValue: {
+        duration: 5000, // Toast duration in milliseconds
+        position: 'top-left', // Another position
+        // More configuration options...
+      },
     },
 
     ApiService,

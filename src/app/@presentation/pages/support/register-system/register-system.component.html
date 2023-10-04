@@ -1,0 +1,70 @@
+<form [formGroup]="systemRequestForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="form-group">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Name"
+            [maxLength]="50"
+            required
+            formControlName="name"
+          />
+        </mat-form-field>
+      </div>
+  
+      <div class="form-group">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Version"
+            [maxLength]="50"
+            formControlName="version"
+          />
+        </mat-form-field>
+      </div>
+  
+      <div class="form-group">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Main Menu"
+            [maxLength]="50"
+            formControlName="mainMenu"
+          />
+        </mat-form-field>
+      </div>
+  
+      <div class="form-group">
+        <mat-form-field>
+          <input
+            matInput
+            type="email"
+            placeholder="Contact Email"
+            [maxLength]="50"
+            required
+            formControlName="contactEmail"
+          />
+        </mat-form-field>
+      </div>
+  
+      <div class="form-group">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Support Phone"
+            [maxLength]="50"
+            formControlName="supportPhone"
+          />
+        </mat-form-field>
+      </div>
+  
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+  

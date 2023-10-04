@@ -24,7 +24,6 @@ export class SelectAndInputControlComponent implements OnInit {
     console.log('Selected value:', value);
   }
   ngOnInit(): void {
-    debugger;
     if(this.isInput){
       this.inputValue = this.data
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbSidebarService } from '@nebular/theme';
+import { NbComponentStatus, NbSidebarService } from '@nebular/theme';
 import { Observable, Subscription, timer } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Control } from 'src/app/@data/model/general/control';
@@ -9,6 +9,7 @@ import { RequestBody } from 'src/app/@data/model/general/requestBody';
 import { SupportService } from 'src/app/@data/services/support.service';
 import { User } from 'src/app/@domain/repository/models/user';
 import { AuthenticationRepository } from 'src/app/@domain/repository/repository/authentication.repository';
+import { ModalRepository } from 'src/app/@domain/repository/repository/modal.repository ';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationRepository,
     private router: Router, //
-    private supportService: SupportService
+    private supportService: SupportService,   private modalRepository: ModalRepository
   ) {}
   get f() {
     return this.loginForm.controls;
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit {
         .login(this.f['user'].value, this.f['password'].value)
         .pipe(first())
         .subscribe((user: User) => {
+          debugger;
           if (user) {
 
             this.router.navigate([this.returnUrl]);
@@ -65,7 +67,9 @@ export class LoginComponent implements OnInit {
 
       this.unsubscribe.push(loginSubscr);
     } catch (e) {
-      throw e;
+      debugger;
+      console.error("An error occurred:", e); // Log the error to the console
+      throw e; // Rethrow
     } finally {
     }
   }

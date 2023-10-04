@@ -1,28 +1,11 @@
-h4 {
-  color: rgb(12, 114, 223);
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: bold;
-}
-
-.flex-container {
-  display: flex;
-  //border: 1px solid tomato;
-  flood-opacity: inherit;
-  justify-content: center;
-}
-
-.flex-container div {
-  //border: 1px solid gainsboro;
-  margin: 1vw;
-  margin-left: 10%;
-  padding: 1px;
-}
 @import '~@nebular/theme/styles/theming';
 
 ::ng-deep .mainrdHeader {
-  display: flex;
   width: 100%;
-
+  text-align: end;
+  padding-right: inherit;
+  align-items: stretch;
+  align-content: space-between;
 
 
 }
@@ -56,4 +39,3 @@ nb-card {
   border-color: #ffffff;
 }
 
-// NOSONAR

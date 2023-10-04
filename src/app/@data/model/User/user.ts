@@ -6,10 +6,11 @@ export interface User {
   estatus?: boolean;
   token?: string;
   personID?: number;
-  mail?: string;
-  phoneNumber?: string;
+  email?: string;
+  mobilPhone?: string;
   rolId?: number;
-  username?: string;
+  userName?: string;
   typeDocument?: string;
   numTypeDocument?: string;
+  alias?:string;
 }

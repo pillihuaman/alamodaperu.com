@@ -1,4 +1,4 @@
-import { GeneralConstans } from './../../../../utils/generalConstant';
+import { GeneralConstans } from '../../../../utils/generalConstant';
 import { NbComponentStatus, NbDialogService } from '@nebular/theme';
 import { User } from 'src/app/@data/model/User/user';
 import { Component, OnInit, TemplateRef } from '@angular/core';
@@ -83,9 +83,9 @@ export class UserRegisterComponent implements OnInit {
       lastName: this.f['lastName'].value,
       password: this.f['password'].value,
       numTypeDocument: this.f['numTypeDocument'].value,
-      mail: this.f['email'].value,
-      phoneNumber: this.f['phoneNumber'].value,
-      username: this.f['name'].value,
+      email: this.f['email'].value,
+      mobilPhone: this.f['phoneNumber'].value,
+      userName: this.f['name'].value,
       typeDocument: this.f['typeDocument'].value,
     };
 

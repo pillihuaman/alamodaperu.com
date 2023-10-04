@@ -6,6 +6,7 @@ import { RegisterImageByProductComponent } from './support/register-image-by-pro
 import { RegisterProductComponent } from './support/register-product/register-product.component';
 import { RegisterStockComponent } from './support/register-stock/register-stock.component';
 import { ParametersComponent } from './support/parameters/parameters.component';
+import { RegisterSystemComponent } from './support/register-system/register-system.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'register-parameter',
         component: ParametersComponent,
+      },
+      {
+        path: 'register-system',
+        component: RegisterSystemComponent,
       },
     ],
   },

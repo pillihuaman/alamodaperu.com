@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./@presentation/home/home.module').then((m) => m.HomeModule),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 
   {

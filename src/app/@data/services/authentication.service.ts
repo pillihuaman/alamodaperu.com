@@ -12,6 +12,8 @@ import { Utils } from 'src/app/utils/utils';
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { Control } from '../model/general/control';
 import * as CryptoJS from 'crypto-js';
+import { ModalService } from './modal.service';
+import { ResponseBody } from '../model/general/responseBody';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends AuthenticationRepository {
   clearUser(): void {
@@ -29,9 +31,11 @@ export class AuthenticationService extends AuthenticationRepository {
     private http: HttpClient,
     private router: Router,
     private modalRepository: ModalRepository,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,private modalService:ModalService
   ) {
     super();
+
+
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('usuario')!)
     );
@@ -67,7 +71,7 @@ export class AuthenticationService extends AuthenticationRepository {
   }
 
   verifyCredentials(login: string, clave: string): Observable<any> {
-    debugger;
+
     localStorage.clear();
     const userName = Const.USERNAME_SEGURIDAD;
     //const password = Const.PASSWORD_SEGURIDAD;
@@ -76,7 +80,7 @@ export class AuthenticationService extends AuthenticationRepository {
     let body: any = {
       username: userName,
       password: clave,
-      mail: login,
+      email: login,
     };
     let httpHeaderAccepts: string[] = [
       'text/plain',
@@ -91,42 +95,42 @@ export class AuthenticationService extends AuthenticationRepository {
     let auto = null;
     headers = headers.set('Accept', httpHeaderAccepts);
     headers = headers.set('Content-Type', consumes);
-    headers = headers.set('username', login);
+    headers = headers.set('email', login);
     headers = headers.set('password', clave);
     const url =
       `${Const.API_SEGURIDAD}` +
-      `/${Const.URL_TYPE_ACCES_PRIVATE}` +
-      `/v1/security/authenticate`;
+      `/api/v1/auth/authenticate`;
     const params = new URLSearchParams();
     params.set('grant_type', 'password');
-    params.set('username', login);
+    params.set('email', login);
     params.set('password', clave);
-
-    return this.http.post<User>(url, body, { headers: headers }).pipe(
-      // timeout(2000),
-      map((response: User) => {
-        const usuario = response as User;
-        localStorage.setItem('usuario', JSON.stringify(usuario));
+    return this.http.post<ResponseBody>(url, body, { headers: headers }).pipe(
+     // timeout(2000),
+      map((response: ResponseBody) => {
+        const usuario = response as ResponseBody;
         this.currentUserSubject.next({
-          token: response.token,
+          access_token: response.payload.access_token
         });
-        localStorage.setItem('token', response.token + '');
-        if (response.control) {
+        let userinfo:User=usuario.payload.user;
+        userinfo.access_token= response.payload.access_token;
+        localStorage.setItem('usuario', JSON.stringify(userinfo));
+        localStorage.setItem('token', response.payload.access_token + '');
+       /* if (response.control) {
           const cryp = CryptoJS.AES.encrypt(
             JSON.stringify(response.control),
             Const.KEY
           ).toString();
           localStorage.setItem('control', cryp + '');
           // this.dataService.setData(response.control);
-        }
-        return response;
+        }*/
+        return response.payload.user;
       }),
-      catchError((e) => {
+     /* catchError((e) => {
         let nbComponentStatus: NbComponentStatus = 'danger';
         this.router.navigate(['/auth/login']);
-        this.modalRepository.showToast(nbComponentStatus, e.message);
+        this.modalRepository.showToast(nbComponentStatus, e.message+"Authenti interce");
         throw e;
-      })
+      })*/
     );
   }
 }

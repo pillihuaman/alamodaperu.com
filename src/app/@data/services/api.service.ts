@@ -42,6 +42,7 @@ export class ApiService {
   }
 
   public formatErrors(err: HttpErrorResponse) {
+    debugger;
     const messageError = err.error ? err.error : err;
     if (
       err &&
@@ -50,6 +51,9 @@ export class ApiService {
       err.error.status.error &&
       err.error.status.error.messages
     ) {
+      // Extract the error message from payload.message
+      const errorMessage = err.error.payload ? err.error.payload.message : 'An error occurred';
+      return throwError(errorMessage);
     }
     return throwError(messageError);
   }
@@ -83,21 +87,15 @@ export class ApiService {
 
   post(path: string, body: any): Observable<any> {
     debugger;
-    //
-    // this.dialog.open(ModalComponent, {
-    // data: GeneralConstans.lazyLoadmodel,
-    //});
-    return this.http.post(path, body).pipe(
-      catchError((error) => {
-        //mensje
-        return this.formatErrors(error);
-      })
-    );
+    return this.http.post(path, body).pipe();
   }
+
+  // ... (other methods)
+
 
   /*postToFile(path: string, body: any, file: any): Observable<any> {
     const formData: FormData = new FormData();
-    debugger;
+   
 
     formData.append('archivo', file);
 

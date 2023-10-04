@@ -21,6 +21,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ParametersComponent } from './parameters/parameters.component';
+import { RegisterSystemComponent } from './register-system/register-system.component';
 @NgModule({
   declarations: [
     RegisterProductComponent,
@@ -28,6 +29,7 @@ import { ParametersComponent } from './parameters/parameters.component';
     RegisterStockComponent,
     RegisterControlComponent,
     ParametersComponent,
+    RegisterSystemComponent,
   ],
   imports: [
     BrowserModule,

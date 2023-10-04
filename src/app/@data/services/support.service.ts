@@ -11,6 +11,8 @@ import { Control } from '../model/general/control';
 import { RequestBody } from '../model/general/requestBody';
 import { Product } from '../model/product/product';
 import { Parameter } from '../model/general/parameter';
+import { SystemRequest } from '../model/general/systemRequest';
+import { SystemResponse } from '../model/general/systemResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -37,12 +39,12 @@ export class SupportService extends SupportRepository {
   constructor(private http: HttpClient, private apiService: ApiService) {
     super();
   }
-  saveControl(control: Control): Observable<Control> {
+  saveControl(control: Control): Observable<any> {
     const request: RequestBody = { data: control, trace: { traceId: '01' } };
     const url =
-      `${Const.API_SEGURIDAD}` +
+      `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCES_PRIVATE}` +
-      `/v1/control/saveControl`;
+      `/v1/support/control/saveControl`;
     return this.apiService.post(url, request);
   }
   listControl(control: Control): Observable<Control> {
@@ -70,5 +72,23 @@ export class SupportService extends SupportRepository {
       `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/saveParameter`;
     return this.apiService.post(url, request);
+  }
+  listSystem(page: number, pageSize: number): Observable<SystemResponse> {
+    throw new Error('Method not implemented.');
+  }
+  saveSystem(para: SystemRequest): Observable<SystemResponse> {
+    debugger;
+    const request: RequestBody = { data: para, trace: { traceId: '01' } };
+    const url =
+    `${Const.API_SUPPORT}` +
+    `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+    `/v1/support/system`;
+  return this.apiService.post(url, request);
+  }
+  systemById(para: String): Observable<SystemResponse> {
+    throw new Error('Method not implemented.');
+  }
+  deleteSystem(para: String): Observable<boolean> {
+    throw new Error('Method not implemented.');
   }
 }

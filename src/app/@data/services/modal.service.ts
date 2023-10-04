@@ -28,7 +28,7 @@ export class ModalService extends ModalRepository {
 
   open(closeOnBackdropClick: boolean) {
     this.dialogService.open(ModalComponent, {
-      closeOnBackdropClick,
+      closeOnBackdropClick: closeOnBackdropClick, // Use the parameter here
     });
   }
   showToast(status: NbComponentStatus, index: string) {

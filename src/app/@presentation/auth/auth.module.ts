@@ -1,15 +1,13 @@
-import { LoginComponent } from './user/login/login.component';
-import { UserModule } from './user/user.module';
-
-import { NgModule } from '@angular/core';
+;
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AuthRoutingModule } from './auth-routing.module';
 import {
   NbActionsModule,
   NbButtonModule,
   NbCardModule,
   NbContextMenuModule,
+  NbDatepickerModule,
   NbFormFieldModule,
   NbIconModule,
   NbInputModule,
@@ -21,19 +19,23 @@ import {
   NbSidebarModule,
   NbToggleModule,
 } from '@nebular/theme';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AuthComponent } from './auth.component';
 import { CommonComponentModule } from '../@common-components/common-component.module';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserModule } from './user/user.module';
+import { AuthRoutingModule } from './auth-routing.module';
+import { AuthComponent } from './auth.component';
 
 @NgModule({
   declarations: [AuthComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
-    CommonModule,
     NbActionsModule,
     NbButtonModule,
     NbCardModule,
@@ -48,12 +50,13 @@ import { CommonComponentModule } from '../@common-components/common-component.mo
     NbSelectModule,
     NbSidebarModule,
     NbToggleModule,
-    CommonComponentModule,
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
     MatAutocompleteModule,
-    UserModule,
+    MatButtonModule,
+    CommonComponentModule,
+    ReactiveFormsModule,UserModule
   ],
 })
 export class AuthModule {}

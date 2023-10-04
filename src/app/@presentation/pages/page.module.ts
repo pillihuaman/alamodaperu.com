@@ -35,8 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PageRoutingModule,
-    PageRoutingModule,
-    NbActionsModule,
+       NbActionsModule,
     NbButtonModule,
     NbCardModule,
     NbContextMenuModule,

@@ -24,14 +24,14 @@ export class UserService extends UserRepository {
   }
   registerUser(user: User): Observable<User[]> {
     debugger;
+
     const request: RequestBody = {
       data: user,
       trace: { traceId: '01' },
     };
     const url =
-      `${Const.API_SUPPORT}` +
-      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
-      `/v1/user/register`;
-    return this.apiService.post(url, request);
+      `${Const.API_SEGURIDAD}` +
+      `/api/v1/auth/register`;
+    return this.apiService.post(url, user);
   }
 }

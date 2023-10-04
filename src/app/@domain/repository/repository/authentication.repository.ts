@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { ResponseBody } from 'src/app/@data/model/general/responseBody';
 /* import { User } from "../../@data/model/user";
 import { Observable } from "rxjs";
 import { RegistroPostulante } from '../models/registro.postulante';
