@@ -1,6 +1,6 @@
 import { Const } from './../../utils/const';
 import { User } from './../../@domain/repository/models/user';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
@@ -13,14 +13,43 @@ import { Product } from '../model/product/product';
 import { Parameter } from '../model/general/parameter';
 import { SystemRequest } from '../model/general/systemRequest';
 import { SystemResponse } from '../model/general/systemResponse';
+import { PageRequest } from '../model/general/pageRequest';
+import { PageResponse } from '../model/general/pageResponse';
+import { ResponseBody } from '../model/general/responseBody';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupportService extends SupportRepository {
+  override testListPage(): Observable<any> {
+    const data: PageResponse[] = [
+      { id: "1", title: 'John Doe', content: "30", url: 'USA' },
+      { id: "2", title: 'zarrmir', content: "30", url: 'USA' },
+      { id: "3", title: 'Mendel Doe', content: "30", url: 'USA' }
+    ];
+
+    return of(data);
+  }
+  override savePage(para: PageRequest): Observable<PageResponse> {
+    debugger;
+    const request: RequestBody = { data: para, trace: { traceId: '01' } };
+    const url =
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/support/page`;
+    return this.apiService.post(url, request);
+  }
+  override findPages(page:any,pagesize:any):Observable<ResponseBody>{
+    const params: any = { page: page ,pagesize:pagesize};
+    const url =
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/support/page`;
+    return this.apiService.get(url, params);
+  }
   override getParameterbyIdCode(para: Parameter): Observable<Parameter[]> {
     debugger;
-    const params: any= { "idCode": 1223 };
+    const params: any = { "idCode": 1223 };
     const url =
       `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCES_PUBLIC}` +
@@ -80,10 +109,10 @@ export class SupportService extends SupportRepository {
     debugger;
     const request: RequestBody = { data: para, trace: { traceId: '01' } };
     const url =
-    `${Const.API_SUPPORT}` +
-    `/${Const.URL_TYPE_ACCES_PUBLIC}` +
-    `/v1/support/system`;
-  return this.apiService.post(url, request);
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/support/system`;
+    return this.apiService.post(url, request);
   }
   systemById(para: String): Observable<SystemResponse> {
     throw new Error('Method not implemented.');

@@ -56,13 +56,13 @@ debugger;
         debugger;
         let nbComponentStatus: NbComponentStatus = 'success';
        // this.router.navigate(['/auth/login']);
-        this.modalRepository.showToast(nbComponentStatus, value+"Authenti interce");
+        this.modalRepository.showToast(nbComponentStatus, value+"Authenti interce","");
       },
       (error) => {
 debugger;
         let nbComponentStatus: NbComponentStatus = 'danger';
        // this.router.navigate(['/auth/login']);
-        this.modalRepository.showToast(nbComponentStatus, error.message+"Authenti interce");
+        this.modalRepository.showToast(nbComponentStatus, error.message+"Authenti interce","");
       }
     );
   }

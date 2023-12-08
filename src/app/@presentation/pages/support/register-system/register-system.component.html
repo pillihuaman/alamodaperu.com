@@ -23,6 +23,16 @@
             formControlName="version"
           />
         </mat-form-field>
+
+        <div class="error-message" *ngIf="systemRequestForm.get('version')?.invalid">
+          <ng-container *ngFor="let errorMessage of formErrors['version']">
+            <div>{{ errorMessage }}</div>
+          </ng-container>
+          <div *ngIf="systemRequestForm.get('version')?.hasError('customError')">
+            {{ systemRequestForm.get('version')?.getError('customError') }}
+          </div>
+        </div>
+
       </div>
   
       <div class="form-group">
@@ -44,10 +54,19 @@
             type="email"
             placeholder="Contact Email"
             [maxLength]="50"
-            required
+  
             formControlName="contactEmail"
           />
         </mat-form-field>
+        <div class="error-message" *ngIf="systemRequestForm.get('contactEmail')?.invalid">
+          <ng-container *ngFor="let errorMessage of formErrors['contactEmail']">
+            <div>{{ errorMessage }}</div>
+          </ng-container>
+          <div *ngIf="systemRequestForm.get('contactEmail')?.hasError('customError')">
+            {{ systemRequestForm.get('contactEmail')?.getError('customError') }}
+          </div>
+        </div>
+        
       </div>
   
       <div class="form-group">
@@ -63,7 +82,7 @@
       </div>
   
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Save</button>
       </div>
     </div>
   </form>

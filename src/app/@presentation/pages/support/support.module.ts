@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NbAutocompleteModule,
   NbCardModule,
+  NbCheckboxComponent,
+  NbCheckboxModule,
+  NbInputModule,
   NbListModule,
   NbSelectModule,
   NbThemeModule,
@@ -19,9 +22,10 @@ import { RegisterControlComponent } from './register-control/register-control.co
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { ParametersComponent } from './parameters/parameters.component';
 import { RegisterSystemComponent } from './register-system/register-system.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 @NgModule({
   declarations: [
     RegisterProductComponent,
@@ -30,6 +34,8 @@ import { RegisterSystemComponent } from './register-system/register-system.compo
     RegisterControlComponent,
     ParametersComponent,
     RegisterSystemComponent,
+    RegisterPageComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,7 @@ import { RegisterSystemComponent } from './register-system/register-system.compo
     NbCardModule,
     NbSelectModule,
     MatSelectModule,
-    MatInputModule,MatNativeDateModule,MatDatepickerModule,NbAutocompleteModule
+    MatInputModule,MatNativeDateModule,MatDatepickerModule,NbAutocompleteModule,NbCheckboxModule,NbInputModule
   ],
 })
 export class SupportModule {}

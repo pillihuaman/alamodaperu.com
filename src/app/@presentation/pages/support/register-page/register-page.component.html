@@ -1,0 +1,49 @@
+<div class="container">
+  <form [formGroup]="pageRequestForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Title" required formControlName="title" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <textarea matInput placeholder="Content" formControlName="content"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="URL" formControlName="url" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <nb-checkbox formControlName="isPublished">Published</nb-checkbox>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Meta Keywords" formControlName="metaKeywords" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Meta Description" formControlName="metaDescription" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+    <br>
+    <app-table-datasource
+  [datas]="datas"
+  [defaultColumns]="defaultColumnsInput"
+  (actionClicked)="handleActionClick($event)"
+  (pageChange)="onPageChange($event)"
+  (pageSizeChange)="onPageSizeChange($event)"
+></app-table-datasource>
+  </form>
+</div>

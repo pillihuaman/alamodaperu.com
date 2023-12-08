@@ -1,19 +1,12 @@
 <div *ngIf="!data.lazyLoad">
-    <div mat-dialog-content *ngIf="data.code===1"
-        style="display: flex;flex-direction: column; margin:1rem auto; max-width: 800px; padding: 1rem;">
-        <img src="../../../../assets/imgs/icons8-done.svg">
-        <span class="success">{{data.message}}</span>
-    </div>
-    <div mat-dialog-content *ngIf="data.code===2"
-        style="display: flex;flex-direction: column; margin:1rem auto; max-width: 800px; padding: 1rem;">
-        <img src="../../../../assets/imgs/error-10379.svg">
-        <span class="success">{{data.message}}</span>
-    </div>
-    <div mat-dialog-content *ngIf="data.code===3"
-        style="display: flex;flex-direction: column; margin:1rem auto; max-width: 800px; padding: 1rem;">
-        <img src="../../../../assets/imgs/warning-sign-9743.svg">
-        <span class="success">{{data.message}}</span>
-    </div>
+
+
+    <div mat-dialog-content *ngIf="data.code === 3">
+    <img src="../../../../assets/imgs/warning-sign-9743.svg">
+    <span class="warning">{{ data.message }}</span>
+    <button nbButton fullWidth status="danger" (click)="deleteInformation()">Delete Information</button>
+</div>
+
     <button nbButton fullWidth status="basic" (click)="cancelar()">Close </button>
 </div>
 

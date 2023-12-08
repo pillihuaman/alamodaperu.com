@@ -36,6 +36,7 @@ import {
   NbFilterDirective,
   NbAutocompleteModule,
   NbToastrConfig,
+  NbCheckboxModule,
 } from '@nebular/theme';
 import { CommonComponentModule } from './@presentation/@common-components/common-component.module';
 import { HomeModule } from './@presentation/home/home.module';
@@ -48,7 +49,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicAuthInterceptor, ErrorInterceptor } from './@data/interceptors';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DataService } from './@data/services/data.service';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { InjectionToken, } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -98,7 +99,7 @@ export function localeInitializer() {
     FormsModule,
     MatTableModule,
     MatDialogModule,
-    MatNativeDateModule,MatDatepickerModule,NbTreeGridModule,NbAutocompleteModule
+    MatNativeDateModule,MatDatepickerModule,NbTreeGridModule,NbAutocompleteModule,NbCheckboxModule
 
   ],
   providers: [

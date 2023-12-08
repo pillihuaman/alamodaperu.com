@@ -48,4 +48,10 @@ export class ModalComponent implements OnInit {
     this.dialogRef.close();
     this.dialogs.closeAll();
   }
+  deleteInformation() {
+    // Implement logic to delete information
+    console.log('Deleting information...');
+    // You can close the modal if needed
+    this.dialogRef.close();
+  }
 }

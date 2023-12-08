@@ -27,34 +27,50 @@ button[nbTreeGridRowToggle] {
   color: aliceblue;
 }
 
-/*
-.nb-column-name {
-  width: 100%;
+/* table-datasource.component.scss */
+
+/* ... (previous styles) */
+
+/* Custom Actions Column */
+th.nbTreeGridHeaderCell[ng-reflect-nbTreeGridColumnDef='acciones'],
+td.nbTreeGridCell[ng-reflect-nbTreeGridColumnDef='acciones'] {
+  width: 10%;
+  display: flex;
+  align-items: center;
+}
+
+/* Button Styles */
+button[nbButton] {
+  margin-right: 0.5rem;
+  font-size: 0.5rem; /* Adjust the font size as needed */
 }
 
 
-@media screen and (min-width: 400px) {
-  .nb-column-name,
-  .nb-column-size {
-    width: 50%;
+/* Responsive Styling */
+@media screen and (max-width: 600px) {
+  th.nbTreeGridHeaderCell[ng-reflect-nbTreeGridColumnDef='acciones'],
+  td.nbTreeGridCell[ng-reflect-nbTreeGridColumnDef='acciones'] {
+    width: 100%;
+  }
+
+  /* Ensure buttons are displayed in a single line */
+  button[nbButton] {
+    display: block;
+    margin-bottom: 0.5rem; /* Add some space between buttons */
   }
 }
-
-@media screen and (min-width: 500px) {
-  .nb-column-name,
-  .nb-column-size,
-  .nb-column-kind {
-    width: 33.333%;
-  }
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* Adjust the margin as needed */
 }
 
-@media screen and (min-width: 600px) {
-  .nb-column-name {
-    width: 31%;
-  }
-  .nb-column-size,
-  .nb-column-kind,
-  .nb-column-items {
-    width: 23%;
-  }
-}*/
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.pagination button {
+  margin: 0 5px; /* Adjust the margin as needed */
+}

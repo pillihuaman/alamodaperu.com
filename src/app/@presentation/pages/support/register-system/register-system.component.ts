@@ -28,6 +28,7 @@ export class RegisterSystemComponent implements OnInit {
       supportPhone: [''],
     });
   }
+  formErrors: { [key: string]: string[] } = {}; // Object to store form errors
 
   onSubmit(): void {
     // Check if the form is valid
@@ -50,13 +51,26 @@ export class RegisterSystemComponent implements OnInit {
         (value) => {
           debugger;
           // Handle success
-          console.log('System saved successfully:', value);
-          // You can display a success message or redirect to another page here
+          let nbComponentStatus: NbComponentStatus = 'success';
+          // this.router.navigate(['/auth/login']);
+           this.modalRepository.showToast(nbComponentStatus,"Save Succes","Succes");
+          this.systemRequestForm.reset();
+    
         },
         (error) => {
+          debugger;
           // Handle error
-          console.error('Error saving system:', error);
-          // You can display an error message or handle the error as needed
+       
+          if ((error.status === 422 || error.status === 500 )&& error.error && error.error.data && error.error.data.payload) {
+            // Map the errors to the form controls
+            error.error.data.payload.forEach((errorItem: any) => {
+              const controlName = errorItem.propertyPath;
+              const errorMesagge = errorItem.valExceptionDescription;
+              //this.systemRequestForm.get(controlName)?.setErrors({ customError: errorMesagge });
+
+              this.systemRequestForm.get(controlName)?.setErrors({ invalid: true ,customError: errorMesagge});
+            });
+          }
         }
       );
     }

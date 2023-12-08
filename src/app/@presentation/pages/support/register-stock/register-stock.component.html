@@ -2,97 +2,62 @@
   <div class="form-row">
 
 
-        <div class="form-group paddingObect col-md-6">
-        <mat-form-field>
-          <mat-select  i18n placeholder="Product" formControlName="idProduct">
-            <mat-option
-              *ngFor="let prod of listProductByUser"
-              [value]="prod.idProduct"
-            >
-              {{ prod.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+    <div class="form-group paddingObect col-md-6">
+      <mat-form-field>
+        <mat-select i18n placeholder="Product" formControlName="idProduct">
+          <mat-option *ngFor="let prod of listProductByUser" [value]="prod.idProduct">
+            {{ prod.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-group paddingObect col-md-2">
+    <div class="class">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text" id="inputGroup-sizing-sm" i18n>Bar Code</span>
+        <input type="text" class="form-control" aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-sm" formControlName="barCode" />
       </div>
     </div>
-
-      <div class="form-group paddingObect col-md-2">
-        <div class="class">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text" id="inputGroup-sizing-sm" i18n
-              >Bar Code</span
-            >
-            <input
-              type="text"
-              class="form-control"
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm"
-              formControlName="barCode"
-            />
-          </div>
-        </div>
+  </div>
+  <br>
+  <div class="form-group paddingObect col-md-2">
+    <div class="class">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text" id="inputGroup-sizing-sm" i18n>Count</span>
+        <input type="text" class="form-control" aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-sm" formControlName="count" />
       </div>
-<br>
-      <div class="form-group paddingObect col-md-2">
-        <div class="class">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text" id="inputGroup-sizing-sm" i18n
-              >Count</span
-            >
-            <input
-              type="text"
-              class="form-control"
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm"
-              formControlName="count"
-            />
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="form-group paddingObect col-md-4">
-        <div class="class">
-          <div class="input-group input-group-sm">
-     <app-date-picker [placeholder]="'Expiration Date'"></app-date-picker>
-          </div>
-       
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <div  #container class="foto-editor">
     </div>
+  </div>
+  <br>
+  <div class="form-group paddingObect col-md-4">
+    <div class="class">
+      <div class="input-group input-group-sm">
+        <app-date-picker [placeholder]="'Expiration Date'"></app-date-picker>
       </div>
- 
+
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div #container class="foto-editor">
+    </div>
+  </div>
+
 
 
   <div class="col-md-4">
     <label for="formFileSm" class="form-label" i18n>Attach Image</label>
-    <input
-      enctype="multipart/form-data"
-      class="form-control form-control-sm"
-      id="formFileSm"
-      type="file"
-      accept="imagen/*"
-      #inputFile
-      (change)="loadFile($event)"
-    />
+    <input enctype="multipart/form-data" class="form-control form-control-sm" id="formFileSm" type="file"
+      accept="imagen/*" #inputFile (change)="loadFile($event)" />
   </div>
   <br>
-  <div class="col-md-8">
-    <nb-card>
-      <nb-card-body>
-  <app-table-datasource  [datas]=datas [customColumnInput]=customColumnInput [defaultColumnsInput]=defaultColumnsInput></app-table-datasource>
-</nb-card-body>
-</nb-card>
-   
-  </div>
+
   <div class="form-group paddingObect">
-    <app-router-button i18n
-      [idCode]="'111saveSave Stock'"
-      (click)="save()"
-    ></app-router-button>
+    <app-router-button i18n [idCode]="'111saveSave Stock'" (click)="save()"></app-router-button>
     {{ locale }}
   </div>
 </form>
-  

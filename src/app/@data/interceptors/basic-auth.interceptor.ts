@@ -35,7 +35,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         const nbComponentStatus: NbComponentStatus = 'danger';
-        this.modalRepository.showToast(nbComponentStatus, error.message + "Basic");
+        this.modalRepository.showToast(nbComponentStatus, error.message + "Basic","");
         return throwError(error);
       })
     );
