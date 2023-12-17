@@ -22,7 +22,7 @@ export abstract class SupportRepository {
   abstract listSystem(page:number, pageSize:number): Observable<SystemResponse>
   abstract saveSystem(para: SystemRequest): Observable<SystemResponse>
   abstract savePage(para: PageRequest): Observable<PageResponse>
-  abstract findPages(page:any,pagesize:any):Observable<ResponseBody>
+  abstract findPages(page:any,pagesize:any,id:any,title:any,content:any,url:any):Observable<ResponseBody>
   abstract testListPage(): Observable<any>
   abstract  systemById(para: String): Observable<SystemResponse>
   abstract deleteSystem(para: String): Observable<boolean>

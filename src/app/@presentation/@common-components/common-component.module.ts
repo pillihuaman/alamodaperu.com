@@ -19,6 +19,7 @@ import {
   NbContextMenuModule,
   NbDialogModule,
   NbTreeGridModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -52,6 +53,7 @@ import { TableDatasourceComponent } from './table-datasource/table-datasource.co
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { SelectAndInputControlComponent } from './select-and-input-control/select-and-input-control.component';
 import { DatatableComponent } from './datatable/datatable.component';
+import { AppspinnercardComponent } from './appspinnercard/appspinnercard.component';
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
   ServPillihuamanSidebarHomeComponent,
@@ -62,7 +64,7 @@ const COMPONENTS = [
   ImagenCatchInformationComponent,
   RouterButtonComponent,
   ProductDescriptionComponent,
-  LabelComponent,DatePickerComponent,TableDatasourceComponent, DynamicComponent,SelectAndInputControlComponent,DatatableComponent
+  LabelComponent, DatePickerComponent, TableDatasourceComponent, DynamicComponent, SelectAndInputControlComponent, DatatableComponent, AppspinnercardComponent
 ];
 /*const DIRECTIVES = [
 
@@ -105,7 +107,11 @@ const materialModules = [MatIconModule];
     MatIconModule,
     RouterModule,
     NbCardModule,
-    MatProgressSpinnerModule, MatNativeDateModule,MatDatepickerModule,NbTreeGridModule
+    MatProgressSpinnerModule,
+     MatNativeDateModule,
+      MatDatepickerModule, 
+      NbTreeGridModule,
+      NbSpinnerModule
 
   ],
   exports: [...COMPONENTS, ...materialModules],
@@ -113,4 +119,4 @@ const materialModules = [MatIconModule];
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: MatPaginatorIntl }],
 })
-export class CommonComponentModule {}
+export class CommonComponentModule { }

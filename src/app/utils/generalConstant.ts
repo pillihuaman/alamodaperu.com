@@ -9,8 +9,11 @@ export class GeneralConstans {
   public static warningMessage: string = 'Warning !';
   public static lazyLoad: boolean = false;
   public static page: number = 0;
-  public static perPage: number = 20;
-
+  public static perPage: number = 500;
+  public static perPageTodefault: number = 50;
+  public static maxPerPage: number = 2;
+  public static typeSearchEspecific: String = 'ESPECIFIC';
+  public static typeSearchDefault: String = 'DEFAULT';
   public static datamodelError: ModalModel = {
     code: GeneralConstans.errorCode,
     message: GeneralConstans.errorMessage,

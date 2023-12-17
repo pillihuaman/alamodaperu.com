@@ -39,13 +39,13 @@ export class SupportService extends SupportRepository {
       `/v1/support/page`;
     return this.apiService.post(url, request);
   }
-  override findPages(page:any,pagesize:any):Observable<ResponseBody>{
-    const params: any = { page: page ,pagesize:pagesize};
-    const url =
+  override findPages(page:any,pagesize:any,id:any,title:any,content:any,url:any):Observable<ResponseBody>{
+    const params: any = { page: page ,pagesize:pagesize,id,title,content,url};
+    const urls =
       `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/support/page`;
-    return this.apiService.get(url, params);
+    return this.apiService.get(urls, params);
   }
   override getParameterbyIdCode(para: Parameter): Observable<Parameter[]> {
     debugger;

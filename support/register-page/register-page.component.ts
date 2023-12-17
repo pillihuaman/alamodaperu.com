@@ -36,13 +36,11 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.findByDefualt() 
   }
   
   onPageChange(page: number): void {
     ;
     this.page = page;
-    this.findByDefualt() 
   }
 
   onPageSizeChange(pageSize: number): void {
@@ -125,12 +123,6 @@ export class RegisterPageComponent implements OnInit {
       ).subscribe(
         (data) => {
           this.datas = data;
-          debugger;
-          if (this.datas && this.datas.length > GeneralConstans.perPageTodefault) {
-            this.typeSearch = GeneralConstans.typeSearchDefault;
-          } else {
-            this.typeSearch = GeneralConstans.typeSearchEspecific;
-          }        
           console.log("Data source page", this.datas);
           debugger;
           if (this.datas && this.datas.length > 0) {
@@ -206,10 +198,9 @@ export class RegisterPageComponent implements OnInit {
   }
 
   findByparameter() {
-    debugger;
-    this.findPagesProcess();
-   // Check if the number of rows is greater than 50
-  // Perform the search
+    debugger
+    this.typeSearch = GeneralConstans.typeSearchEspecific;
+    this. findPagesProcess()
     
   }
   findByDefualt() {

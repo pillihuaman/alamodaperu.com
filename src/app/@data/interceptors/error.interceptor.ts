@@ -42,16 +42,16 @@ export class ErrorInterceptor implements HttpInterceptor {
               // Customize your error handling based on the payload
               // For example, you can iterate through payload items and display relevant error messages
               if (payload.length > 0) {
-               // const errorMessages = payload.map(item => item.propertyPath.leafNode.name);
+                // const errorMessages = payload.map(item => item.propertyPath.leafNode.name);
                 //this.modalService.showToast(nbComponentStatus, errorMessages.join(', '));
               } else {
-                this.modalService.showToast(nbComponentStatus, errorMessage,"");
+                this.modalService.showToast(nbComponentStatus, errorMessage, "");
               }
             } else
               if (err.error.errors && err.error.errors.length > 0) {
-                this.modalService.showToast(nbComponentStatus, err.error.errors[0],"");
+                this.modalService.showToast(nbComponentStatus, err.error.errors[0], "");
               } else {
-                this.modalService.showToast(nbComponentStatus, 'Internal Server Error',"");
+                this.modalService.showToast(nbComponentStatus, 'Internal Server Error', "");
               }
 
           }
@@ -62,7 +62,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           } */else if (httpError.status === 404) {
             // Handle Not Found
             const nbComponentStatus: NbComponentStatus = 'danger';
-            this.modalService.showToast(nbComponentStatus, 'Resource Not Found',"");
+            this.modalService.showToast(nbComponentStatus, 'Resource Not Found', "");
+          }
+          else if (httpError.status === 400) {
+            // Handle Not Found
+            const nbComponentStatus: NbComponentStatus = 'danger';
+                this.modalService.showToast(nbComponentStatus, 'Internal Server Error',httpError.error.detail);
           }
           // You can also re-throw the error to propagate it further
           return throwError(err);

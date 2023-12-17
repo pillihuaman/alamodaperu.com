@@ -37,6 +37,8 @@ import {
   NbAutocompleteModule,
   NbToastrConfig,
   NbCheckboxModule,
+  NbSpinnerModule,
+  NbAccordionModule,
 } from '@nebular/theme';
 import { CommonComponentModule } from './@presentation/@common-components/common-component.module';
 import { HomeModule } from './@presentation/home/home.module';
@@ -55,11 +57,12 @@ import { InjectionToken, } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LocalRepository } from './@domain/repository/repository/local.repository';
 import { AuthModule } from './@presentation/auth/auth.module';
+import { SpinnerService } from './@data/services/spinner.service';
 export function localeInitializer() {
 
-  console.log(navigator.language+" lo");
+  console.log(navigator.language + " lo");
 
-  let id=navigator.language.toString().split('-')
+  let id = navigator.language.toString().split('-')
   return () => navigator.language || 'en';
 }
 @NgModule({
@@ -99,7 +102,12 @@ export function localeInitializer() {
     FormsModule,
     MatTableModule,
     MatDialogModule,
-    MatNativeDateModule,MatDatepickerModule,NbTreeGridModule,NbAutocompleteModule,NbCheckboxModule
+    MatNativeDateModule, 
+    MatDatepickerModule, 
+    NbTreeGridModule, 
+    NbAutocompleteModule,
+    NbCheckboxModule,
+    NbSpinnerModule,NbAccordionModule
 
   ],
   providers: [
@@ -116,26 +124,26 @@ export function localeInitializer() {
       multi: true,
     },
 
-   /* {
-      provide: LOCALE_ID,
-      useFactory: (localeService: LocaleService) => {
-        console.log('locale ID', LocaleService.getLocaleIdValue);
-        return LocaleService.getLocaleIdValue;
-      },
-      deps: [LocaleService],
-    },*/
-  { provide: LOCALE_ID, useValue:   window.navigator.language},
-  
- { provide: MAT_DATE_LOCALE, useValue:  window.navigator.language},
+    /* {
+       provide: LOCALE_ID,
+       useFactory: (localeService: LocaleService) => {
+         console.log('locale ID', LocaleService.getLocaleIdValue);
+         return LocaleService.getLocaleIdValue;
+       },
+       deps: [LocaleService],
+     },*/
+    { provide: LOCALE_ID, useValue: window.navigator.language },
+
+    { provide: MAT_DATE_LOCALE, useValue: window.navigator.language },
     //LocaleService,
-   // { provide: MAT_DATE_LOCALE, useValue:localeInitializer },
+    // { provide: MAT_DATE_LOCALE, useValue:localeInitializer },
     /*{
       provide: LOCALE_ID,
       useFactory: localeInitializer,
       multi: true
     },*/
     { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID },
-  
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BasicAuthInterceptor,
@@ -163,11 +171,13 @@ export function localeInitializer() {
     ApiService,
     Title,
     DataService,
+    SpinnerService
+
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule { }
 export function tokenGetter() {
   return sessionStorage.getItem('token');
 }

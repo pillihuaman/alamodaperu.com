@@ -1,0 +1,130 @@
+<form [formGroup]="myForm">
+  <div class="container">
+    <div class="form-group col-sm-4">
+      <mat-form-field>
+        <mat-select placeholder="System" formControlName="idSystem" required>
+          <mat-option *ngFor="let sys of listSystem" [value]="sys.idSystem">
+            {{ sys.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <mat-form-field>
+        <mat-select placeholder="Menu" formControlName="idMenu" required>
+          <mat-option *ngFor="let sys of listMenu" [value]="sys.idMenu">
+            {{ sys.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <mat-form-field>
+        <mat-select placeholder="Sub Menu" formControlName="idSubMenu" required>
+          <mat-option *ngFor="let sys of listSubMenu" [value]="sys.idSubMenu">
+            {{ sys.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <mat-form-field>
+        <mat-select placeholder="Page" formControlName="idPage" required>
+          <mat-option *ngFor="let sys of listPage" [value]="sys.idPage">
+            {{ sys.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group col-sm-4">
+      <div class="class">
+        <div class="input-group input-group-sm mb-3">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Control Name"
+              [maxLength]="50"
+              formControlName="text"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <div class="class">
+        <div class="input-group input-group-sm mb-3">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Description"
+              [maxLength]="50"
+              required
+              formControlName="description"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <div class="class">
+        <div class="input-group input-group-sm mb-3">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="icono"
+              [maxLength]="50"
+              required
+              formControlName="icono"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <div class="class">
+        <div class="input-group input-group-sm mb-3">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Icon Class"
+              [maxLength]="50"
+              formControlName="iconClass"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <div class="class">
+        <div class="input-group input-group-sm mb-3">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Style Class"
+              [maxLength]="100"
+              required 
+              formControlName="styleClass"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button (click)="save()">save</button>
+      <app-router-button (click)="save()"></app-router-button>
+    </div>
+  </div>
+</form>
