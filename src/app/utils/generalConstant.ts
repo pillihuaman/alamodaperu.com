@@ -14,6 +14,8 @@ export class GeneralConstans {
   public static maxPerPage: number = 2;
   public static typeSearchEspecific: String = 'ESPECIFIC';
   public static typeSearchDefault: String = 'DEFAULT';
+  public static pageSizeTable: number = 50;
+  public static currentPageTable: number = 1;
   public static datamodelError: ModalModel = {
     code: GeneralConstans.errorCode,
     message: GeneralConstans.errorMessage,

@@ -23,12 +23,13 @@ export class RegisterPageComponent implements OnInit {
   pageRequest?: PageRequest;
   datas?: TreeNode<PageResponse>[] = [];
   teestMod: string = "tees";
-  defaultColumnsInput: any = ['id', 'title', "content", "isPublished", "metaKeywords", "metaDescription"];
   page?: number = GeneralConstans.page
   pageSize?: number = GeneralConstans.perPage;
   isLoading = false;
   hasMorePagesT = false;
-  typeSearch: String = GeneralConstans.typeSearchDefault;
+  searchButtonDisabled = true;
+  typeOfSearch: any;
+
   constructor(private fb: FormBuilder, private supportService: SupportRepository, private modalRepository: ModalRepository,
     public dialog: MatDialog, private spinnerService: SpinnerService) {
     this.pageRequest = {};
@@ -36,20 +37,10 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.findByDefualt() 
-  }
-  
-  onPageChange(page: number): void {
-    ;
-    this.page = page;
-    this.findByDefualt() 
+    this.findByDefualt()
   }
 
-  onPageSizeChange(pageSize: number): void {
-    ;
-    //this.pageSize = pageSize;
-    //this.findPages();
-  }
+
 
   handleActionClick(event: any) {
 
@@ -85,7 +76,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   findPagesProcess() {
-    debugger;
+
     this.spinnerService.show();
     const columnNamesMapping: { [key: string]: string } = {
       id: 'ID',
@@ -100,14 +91,14 @@ export class RegisterPageComponent implements OnInit {
     const title = this.pageRequestForm.value.titleToFind || '';
     const content = this.pageRequestForm.value.contentToFind || '';
     const url = this.pageRequestForm.value.urlToFind || '';
-    this.validateTypeFind();
     this.supportService.findPages(this.page, this.pageSize, id, title,
       content, url).pipe(
         map((value) => {
           let respo: PageResponse[] = value.payload;
           let copyStock: TreeNode<PageResponse>[] = [];
           respo.forEach((value, index) => {
-            let transformedData: any = {};
+            let transformedData: any = {
+            };
             for (const key in value) {
               if (columnNamesMapping[key]) {
                 transformedData[columnNamesMapping[key]] = value[key];
@@ -125,14 +116,7 @@ export class RegisterPageComponent implements OnInit {
       ).subscribe(
         (data) => {
           this.datas = data;
-          debugger;
-          if (this.datas && this.datas.length > GeneralConstans.perPageTodefault) {
-            this.typeSearch = GeneralConstans.typeSearchDefault;
-          } else {
-            this.typeSearch = GeneralConstans.typeSearchEspecific;
-          }        
           console.log("Data source page", this.datas);
-          debugger;
           if (this.datas && this.datas.length > 0) {
             console.log("Data" + Object.keys(this.datas[0].data))
             this.defaultColumnsInput = Object.keys(this.datas[0].data);
@@ -193,29 +177,52 @@ export class RegisterPageComponent implements OnInit {
       console.log('Form values:', formValues);
     }
   }
-  validateTypeFind() {
-    debugger
-    const id = this.pageRequestForm.value.idToFind || '';
-    const title = this.pageRequestForm.value.titleToFind || '';
-    const content = this.pageRequestForm.value.contentToFind || '';
-    const url = this.pageRequestForm.value.urlToFind || '';
-  
-    if (id || title || content || url) {
-      this.typeSearch = GeneralConstans.typeSearchEspecific;
-    } 
+
+  defaultColumnsInput: any = ['id', 'title', "content", "isPublished", "metaKeywords", "metaDescription"];
+  columnMappin():{ [key: string]: string } {
+    return {
+      id: 'ID',
+      title: 'Page Title',
+      content: 'Page Content',
+      isPublished: 'Published',
+      metaKeywords: 'Keywords',
+      metaDescription: 'Description'
+
+    };
+
+  }
+
+  onPageChange(page: number): void {
+    ;
+    this.page = page;
+    this.findByDefualt()
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    ;
+    //this.pageSize = pageSize;
+    //this.findPages();
+  }
+
+
+  checkInputs() {
+    //declare input to find 
+    const idToFind = this.pageRequestForm.get('idToFind')?.value || '';
+    const titleToFind = this.pageRequestForm.get('titleToFind')?.value || '';
+    const contentToFind = this.pageRequestForm.get('contentToFind')?.value || '';
+    const urlToFind = this.pageRequestForm.get('urlToFind')?.value || '';
+
+    this.searchButtonDisabled = !(idToFind || titleToFind || contentToFind || urlToFind);
+    if (this.searchButtonDisabled) { this.findPagesProcess(); }
   }
 
   findByparameter() {
-    debugger;
+    this.page = GeneralConstans.page
+    this.pageSize = GeneralConstans.perPage;
+    this.typeOfSearch = GeneralConstans.typeSearchEspecific
     this.findPagesProcess();
-   // Check if the number of rows is greater than 50
-  // Perform the search
-    
   }
   findByDefualt() {
-    debugger
-      this.typeSearch = GeneralConstans.typeSearchDefault;
-    this. findPagesProcess();
-    
+    this.findPagesProcess();
   }
 }

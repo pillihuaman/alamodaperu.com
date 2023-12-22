@@ -56,14 +56,14 @@
             <div class="col-md-3 col-sm-6">
               <div class="form-group">
                 <mat-form-field>
-                  <input matInput type="text" placeholder="ID" formControlName="idToFind" />
+                  <input matInput type="text" placeholder="ID" formControlName="idToFind" (input)="checkInputs()"/>
                 </mat-form-field>
               </div>
             </div>
             <div class="col-md-3 col-sm-6">
               <div class="form-group">
                 <mat-form-field>
-                  <input matInput type="text" placeholder="Title" formControlName="titleToFind" />
+                  <input matInput type="text" placeholder="Title" formControlName="titleToFind"  (input)="checkInputs()" />
                 </mat-form-field>
               </div>
             </div>
@@ -71,7 +71,7 @@
             <div class="col-md-3 col-sm-6">
               <div class="form-group">
                 <mat-form-field>
-                  <input matInput type="text" placeholder="Content" formControlName="contentToFind" />
+                  <input matInput type="text" placeholder="Content" formControlName="contentToFind"  (input)="checkInputs()" />
                 </mat-form-field>
               </div>
             </div>
@@ -79,22 +79,24 @@
             <div class="col-md-3 col-sm-6">
               <div class="form-group">
                 <mat-form-field>
-                  <input matInput type="text" placeholder="URL" formControlName="urlToFind" />
+                  <input matInput type="text" placeholder="URL" formControlName="urlToFind" (input)="checkInputs()" />
                 </mat-form-field>
               </div>
             </div>
 
             <div class="col-md-3 col-sm-6">
               <div class="form-group">
-                <button type="button" class="btn btn-primary" (click)="findByparameter()">Search</button>
+                <button type="button" class="btn btn-primary" (click)="findByparameter()" [disabled]="searchButtonDisabled">Search</button>
+
               </div>
             </div>
           </div>
 
           <app-table-datasource [datas]="datas" [defaultColumns]="defaultColumnsInput"
             (actionClicked)="handleActionClick($event)" (pageChange)="onPageChange($event)"
-            (pageSizeChange)="onPageSizeChange($event)" [hasMorePagesT]="hasMorePagesT"
-            [typeSearch]="typeSearch"></app-table-datasource>
+            (pageSizeChange)="onPageSizeChange($event)" [hasMorePagesT]="hasMorePagesT"   [typeOfSearch]="typeOfSearch"  
+  
+            ></app-table-datasource>
 
         </nb-accordion-item-body>
       </nb-accordion-item>

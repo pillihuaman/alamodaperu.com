@@ -8,12 +8,13 @@
       <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="getHeaderColumns()"></tr>
       <!-- Data Rows -->
       <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: getRowColumns()"></tr>
-      <ng-container [nbTreeGridColumnDef]="'Nro'">
+          
+      <!--  <ng-container [nbTreeGridColumnDef]="'Nro'">
         <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
           Nro
         </th>
         <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data['Nro'] || '-'}}</td>
-      </ng-container>
+      </ng-container>-->
 
 
       
