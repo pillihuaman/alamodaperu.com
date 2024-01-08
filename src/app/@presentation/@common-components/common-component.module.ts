@@ -54,6 +54,8 @@ import { DynamicComponent } from './dynamic/dynamic.component';
 import { SelectAndInputControlComponent } from './select-and-input-control/select-and-input-control.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { AppspinnercardComponent } from './appspinnercard/appspinnercard.component';
+import { TableDatasourceCustomComponent } from './table-datasource-custom/table-datasource-custom.component';
+import { ValidationMessageComponent } from './validation-message/validation-message.component';
 const COMPONENTS = [
   ServPillihuamanHeaderHomeComponent,
   ServPillihuamanSidebarHomeComponent,
@@ -64,7 +66,8 @@ const COMPONENTS = [
   ImagenCatchInformationComponent,
   RouterButtonComponent,
   ProductDescriptionComponent,
-  LabelComponent, DatePickerComponent, TableDatasourceComponent, DynamicComponent, SelectAndInputControlComponent, DatatableComponent, AppspinnercardComponent
+  LabelComponent, DatePickerComponent, TableDatasourceComponent, DynamicComponent, SelectAndInputControlComponent, DatatableComponent, AppspinnercardComponent,
+  TableDatasourceCustomComponent,ValidationMessageComponent
 ];
 /*const DIRECTIVES = [
 

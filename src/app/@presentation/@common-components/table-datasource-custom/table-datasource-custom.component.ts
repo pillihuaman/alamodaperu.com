@@ -15,18 +15,21 @@ interface FSEntry {
   items?: number;
 }
 @Component({
-  selector: 'app-table-datasource',
-  templateUrl: './table-datasource.component.html',
-  styleUrls: ['./table-datasource.component.scss']
+  selector: 'app-table-datasource-custom',
+  templateUrl: './table-datasource-custom.component.html',
+  styleUrls: ['./table-datasource-custom.component.scss']
 })
-export class TableDatasourceComponent implements OnInit {
+export class TableDatasourceCustomComponent implements OnInit {
   ngOnInit(): void {
     this.buildTable();
     // You can leave it empty or remove it entirely
   }
-  @Input() defaultColumns: any = [];// = [ 'size', 'kind', 'items' ];
-  @Input() datas: any;
-  allColumns = ['acciones', ...this.defaultColumns];
+  @Input() defaultColumnsBySearchType: any = [];// = [ 'size', 'kind', 'items' ];
+  @Input() datasBySearchType: any;
+  @Input() hasMorePagesTBySearchType: boolean = false;
+  @Input() typeOfSearchBySearchType?: String;
+
+  allColumns = ['acciones', ...this.defaultColumnsBySearchType];
   dataSource: NbTreeGridDataSource<any>;
   sortColumn?: string;
   sortDirection: NbSortDirection = NbSortDirection.NONE;
@@ -38,78 +41,61 @@ export class TableDatasourceComponent implements OnInit {
   paginatedData: TreeNode<any>[] = [];
   initialData: any[] = []; // Initial 350 rows
   additionalData: any[] = []; // Dynamically added rows
-  @Input() hasMorePagesT: boolean = false;
-  @Input() typeOfSearch?: String;
-  showTable = false;
-  showTableCustom = false;
-
-  defaultColumnsBySearchType: any = [];
-  datasBySearchType: any;
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>) {
-    this.datas = [...this.initialData, ...this.additionalData];
-    this.dataSource = this.dataSourceBuilder.create(this.datas);
+    this.datasBySearchType = [...this.initialData, ...this.additionalData];
+    this.dataSource = this.dataSourceBuilder.create(this.datasBySearchType);
 
   }
   @Input()
   set tableData(data: any[]) {
-    this.datas = data;
+    this.datasBySearchType = data;
     this.buildTable();
   }
   ngOnChanges(changes: SimpleChanges): void {
+    this.hasMorePagesTBySearchType;
     debugger;
-    if (changes['customColumn'] || changes['defaultColumns'] || changes['datas']) {
-      this.allColumns = [...this.defaultColumns];
-      if (!changes['datas'].isFirstChange()) {
+    if (changes['customColumnBySearchType'] || changes['defaultColumnsBySearchType'] || changes['datasBySearchType']) {
+      this.allColumns = [...this.defaultColumnsBySearchType];
+    
         if (
-          changes['datas'].currentValue &&
-          changes['datas'].currentValue !== null &&
-          changes['datas'].currentValue !== undefined &&
-          changes['datas'].currentValue.length > 0
+          changes['datasBySearchType'].currentValue &&
+          changes['datasBySearchType'].currentValue !== null &&
+          changes['datasBySearchType'].currentValue !== undefined &&
+          changes['datasBySearchType'].currentValue.length > 0
         ) {
-          if (this.typeOfSearch === GeneralConstans.typeSearchEspecific) {
-            this.showTableCustom = true;
-            this.showTable = false;
-            this.additionalData = [];
-            this.defaultColumnsBySearchType=this.defaultColumns
-            if(this.datas.length>0){
-              this.hasMorePagesT=true;
-            }else{
-              this.hasMorePagesT=false;
-            }
-            this.datasBySearchType = this.datas ;
-          } else {
+          this.additionalData=[]
+          this.additionalData = [...this.additionalData, ...changes['datasBySearchType'].currentValue];
+          this.datasBySearchType = [...this.initialData, ...this.additionalData];
+          this.dataSource = this.dataSourceBuilder.create(this.datasBySearchType);
+          this.currentPage = GeneralConstans.currentPageTable;
+          this.hasMorePagesTBySearchType = true;
+          
+          this.buildTable();
 
-            this.showTableCustom = false;
-            this.showTable = true;
-            this.additionalData = [...this.additionalData, ...changes['datas'].currentValue];
-            this.datas = [...this.initialData, ...this.additionalData];
-            this.dataSource = this.dataSourceBuilder.create(this.datas);
-            this.buildTable();
-          }
-        } else {
-          if (this.typeOfSearch === GeneralConstans.typeSearchDefault) {
-            this.showTableCustom = false;
-            this.showTable = true;
-            this.additionalData = [...this.additionalData, ...changes['datas'].currentValue];
-            this.datas = [...this.initialData, ...this.additionalData];
-            this.dataSource = this.dataSourceBuilder.create(this.datas);
-            this.buildTable();
-          }else{
-            this.defaultColumnsBySearchType=this.defaultColumns
-            this.datasBySearchType = this.datas ;
-            this.hasMorePagesT=false;
-            this.resetTable()
-          }
+        }else{
+          debugger;
+          this.defaultColumnsBySearchType=this.defaultColumnsBySearchType
+          this.datasBySearchType = this.datasBySearchType ;
+          this.resetTable()
         }
-      }
+      
     }
   }
 
 
   resetTable(): void {
+    // Reset all relevant properties
+    this.sortColumn = undefined;
+    this.sortDirection = NbSortDirection.NONE;
+    this.currentPage = GeneralConstans.currentPageTable;
+    this.paginator = 1;
+    this.paginatedData = [];
     this.initialData = [];
     this.additionalData = [];
-    this.dataSource = this.dataSourceBuilder.create(this.datas);
+    this.hasMorePagesTBySearchType = false;
+    this.dataSource = this.dataSourceBuilder.create(this.datasBySearchType);
+
+    // Rebuild the table
     this.buildTable();
 
     // Clear the 'Nro' values
@@ -133,20 +119,11 @@ export class TableDatasourceComponent implements OnInit {
   }
 
   buildTable() {
-    debugger;
-    // Manually paginate the data
+    ;
+ 
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.paginatedData = this.datas.slice(startIndex, endIndex);
-
-
-    // Assign incrementing 'Nro' values to the paginated data
-
-    /* this.paginatedData.forEach((item, index) => {
-       item.data['Nro'] = startIndex + index + 1;
-     });*/
-
-    // Recreate the dataSource with the updated paginated data
+    this.paginatedData = this.datasBySearchType.slice(startIndex, endIndex);
     this.dataSource = this.dataSourceBuilder.create(this.paginatedData);
   }
   onPageChange(page: number): void {
@@ -155,10 +132,11 @@ export class TableDatasourceComponent implements OnInit {
       this.buildTable();
     }
     else {
-      this.paginator++;
-      this.pageChange.emit(this.paginator); // Emit the currentPage value
+      //this.paginator++;
+     // this.pageChange.emit(this.paginator); // Emit the currentPage value
       //this.pageSizeChange.emit(this.pageSize); // Emit the pageSize valu
       this.currentPage = page;
+      this.hasMorePagesTBySearchType = false;
     }
 
   }
@@ -166,12 +144,12 @@ export class TableDatasourceComponent implements OnInit {
     debugger
     this.currentPage = page;
     this.buildTable();
-    this.hasMorePagesT = true;
+    this.hasMorePagesTBySearchType = true;
 
   }
 
   hasMorePages(): boolean {
-    const totalItems = this.datas.length;
+    const totalItems = this.datasBySearchType.length;
     const totalPages = Math.ceil(totalItems / this.pageSize);
     return this.currentPage < totalPages;
   }
@@ -181,11 +159,11 @@ export class TableDatasourceComponent implements OnInit {
     // Add your delete logic here, for example, show a confirmation dialog
   }
   getHeaderColumns(): string[] {
-    return [...this.defaultColumns, 'acciones',];
+    return [...this.defaultColumnsBySearchType, 'acciones',];
   }
 
   getRowColumns(): string[] {
-    return [...this.defaultColumns, 'acciones',];
+    return [...this.defaultColumnsBySearchType, 'acciones',];
   }
 
 

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
+import { BusinessConstan } from './businnessConstant';
 
 declare var $: any;
 
@@ -72,6 +73,7 @@ export class Utils {
   }
 
   static empty(e: any): boolean {
+  
     {
       switch (e) {
         case '':
@@ -84,6 +86,14 @@ export class Utils {
         default:
           return false;
       }
+    }
+  }
+  static   isValidObjectId(value: string): boolean {
+
+    if (BusinessConstan.objectIdPattern.test(value)) {
+      return true ;
+    }else{
+      return false ;
     }
   }
 }

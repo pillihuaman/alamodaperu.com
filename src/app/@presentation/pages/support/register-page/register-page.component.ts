@@ -13,12 +13,14 @@ import { GeneralConstans } from 'src/app/utils/generalConstant';
 import { ModalModel } from 'src/app/@data/model/User/modalModel';
 import { SpinnerService } from 'src/app/@data/services/spinner.service';
 import { SupportRepository } from 'src/app/@domain/repository/repository/support.repository';
+import { Utils } from 'src/app/utils/utils';
+import { BaseImplementation } from 'src/app/utils/baseImplementation';
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss']
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent  extends BaseImplementation implements OnInit {
   pageRequestForm!: FormGroup;
   pageRequest?: PageRequest;
   datas?: TreeNode<PageResponse>[] = [];
@@ -29,9 +31,24 @@ export class RegisterPageComponent implements OnInit {
   hasMorePagesT = false;
   searchButtonDisabled = true;
   typeOfSearch: any;
+  listError: any;
+  defaultColumnsInput: any = ['id', 'title', "content", "isPublished", "metaKeywords", "metaDescription"];
+  columnMappin(): { [key: string]: string } {
+    return {
+      id: 'ID',
+      title: 'Page Title',
+      content: 'Page Content',
+      isPublished: 'Published',
+      metaKeywords: 'Keywords',
+      metaDescription: 'Description'
 
+    };
+
+  }
+   processDataResult?:any;
   constructor(private fb: FormBuilder, private supportService: SupportRepository, private modalRepository: ModalRepository,
     public dialog: MatDialog, private spinnerService: SpinnerService) {
+    super();
     this.pageRequest = {};
   }
 
@@ -78,7 +95,7 @@ export class RegisterPageComponent implements OnInit {
   findPagesProcess() {
 
     this.spinnerService.show();
-    const columnNamesMapping: { [key: string]: string } = {
+    /*const columnNamesMapping: { [key: string]: string } = {
       id: 'ID',
       title: 'Page Title',
       content: 'Page Content',
@@ -86,7 +103,7 @@ export class RegisterPageComponent implements OnInit {
       metaKeywords: 'Keywords',
       metaDescription: 'Description'
 
-    };
+    };*/
     const id = this.pageRequestForm.value.idToFind || '';
     const title = this.pageRequestForm.value.titleToFind || '';
     const content = this.pageRequestForm.value.contentToFind || '';
@@ -95,13 +112,13 @@ export class RegisterPageComponent implements OnInit {
       content, url).pipe(
         map((value) => {
           let respo: PageResponse[] = value.payload;
-          let copyStock: TreeNode<PageResponse>[] = [];
+         /* let copyStock: TreeNode<PageResponse>[] = [];
           respo.forEach((value, index) => {
             let transformedData: any = {
             };
             for (const key in value) {
-              if (columnNamesMapping[key]) {
-                transformedData[columnNamesMapping[key]] = value[key];
+              if (this.columnMappin()[key]) {
+                transformedData[this.columnMappin()[key]] = value[key];
               } else {
                 transformedData[key] = value[key];
               }
@@ -109,14 +126,16 @@ export class RegisterPageComponent implements OnInit {
 
             let costuItem: TreeNode<PageResponse> = { data: transformedData }
             copyStock.push(costuItem);
-          });
+          });*/
 
-          return copyStock;
+
+          return  this.customizePropertyNames(respo, this.columnMappin());;
         })
       ).subscribe(
         (data) => {
           this.datas = data;
           console.log("Data source page", this.datas);
+          
           if (this.datas && this.datas.length > 0) {
             console.log("Data" + Object.keys(this.datas[0].data))
             this.defaultColumnsInput = Object.keys(this.datas[0].data);
@@ -124,6 +143,7 @@ export class RegisterPageComponent implements OnInit {
           } else {
             this.hasMorePagesT = false;
           }
+  
           this.spinnerService.hide();
 
         },
@@ -178,32 +198,19 @@ export class RegisterPageComponent implements OnInit {
     }
   }
 
-  defaultColumnsInput: any = ['id', 'title', "content", "isPublished", "metaKeywords", "metaDescription"];
-  columnMappin():{ [key: string]: string } {
-    return {
-      id: 'ID',
-      title: 'Page Title',
-      content: 'Page Content',
-      isPublished: 'Published',
-      metaKeywords: 'Keywords',
-      metaDescription: 'Description'
 
-    };
 
-  }
-
-  onPageChange(page: number): void {
+  override onPageChange(page: number): void {
     ;
     this.page = page;
     this.findByDefualt()
   }
 
-  onPageSizeChange(pageSize: number): void {
+  override onPageSizeChange(pageSize: number): void {
     ;
     //this.pageSize = pageSize;
     //this.findPages();
   }
-
 
   checkInputs() {
     //declare input to find 
@@ -213,16 +220,44 @@ export class RegisterPageComponent implements OnInit {
     const urlToFind = this.pageRequestForm.get('urlToFind')?.value || '';
 
     this.searchButtonDisabled = !(idToFind || titleToFind || contentToFind || urlToFind);
-    if (this.searchButtonDisabled) { this.findPagesProcess(); }
+    if (this.searchButtonDisabled) {
+      this.typeOfSearch === GeneralConstans.typeSearchDefault
+      this.findPagesProcess();
+    }
+    this.validateObjectID();
   }
 
-  findByparameter() {
-    this.page = GeneralConstans.page
-    this.pageSize = GeneralConstans.perPage;
-    this.typeOfSearch = GeneralConstans.typeSearchEspecific
+  override findByparameter() {
+ 
+    //  lista de errores
+    this.listError = this.validateObjectID();
+    if (this.listError.length === 0) {
+      this.pageRequestForm.get('idToFind')?.markAsTouched();
+      this.page = GeneralConstans.page
+      this.pageSize = GeneralConstans.perPage;
+      this.typeOfSearch = GeneralConstans.typeSearchEspecific
+      this.findPagesProcess();
+    }
+  }
+  override findByDefualt() {
+
+    this.typeOfSearch = GeneralConstans.typeSearchDefault
     this.findPagesProcess();
   }
-  findByDefualt() {
-    this.findPagesProcess();
+
+  validateObjectID(): string[] {
+    const idToFind = this.pageRequestForm.get('idToFind')?.value || '';
+    const errorMessages: string[] = [];
+    // Validate the idToFind control
+    const isIdValid = Utils.isValidObjectId(idToFind);
+    if (!Utils.empty(idToFind)) {
+      if (!isIdValid) {
+        // Handle the case when validation fails, e.g., add an error message to the array
+        errorMessages.push('ID is not valid.');
+      }
+    }
+    // Add more validation logic and error messages as needed
+    return errorMessages;
   }
+
 }

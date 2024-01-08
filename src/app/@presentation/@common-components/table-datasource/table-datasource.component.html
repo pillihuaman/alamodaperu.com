@@ -1,5 +1,6 @@
-<nb-card>
+<nb-card  *ngIf=showTable>
   <nb-card-body>
+    Data
     <label class="search-label" for="search">Search:</label>
     <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input">
 
@@ -55,3 +56,12 @@
     </div>
   </nb-card-body>
 </nb-card>
+
+
+<app-table-datasource-custom *ngIf=showTableCustom
+  [defaultColumnsBySearchType]="defaultColumnsBySearchType"
+  [datasBySearchType]="datasBySearchType"
+  (pageChange)="onPageChange($event)"
+  [hasMorePagesTBySearchType]="hasMorePagesT"
+  [typeOfSearchBySearchType]="typeOfSearch"
+></app-table-datasource-custom>
