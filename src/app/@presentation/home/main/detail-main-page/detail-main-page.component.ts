@@ -14,7 +14,7 @@ export class DetailMainPageComponent implements OnInit {
   lstim?: listCorouseImages;
   colru?: CorouselImage;
   urlApiImagen: String =
-    `${Const.URL_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
+    `${Const.API_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {

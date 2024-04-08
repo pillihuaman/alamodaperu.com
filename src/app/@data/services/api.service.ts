@@ -118,6 +118,13 @@ export class ApiService {
       })
     );
   }
+  postFile(path: string, body: FormData): Observable<any> {
+    return this.http.post(path, body).pipe(
+      catchError((error) => {
+        return this.formatErrors(error);
+      })
+    );
+  }
   createFormdata(imagenTemp: ImagenTemp) {
     const formdata = new FormData();
     //    const json = JSON.stringify(body);

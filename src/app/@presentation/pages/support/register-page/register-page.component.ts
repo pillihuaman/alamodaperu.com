@@ -59,26 +59,49 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
 
 
 
+ 
   handleActionClick(event: any) {
+    debugger;
+  
+    const rowData = event;
 
-    const action = event.action;
-    const rowData = event.row;
-
-    const warningModalData: ModalModel = {
-      code: GeneralConstans.warningCode,
-      message: 'This is a warning message. Are you sure you want to delete the information?',
-      lazyLoad: false,
-    };
-
-    this.dialog.open(ModalComponent, {
-      data: warningModalData,
+    // Open a confirmation modal before proceeding with the delete action
+    const dialogRef = this.dialog.open(ModalComponent, {
+      data: {
+        code: GeneralConstans.warningCode,
+        message: 'This is a warning message. Are you sure you want to delete the information?',
+        lazyLoad: false,
+      },
     });
-    console.log('Action:', action);
-    console.log('Row Data:', rowData);
+
+    dialogRef.componentInstance.deleteConfirmed.subscribe(() => {
+      debugger;
+      // This block will be executed when the user confirms the delete action in the modal
+      console.log('Row Data:', rowData);
+  
+      // Perform the delete action here
+      this.handleDeleteAction(rowData);
+    });
+
+/*
+    dialogRef.afterClosed().subscribe((result) => {
+      // If the user confirms the action, result will be truthy
+      if (result) {
+        console.log('Action:', action);
+        console.log('Row Data:', rowData);
+
+        // Perform the delete action here
+        this.handleDeleteAction(rowData);
+      }
+    });*/
+  }
+  isNewPage(): boolean {
+    return !this.pageRequestForm.get('id')?.value;
   }
 
   buildForm() {
     this.pageRequestForm = this.fb.group({
+      id: [''],
       title: [this.pageRequest?.title, Validators.required],
       content: [this.pageRequest?.content],
       url: [this.pageRequest?.url],
@@ -108,6 +131,7 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
     const title = this.pageRequestForm.value.titleToFind || '';
     const content = this.pageRequestForm.value.contentToFind || '';
     const url = this.pageRequestForm.value.urlToFind || '';
+    debugger
     this.supportService.findPages(this.page, this.pageSize, id, title,
       content, url).pipe(
         map((value) => {
@@ -197,7 +221,43 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
       console.log('Form values:', formValues);
     }
   }
+  handleDeleteAction(row: TreeNode<any>): void {
+    ;
+    debugger
+    console.log('Deleting:', row.data);
+    if (row.data.ID !== undefined) {
+      const  id:String=row.data.ID;
+    this.supportService.deletePages(id).subscribe(
+      (value) => {
+        // Handle success
+        let nbComponentStatus: NbComponentStatus = 'success';
+        this.modalRepository.showToast(nbComponentStatus, "delete Succes", "Succes");
+        this.pageRequestForm.reset();
+        setTimeout(() => {
+          window.location.reload();
+        }, 600);
+        this.spinnerService.hide();
+      },
+      (error) => {
+        ;
+        // Handle error
 
+        if ((error.status === 422 || error.status === 500) && error.error && error.error.data && error.error.data.payload) {
+          // Map the errors to the form controls
+          error.error.data.payload.forEach((errorItem: any) => {
+            const controlName = errorItem.propertyPath;
+            const errorMesagge = errorItem.valExceptionDescription;
+
+            this.pageRequestForm.get(controlName)?.setErrors({ invalid: true, customError: errorMesagge });
+          });
+        }
+        this.spinnerService.hide();
+      }
+
+    );
+    }
+    this.findPagesProcess();
+  }
 
 
   override onPageChange(page: number): void {
@@ -214,17 +274,19 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
 
   checkInputs() {
     //declare input to find 
+    debugger;
     const idToFind = this.pageRequestForm.get('idToFind')?.value || '';
     const titleToFind = this.pageRequestForm.get('titleToFind')?.value || '';
     const contentToFind = this.pageRequestForm.get('contentToFind')?.value || '';
     const urlToFind = this.pageRequestForm.get('urlToFind')?.value || '';
 
     this.searchButtonDisabled = !(idToFind || titleToFind || contentToFind || urlToFind);
-    if (this.searchButtonDisabled) {
-      this.typeOfSearch === GeneralConstans.typeSearchDefault
+    if (this.searchButtonDisabled) {     
+     this.page = GeneralConstans.page
+      this.typeOfSearch = GeneralConstans.typeSearchDefault
       this.findPagesProcess();
     }
-    this.validateObjectID();
+   // this.validateObjectID();
   }
 
   override findByparameter() {

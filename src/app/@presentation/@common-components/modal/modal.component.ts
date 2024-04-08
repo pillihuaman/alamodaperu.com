@@ -3,9 +3,11 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
+  EventEmitter,
   Inject,
   Input,
   OnInit,
+  Output,
   QueryList,
   TemplateRef,
   ViewChild,
@@ -27,6 +29,7 @@ import {
 export class ModalComponent implements OnInit {
   //uploading: boolean = false;
   //@ContentChild('dialog') dialog: TemplateRef<any>;
+  @Output() deleteConfirmed = new EventEmitter<void>();
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModalModel,
@@ -52,6 +55,7 @@ export class ModalComponent implements OnInit {
     // Implement logic to delete information
     console.log('Deleting information...');
     // You can close the modal if needed
+    this.deleteConfirmed.emit();
     this.dialogRef.close();
   }
 }

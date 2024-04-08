@@ -37,6 +37,7 @@ export class TableDatasourceCustomComponent implements OnInit {
   @Output() pageSizeChange: EventEmitter<number> = new EventEmitter<number>();
   pageSize = GeneralConstans.pageSizeTable;
   currentPage = GeneralConstans.currentPageTable;
+  @Output() deleteAction: EventEmitter<TreeNode<any>> = new EventEmitter<TreeNode<any>>();
   paginator = 1;
   paginatedData: TreeNode<any>[] = [];
   initialData: any[] = []; // Initial 350 rows
@@ -53,7 +54,6 @@ export class TableDatasourceCustomComponent implements OnInit {
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.hasMorePagesTBySearchType;
-    debugger;
     if (changes['customColumnBySearchType'] || changes['defaultColumnsBySearchType'] || changes['datasBySearchType']) {
       this.allColumns = [...this.defaultColumnsBySearchType];
     
@@ -153,11 +153,14 @@ export class TableDatasourceCustomComponent implements OnInit {
     const totalPages = Math.ceil(totalItems / this.pageSize);
     return this.currentPage < totalPages;
   }
+
   onDelete(row: TreeNode<FSEntry>): void {
-    // Implement your delete logic here
-    console.log('Delete:', row.data);
-    // Add your delete logic here, for example, show a confirmation dialog
+    debugger
+    ;
+    // Emit the delete action to the parent component
+    this.deleteAction.emit(row);
   }
+
   getHeaderColumns(): string[] {
     return [...this.defaultColumnsBySearchType, 'acciones',];
   }

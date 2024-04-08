@@ -127,7 +127,7 @@ export class MainPageComponent implements OnInit {
   nextRowImagen: any;
   selectCountainerToken: any;
   urlApiImagen: String =
-    `${Const.URL_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
+    `${Const.API_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
   countImagen?: any;
   eventsSubject: Subject<void> = new Subject<void>();
 

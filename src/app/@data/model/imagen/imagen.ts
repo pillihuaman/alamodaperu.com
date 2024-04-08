@@ -6,5 +6,6 @@ export interface Imagen {
   idProduct?: number;
   idImagenTemp?: string;
   urlImagen?: string;
-  file?: File;
+  file?: string;
+  contentType?:string;
 }

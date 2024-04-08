@@ -16,6 +16,7 @@ import { SystemResponse } from '../model/general/systemResponse';
 import { PageRequest } from '../model/general/pageRequest';
 import { PageResponse } from '../model/general/pageResponse';
 import { ResponseBody } from '../model/general/responseBody';
+import { EmployeeRequest } from '../model/employee/employeRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,6 @@ export class SupportService extends SupportRepository {
     return of(data);
   }
   override savePage(para: PageRequest): Observable<PageResponse> {
-    debugger;
     const request: RequestBody = { data: para, trace: { traceId: '01' } };
     const url =
       `${Const.API_SUPPORT}` +
@@ -47,8 +47,12 @@ export class SupportService extends SupportRepository {
       `/v1/support/page`;
     return this.apiService.get(urls, params);
   }
+  override deletePages(id:string):Observable<ResponseBody>{
+      const url = `${Const.API_SUPPORT}/${Const.URL_TYPE_ACCES_PUBLIC}/v1/support/page/${id}`;
+    return this.apiService.delete(url);
+  }
   override getParameterbyIdCode(para: Parameter): Observable<Parameter[]> {
-    debugger;
+    
     const params: any = { "idCode": 1223 };
     const url =
       `${Const.API_SUPPORT}` +
@@ -106,7 +110,7 @@ export class SupportService extends SupportRepository {
     throw new Error('Method not implemented.');
   }
   saveSystem(para: SystemRequest): Observable<SystemResponse> {
-    debugger;
+   
     const request: RequestBody = { data: para, trace: { traceId: '01' } };
     const url =
       `${Const.API_SUPPORT}` +
@@ -120,4 +124,37 @@ export class SupportService extends SupportRepository {
   deleteSystem(para: String): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
+  override changeColorImagen(data: any): Observable<any> {
+    const url =
+      `${Const.API_IMAGEN}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/imagen/imagenChangeColor`;
+     
+      return this.apiService.post(url, data);
+
+//    return this.apiService.postFile(url, formData);
+  }
+
+  override findEmployee(page:any,pagesize:any,id:any,name:any,lastName:any,document:any):Observable<ResponseBody>{
+    const params: any = { page,pagesize,id,name,lastName,document};
+    const urls =
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/support/employee`;
+    return this.apiService.get(urls, params);
+  }
+
+  override saveEmployee(data: EmployeeRequest): Observable<ResponseBody> {
+    const request: RequestBody = { data: data, trace: { traceId: '01' } };
+    const url =
+      `${Const.API_SUPPORT}` +
+      `/${Const.URL_TYPE_ACCES_PUBLIC}` +
+      `/v1/support/employee`;
+      return this.apiService.post(url, request);
+  }
+  override deleteEmployee(id: String): Observable<ResponseBody> {
+    const url = `${Const.API_SUPPORT}/${Const.URL_TYPE_ACCES_PUBLIC}/v1/support/employee/${id}`;
+    return this.apiService.delete(url);
+  }
+
 }

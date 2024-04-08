@@ -32,6 +32,11 @@ export class ImagenTempService extends ImagenTempRepository {
       `${Const.API_SUPPORT}` +
       `/${Const.URL_TYPE_ACCES_PUBLIC}` +
       `/v1/imagen/saveImagenByProduct`;
+      const headers = {
+        'Accept': 'application/json',
+      };
+      
+      //return this.apiService.postFile(url, formData, headers);
     return this.apiService.postToFile(url, imagenTemp);
   }
   listProdutByUser(product: Product): Observable<ResponseBody> {

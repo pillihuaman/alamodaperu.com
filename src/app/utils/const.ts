@@ -12,7 +12,7 @@ export class Const {
   public static API_SUPPORT: any;
   public static API_INTELLIGENCY_ARTIFICIAL: any;
   public static API_SEARCH: string;
-  public static URL_IMAGEN: string;
+  public static API_IMAGEN: string;
   static URL_TYPE_ACCES_PRIVATE: any;
   static URL_TYPE_ACCES_PUBLIC: any;
   public static KEY = '@@@@@dddd....dont be evil.....';
@@ -30,7 +30,7 @@ export class Const {
         Const.API_SEARCH = config.public_base_url_search;
         Const.URL_TYPE_ACCES_PUBLIC = config.acces_public;
         Const.URL_TYPE_ACCES_PRIVATE = config.acces_private;
-        Const.URL_IMAGEN = config.public_base_url_imagen;
+        Const.API_IMAGEN = config.public_base_url_imagen;
         Const.API_INTELLIGENCY_ARTIFICIAL =
           config.public_base_url_ingelligency_artificial;
       })

@@ -6,13 +6,14 @@ export class BaseImplementation implements BaseRepository {
 
   result?:any;
   customizePropertyNames(data: any[], columnNamesMapping: { [key: string]: string }): TreeNode<any>[] {
+    
     return data.map((value, index) => {
       let transformedData: any = {};
       for (const key in value) {
         if (columnNamesMapping[key]) {
           transformedData[columnNamesMapping[key]] = value[key];
         } else {
-          transformedData[key] = value[key];
+         // transformedData[key] = value[key];
         }
       }
 
@@ -20,7 +21,19 @@ export class BaseImplementation implements BaseRepository {
       return costuItem;
     });
   }
- 
+  revertPropertyNames(data: TreeNode<any>[], columnNamesMapping: { [key: string]: string }): any[] {
+    debugger
+    return data.map((node) => {
+      debugger
+      let revertedData: any = {};
+      for (const key in node.data) {
+        const originalKey = Object.keys(columnNamesMapping).find(mappedKey => columnNamesMapping[mappedKey] === key);
+        revertedData[originalKey || key] = node.data[key];
+      }
+      return revertedData;
+    });
+  }
+  
 
 
   onPageChange(page: number): void {

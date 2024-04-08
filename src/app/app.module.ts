@@ -39,6 +39,8 @@ import {
   NbCheckboxModule,
   NbSpinnerModule,
   NbAccordionModule,
+  NbDatepickerModule,
+  NbTimepickerModule,
 } from '@nebular/theme';
 import { CommonComponentModule } from './@presentation/@common-components/common-component.module';
 import { HomeModule } from './@presentation/home/home.module';
@@ -65,6 +67,17 @@ export function localeInitializer() {
   let id = navigator.language.toString().split('-')
   return () => navigator.language || 'en';
 }
+export const TIME_PICKER_CONFIG = new InjectionToken<any>('TIME_PICKER_CONFIG');
+
+// Create a factory function to retrieve the configuration from browser storage
+export function timePickerConfigFactory() {
+  // Retrieve configuration from browser storage (e.g., localStorage)
+  const config = localStorage.getItem('timePickerConfig');
+  return config ? JSON.parse(config) : {}; // Parse JSON if config exists, or provide an empty object
+}
+import localeEsPE from '@angular/common/locales/es-PE';
+import { registerLocaleData } from '@angular/common';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -107,10 +120,19 @@ export function localeInitializer() {
     NbTreeGridModule, 
     NbAutocompleteModule,
     NbCheckboxModule,
-    NbSpinnerModule,NbAccordionModule
+    NbSpinnerModule,NbAccordionModule,    NbDatepickerModule.forRoot(),
+    NbTimepickerModule.forRoot({
+
+    }),
 
   ],
   providers: [
+    {
+      provide: TIME_PICKER_CONFIG, // Provide the injection token
+      useFactory: timePickerConfigFactory, // Use the factory function to retrieve configuration
+
+    }
+    ,
     {
       provide: APP_INITIALIZER,
       useFactory: initCommonConfig,
@@ -171,13 +193,20 @@ export function localeInitializer() {
     ApiService,
     Title,
     DataService,
-    SpinnerService
+    SpinnerService,
+    
 
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    // Register the locale data for 'es-PE' when the module is instantiated
+    registerLocaleData(localeEsPE, 'es-PE');
+  }
+
+ }
 export function tokenGetter() {
   return sessionStorage.getItem('token');
 }

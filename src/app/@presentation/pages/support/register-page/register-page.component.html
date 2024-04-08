@@ -6,6 +6,12 @@
           Register New Page
         </nb-accordion-item-header>
         <nb-accordion-item-body>
+          <div class="form-group" *ngIf="!isNewPage()">
+            <mat-form-field>
+              <input matInput type="text" placeholder="ID" required formControlName="id" />
+            </mat-form-field>
+          </div>
+
           <div class="form-group">
             <mat-form-field>
               <input matInput type="text" placeholder="Title" required formControlName="title" />
@@ -99,8 +105,9 @@
           </div>
 
           <app-table-datasource [datas]="datas" [defaultColumns]="defaultColumnsInput"
-            (actionClicked)="handleActionClick($event)" (pageChange)="onPageChange($event)"
+            (pageChange)="onPageChange($event)"
             (pageSizeChange)="onPageSizeChange($event)" [hasMorePagesT]="hasMorePagesT"
+            (deleteAction)="handleActionClick($event)"
             [typeOfSearch]="typeOfSearch"></app-table-datasource>
 
         </nb-accordion-item-body>

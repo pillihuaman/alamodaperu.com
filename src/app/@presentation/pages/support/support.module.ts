@@ -12,6 +12,7 @@ import {
   NbCardModule,
   NbCheckboxComponent,
   NbCheckboxModule,
+  NbDatepickerModule,
   NbInputModule,
   NbListModule,
   NbSelectModule,
@@ -28,6 +29,8 @@ import { MatNativeDateModule, MatPseudoCheckboxModule } from '@angular/material/
 import { ParametersComponent } from './parameters/parameters.component';
 import { RegisterSystemComponent } from './register-system/register-system.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { CreateRandonImagenColorComponent } from './create-randon-imagen-color/create-randon-imagen-color.component';
+import { EmployeeComponent } from './employee/employee.component';
 @NgModule({
   declarations: [
     RegisterProductComponent,
@@ -37,6 +40,8 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     ParametersComponent,
     RegisterSystemComponent,
     RegisterPageComponent,
+    CreateRandonImagenColorComponent,
+    EmployeeComponent,
     
   ],
   imports: [
@@ -57,7 +62,9 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     MatDatepickerModule,
     NbAutocompleteModule,
     NbCheckboxModule,NbInputModule,
-    NbSpinnerModule,NbAccordionModule
+    NbSpinnerModule,NbAccordionModule,
+    NbDatepickerModule.forRoot(),
+    
   ],
 })
 export class SupportModule {}

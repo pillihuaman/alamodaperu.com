@@ -1,0 +1,48 @@
+/* styles.scss */
+
+/* Customize the cdk-overlay-pane */
+::ng-deep .cdk-overlay-pane {
+    background-color: rgb(0, 255, 157); /* Change background color */
+    color: white; /* Change text color */
+    display: flex;
+    justify-content: center; /* Align horizontally in the center */
+    align-items: center; /* Align vertically in the center */
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
+  }
+  
+  /* Media query for mobile devices */
+  @media only screen and (max-width: 600px) {
+    ::ng-deep .cdk-overlay-pane {
+      width: 100%; /* Make overlay pane full width */
+      height: 100%; /* Make overlay pane full height */
+      top: 0;
+      left: 0;
+      position: relative; /* Fixed position to cover the entire screen */
+    }
+  }
+  
+
+  
+  .container {
+    height: 100%; /* Set container height */
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
+  }
+  
+
+  .datepicker-container {
+    max-height: 200px; /* Set a maximum height for the container */
+    overflow-y: auto; /* Add vertical scrollbar when content exceeds the container height */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
+    position: relative;
+    display: flex; /* Make it a flex container */
+    flex-wrap: nowrap; /* Prevent wrapping onto new lines */
+  }
+  
+  .datepicker-container input {
+    flex: 1; /* Let the input grow to take up remaining space */
+  }
+  
+  .wide-input {
+    width: 200px; /* Adjust the width as needed */
+  }
+  

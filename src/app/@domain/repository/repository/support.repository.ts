@@ -9,6 +9,7 @@ import { SystemResponse } from 'src/app/@data/model/general/systemResponse';
 import { PageRequest } from 'src/app/@data/model/general/pageRequest';
 import { PageResponse } from 'src/app/@data/model/general/pageResponse';
 import { ResponseBody } from 'src/app/@data/model/general/responseBody';
+import { EmployeeRequest } from 'src/app/@data/model/employee/employeRequest';
 
 export abstract class SupportRepository {
   abstract saveClickCountImagen(
@@ -22,8 +23,14 @@ export abstract class SupportRepository {
   abstract listSystem(page:number, pageSize:number): Observable<SystemResponse>
   abstract saveSystem(para: SystemRequest): Observable<SystemResponse>
   abstract savePage(para: PageRequest): Observable<PageResponse>
+  abstract deletePages(id: String): Observable<PageResponse>
   abstract findPages(page:any,pagesize:any,id:any,title:any,content:any,url:any):Observable<ResponseBody>
   abstract testListPage(): Observable<any>
   abstract  systemById(para: String): Observable<SystemResponse>
   abstract deleteSystem(para: String): Observable<boolean>
+  abstract changeColorImagen(para: any): Observable<any> 
+  abstract  findEmployee(page:any,pagesize:any,id:any,name:any,lastName:any,document:any):Observable<ResponseBody>
+  abstract saveEmployee(para: EmployeeRequest): Observable<ResponseBody> 
+  abstract deleteEmployee(id: String): Observable<ResponseBody> 
+
 }

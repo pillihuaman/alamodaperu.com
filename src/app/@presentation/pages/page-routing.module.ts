@@ -8,6 +8,8 @@ import { RegisterStockComponent } from './support/register-stock/register-stock.
 import { ParametersComponent } from './support/parameters/parameters.component';
 import { RegisterSystemComponent } from './support/register-system/register-system.component';
 import { RegisterPageComponent } from './support/register-page/register-page.component';
+import { CreateRandonImagenColorComponent } from './support/create-randon-imagen-color/create-randon-imagen-color.component';
+import { EmployeeComponent } from './support/employee/employee.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,14 @@ const routes: Routes = [
       {
         path: 'register-page',
         component: RegisterPageComponent,
+      },
+      {
+        path: 'generate-random-color-imagen',
+        component: CreateRandonImagenColorComponent,
+      },
+      {
+        path: 'register-employee',
+        component: EmployeeComponent,
       },
     ],
   },

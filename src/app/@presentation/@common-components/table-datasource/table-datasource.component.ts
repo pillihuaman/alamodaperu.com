@@ -42,7 +42,6 @@ export class TableDatasourceComponent implements OnInit {
   @Input() typeOfSearch?: String;
   showTable = false;
   showTableCustom = false;
-
   defaultColumnsBySearchType: any = [];
   datasBySearchType: any;
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>) {
@@ -55,10 +54,13 @@ export class TableDatasourceComponent implements OnInit {
     this.datas = data;
     this.buildTable();
   }
+  @Output() deleteAction: EventEmitter<TreeNode<any>> = new EventEmitter<TreeNode<any>>();
+  @Output() editAction: EventEmitter<TreeNode<any>> = new EventEmitter<TreeNode<any>>();
   ngOnChanges(changes: SimpleChanges): void {
-    debugger;
+   
     if (changes['customColumn'] || changes['defaultColumns'] || changes['datas']) {
       this.allColumns = [...this.defaultColumns];
+  
       if (!changes['datas'].isFirstChange()) {
         if (
           changes['datas'].currentValue &&
@@ -127,13 +129,15 @@ export class TableDatasourceComponent implements OnInit {
     return NbSortDirection.NONE;
   }
   onEdit(row: TreeNode<any>): void {
+    debugger;
     // Implement your edit logic here
     console.log('Edit:', row.data);
+    this.editAction.emit(row);
     // Add your edit logic here, for example, open a modal or navigate to an edit page
   }
 
   buildTable() {
-    debugger;
+    ;
     // Manually paginate the data
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
@@ -156,6 +160,7 @@ export class TableDatasourceComponent implements OnInit {
     }
     else {
       this.paginator++;
+      
       this.pageChange.emit(this.paginator); // Emit the currentPage value
       //this.pageSizeChange.emit(this.pageSize); // Emit the pageSize valu
       this.currentPage = page;
@@ -163,7 +168,7 @@ export class TableDatasourceComponent implements OnInit {
 
   }
   onPageChangeBack(page: number): void {
-    debugger
+    
     this.currentPage = page;
     this.buildTable();
     this.hasMorePagesT = true;
@@ -176,10 +181,11 @@ export class TableDatasourceComponent implements OnInit {
     return this.currentPage < totalPages;
   }
   onDelete(row: TreeNode<FSEntry>): void {
-    // Implement your delete logic here
-    console.log('Delete:', row.data);
-    // Add your delete logic here, for example, show a confirmation dialog
+    ;
+    // Emit the delete action to the parent component
+    this.deleteAction.emit(row);
   }
+
   getHeaderColumns(): string[] {
     return [...this.defaultColumns, 'acciones',];
   }
@@ -188,7 +194,12 @@ export class TableDatasourceComponent implements OnInit {
     return [...this.defaultColumns, 'acciones',];
   }
 
-
+  handleDeleteAction(row: TreeNode<FSEntry>): void {
+    // Perform the delete action here
+    console.log('Deleting information from parent:', row.data);
+    this.deleteAction.emit(row);
+    // Implement your deletion logic
+  }
 
   /*
    private data: TreeNode<FSEntry>[] = [

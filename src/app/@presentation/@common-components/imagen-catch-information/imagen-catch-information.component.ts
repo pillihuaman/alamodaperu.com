@@ -13,7 +13,7 @@ export class ImagenCatchInformationComponent implements OnInit {
 
   @Input() image: any;
   urlApiImagen: String =
-    `${Const.URL_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
+    `${Const.API_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
   @Input() urlImagen?: any;
   ngOnInit(): void {
     //debugger;
