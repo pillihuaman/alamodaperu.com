@@ -66,7 +66,7 @@ export class RegisterImageByProductComponent implements OnInit {
   }
 
   loadFile(event: any) {
-    // debugger;
+    // //debuger;
     this.count++;
     const file: File[] = event.target.files;
     this.selectImagen = event.target.files[0];
@@ -78,7 +78,7 @@ export class RegisterImageByProductComponent implements OnInit {
     if (this.filePath1 === undefined) {
       const readers = new FileReader();
       readers.onload = () => {
-        //debugger;
+        ////debuger;
         this.filePath1 = readers.result as string;
         this.img1 = {
           name: this.selectImagen?.name,
@@ -90,7 +90,7 @@ export class RegisterImageByProductComponent implements OnInit {
     } else if (this.filePath2 === undefined) {
       const readers1 = new FileReader();
       readers1.onload = () => {
-        //debugger;
+        ////debuger;
         this.filePath2 = readers1.result as string;
         this.img2 = {
           name: this.selectImagen?.name,
@@ -102,7 +102,7 @@ export class RegisterImageByProductComponent implements OnInit {
     } else if (this.filePath3 === undefined) {
       const readers1 = new FileReader();
       readers1.onload = () => {
-        //debugger;
+        ////debuger;
         this.filePath3 = readers1.result as string;
         this.img3 = {
           name: this.selectImagen?.name,
@@ -114,7 +114,7 @@ export class RegisterImageByProductComponent implements OnInit {
     } else if (this.filePath4 === undefined) {
       const readers1 = new FileReader();
       readers1.onload = () => {
-        //debugger;
+        ////debuger;
         this.filePath4 = readers1.result as string;
         this.img4 = {
           name: this.selectImagen?.name,
@@ -126,7 +126,7 @@ export class RegisterImageByProductComponent implements OnInit {
     }
   }
   close(close: any) {
-    //debugger;
+    ////debuger;
     if (close === 1) {
       this.filePath1 = undefined;
     } else if (close === 2) {
@@ -141,7 +141,7 @@ export class RegisterImageByProductComponent implements OnInit {
     this.inputFile.nativeElement.value = null;
   }
   save() {
-    //debugger;
+    ////debuger;
     this.lstfilePath = [];
     if (this.filePath1 && this.filePath1 !== '') {
       this.lstfilePath?.push(this.img1!);
@@ -158,7 +158,7 @@ export class RegisterImageByProductComponent implements OnInit {
     }
 
     if (this.lstfilePath && this.lstfilePath.length > 0) {
-      //debugger;
+      ////debuger;
       let imageTem: ImagenTemp = {
         count: this.count,
         name: this.myForm.get('name')?.value,
@@ -167,7 +167,7 @@ export class RegisterImageByProductComponent implements OnInit {
         idProduct: this.idProductSelect,
         listImagen: this.lstfilePath,
       };
-      debugger;
+      //debuger;
 
       this.imagenTempService.registerImagenTemp(imageTem).subscribe(
         (value) => {},

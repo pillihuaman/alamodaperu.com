@@ -42,7 +42,7 @@ export class ModalService extends ModalRepository {
       destroyByClick: false,
       preventDuplicates: false,
       duplicatesBehaviour: 'previous',
-      toastClass: '',
+      toastClass: 'modal-wrapper',
       hasIcon: false,
       icon: '',
     });

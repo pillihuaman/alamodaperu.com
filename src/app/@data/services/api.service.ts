@@ -42,7 +42,7 @@ export class ApiService {
   }
 
   public formatErrors(err: HttpErrorResponse) {
-    debugger;
+    //debuger;
     const messageError = err.error ? err.error : err;
     if (
       err &&
@@ -86,7 +86,7 @@ export class ApiService {
   }
 
   post(path: string, body: any): Observable<any> {
-    debugger;
+    //debuger;
     return this.http.post(path, body).pipe();
   }
 

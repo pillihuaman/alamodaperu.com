@@ -49,20 +49,17 @@
           Previous
         </button>
         <span>Page {{ currentPage }}</span>
-        <button nbButton status="primary" (click)="onPageChange(currentPage + 1)" [disabled]="!hasMorePagesT">
+        <button nbButton status="primary" (click)="onPageChange(currentPage + 1)" [disabled]="!hasMorePages" >
           Next
         </button>
       </div>
     </div>
   </nb-card-body>
 </nb-card>
-
-
 <app-table-datasource-custom *ngIf=showTableCustom
   [defaultColumnsBySearchType]="defaultColumnsBySearchType"
   [datasBySearchType]="datasBySearchType"
   (pageChange)="onPageChange($event)"
-  [hasMorePagesTBySearchType]="hasMorePagesT"
   [typeOfSearchBySearchType]="typeOfSearch"
   (deleteAction)="handleDeleteAction($event)"
   

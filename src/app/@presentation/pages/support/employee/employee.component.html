@@ -1,7 +1,7 @@
 <div class="container">
   <form [formGroup]="employeRequestForm" (ngSubmit)="onSubmit()">
     <nb-accordion multi=true>
-      <nb-accordion-item>
+      <nb-accordion-item [expanded]="isRegisterEmployeeExpanded">
         <nb-accordion-item-header>
           Register New Employee
         </nb-accordion-item-header>
@@ -111,13 +111,13 @@
               </div>
             </div>
           </div>
-
-          <app-table-datasource [datas]="datas" [defaultColumns]="defaultColumnsInput"
-            (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"
-            [hasMorePagesT]="hasMorePagesT" (deleteAction)="handleActionClick($event)"
-            (editAction)="handleEditicionAction($event)" [typeOfSearch]="typeOfSearch"></app-table-datasource>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
   </form>
+
+  <app-table-datasource [datas]="datas" [defaultColumns]="defaultColumnsInput"
+  (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"
+  (deleteAction)="deleting($event)"  [isdelelete]="isdelelete" [hasMorePages]="hasMorePagesT"
+  (editAction)="handleEditicionAction($event)" [typeOfSearch]="typeOfSearch"></app-table-datasource>
 </div>

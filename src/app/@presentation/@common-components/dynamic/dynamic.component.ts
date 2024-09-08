@@ -12,7 +12,7 @@ componentDynamic:String | undefined;
   constructor() { }
 
   ngOnInit(): void {
-    //debugger
+    ////debuger
     if(this.fileInput){
     this.renderImagen(this.fileInput);
   }
@@ -21,7 +21,7 @@ componentDynamic:String | undefined;
     
   }
   removeView() {
-    //debugger;
+    ////debuger;
     const viewIndexToRemove = 0;
     
     //this.container?.remove(viewIndexToRemove);

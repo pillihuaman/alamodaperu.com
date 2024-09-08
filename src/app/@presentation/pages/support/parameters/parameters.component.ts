@@ -62,7 +62,7 @@ export class ParametersComponent implements OnInit {
     };
     this.supportService.saveParameter(control).subscribe(
       (value) => {
-      debugger;
+      //debuger;
 
        },
       (error) => { }
@@ -73,7 +73,7 @@ export class ParametersComponent implements OnInit {
     return trues;
   }
   createControl() {
-    debugger
+    //debuger
     this.controlName = 'dynamicControl' + GuidGenerator.newGuid();
     const newControl = new FormControl('', Validators.required);
     this.myForm.addControl(this.controlName, newControl);
@@ -81,7 +81,7 @@ export class ParametersComponent implements OnInit {
     console.log(this.cantidadForm);
   }
   addInputControl() {
-    debugger;
+    //debuger;
     this.controlName = 'dynamicControl' + GuidGenerator.newGuid();
     const newControl = new FormControl('', Validators.required);
     this.myForm.addControl(this.controlName, newControl);
@@ -89,7 +89,7 @@ export class ParametersComponent implements OnInit {
   }
 
   removeInputControl(idx: number) {
-    debugger;
+    //debuger;
     this.myForm;
     this.parameterItems.removeAt(idx);
   }
@@ -116,7 +116,7 @@ export class ParametersComponent implements OnInit {
 
   }
   onKeyUp(event:any){
-    debugger;
+    //debuger;
     this.booleanContro=true;
     this.booleanControSelect=false;
     return true;

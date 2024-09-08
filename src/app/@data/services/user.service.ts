@@ -23,7 +23,7 @@ export class UserService extends UserRepository {
     return this.apiService.post(url, {});
   }
   registerUser(user: User): Observable<User[]> {
-    debugger;
+    //debuger;
 
     const request: RequestBody = {
       data: user,

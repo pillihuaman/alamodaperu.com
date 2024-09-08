@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbComponentStatus } from '@nebular/theme';
+import { NbComponentStatus, NbDialogService } from '@nebular/theme';
 import { PageRequest } from 'src/app/@data/model/general/pageRequest';
 import { PageResponse } from 'src/app/@data/model/general/pageResponse';
 import { TreeNode } from 'src/app/@data/model/general/treeNode';
@@ -15,6 +15,8 @@ import { SpinnerService } from 'src/app/@data/services/spinner.service';
 import { SupportRepository } from 'src/app/@domain/repository/repository/support.repository';
 import { Utils } from 'src/app/utils/utils';
 import { BaseImplementation } from 'src/app/utils/baseImplementation';
+import { Modal } from 'src/app/@data/model/general/modal';
+import { ModalType } from 'src/app/@data/model/general/enumModal';
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
@@ -47,7 +49,7 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
   }
    processDataResult?:any;
   constructor(private fb: FormBuilder, private supportService: SupportRepository, private modalRepository: ModalRepository,
-    public dialog: MatDialog, private spinnerService: SpinnerService) {
+    public dialog: MatDialog, private spinnerService: SpinnerService,private dialogService: NbDialogService) {
     super();
     this.pageRequest = {};
   }
@@ -58,43 +60,24 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
   }
 
 
-
- 
   handleActionClick(event: any) {
-    debugger;
-  
-    const rowData = event;
-
-    // Open a confirmation modal before proceeding with the delete action
-    const dialogRef = this.dialog.open(ModalComponent, {
-      data: {
-        code: GeneralConstans.warningCode,
-        message: 'This is a warning message. Are you sure you want to delete the information?',
-        lazyLoad: false,
-      },
-    });
-
-    dialogRef.componentInstance.deleteConfirmed.subscribe(() => {
-      debugger;
-      // This block will be executed when the user confirms the delete action in the modal
-      console.log('Row Data:', rowData);
-  
-      // Perform the delete action here
-      this.handleDeleteAction(rowData);
-    });
-
-/*
-    dialogRef.afterClosed().subscribe((result) => {
-      // If the user confirms the action, result will be truthy
-      if (result) {
-        console.log('Action:', action);
-        console.log('Row Data:', rowData);
-
-        // Perform the delete action here
-        this.handleDeleteAction(rowData);
-      }
-    });*/
-  }
+    const modal: Modal = {
+       data: event.data,
+       description: event.data.any,
+       typeDescription:ModalType.QUESTION.toString()
+     };
+     
+     const dialogRef = this.dialogService.open(ModalComponent, {
+       context: {
+         rowData: modal // Pass the data to the modal
+       } as any
+ 
+     });
+     //debuger
+     dialogRef.componentRef.instance.deleteConfirmed.subscribe(() => {
+       this.handleDeleteAction(event); // Implement logic to delete data
+     });
+   }
   isNewPage(): boolean {
     return !this.pageRequestForm.get('id')?.value;
   }
@@ -131,7 +114,7 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
     const title = this.pageRequestForm.value.titleToFind || '';
     const content = this.pageRequestForm.value.contentToFind || '';
     const url = this.pageRequestForm.value.urlToFind || '';
-    debugger
+    //debuger
     this.supportService.findPages(this.page, this.pageSize, id, title,
       content, url).pipe(
         map((value) => {
@@ -222,8 +205,7 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
     }
   }
   handleDeleteAction(row: TreeNode<any>): void {
-    ;
-    debugger
+  
     console.log('Deleting:', row.data);
     if (row.data.ID !== undefined) {
       const  id:String=row.data.ID;
@@ -231,12 +213,10 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
       (value) => {
         // Handle success
         let nbComponentStatus: NbComponentStatus = 'success';
-        this.modalRepository.showToast(nbComponentStatus, "delete Succes", "Succes");
+  
         this.pageRequestForm.reset();
-        setTimeout(() => {
-          window.location.reload();
-        }, 600);
         this.spinnerService.hide();
+        this.findPagesProcess();
       },
       (error) => {
         ;
@@ -256,7 +236,6 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
 
     );
     }
-    this.findPagesProcess();
   }
 
 
@@ -274,7 +253,7 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
 
   checkInputs() {
     //declare input to find 
-    debugger;
+    ////debuger;
     const idToFind = this.pageRequestForm.get('idToFind')?.value || '';
     const titleToFind = this.pageRequestForm.get('titleToFind')?.value || '';
     const contentToFind = this.pageRequestForm.get('contentToFind')?.value || '';

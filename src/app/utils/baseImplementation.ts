@@ -22,9 +22,9 @@ export class BaseImplementation implements BaseRepository {
     });
   }
   revertPropertyNames(data: TreeNode<any>[], columnNamesMapping: { [key: string]: string }): any[] {
-    debugger
+    //debuger
     return data.map((node) => {
-      debugger
+      //debuger
       let revertedData: any = {};
       for (const key in node.data) {
         const originalKey = Object.keys(columnNamesMapping).find(mappedKey => columnNamesMapping[mappedKey] === key);

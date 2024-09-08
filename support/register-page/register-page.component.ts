@@ -83,7 +83,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   findPagesProcess() {
-    debugger;
+    //debuger;
     this.spinnerService.show();
     const columnNamesMapping: { [key: string]: string } = {
       id: 'ID',
@@ -124,7 +124,7 @@ export class RegisterPageComponent implements OnInit {
         (data) => {
           this.datas = data;
           console.log("Data source page", this.datas);
-          debugger;
+          //debuger;
           if (this.datas && this.datas.length > 0) {
             console.log("Data" + Object.keys(this.datas[0].data))
             this.defaultColumnsInput = Object.keys(this.datas[0].data);
@@ -186,7 +186,7 @@ export class RegisterPageComponent implements OnInit {
     }
   }
   validateTypeFind() {
-    debugger
+    //debuger
     const id = this.pageRequestForm.value.idToFind || '';
     const title = this.pageRequestForm.value.titleToFind || '';
     const content = this.pageRequestForm.value.contentToFind || '';
@@ -198,13 +198,13 @@ export class RegisterPageComponent implements OnInit {
   }
 
   findByparameter() {
-    debugger
+    //debuger
     this.typeSearch = GeneralConstans.typeSearchEspecific;
     this. findPagesProcess()
     
   }
   findByDefualt() {
-    debugger
+    //debuger
       this.typeSearch = GeneralConstans.typeSearchDefault;
     this. findPagesProcess();
     

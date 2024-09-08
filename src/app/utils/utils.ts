@@ -96,4 +96,20 @@ export class Utils {
       return false ;
     }
   }
+  static convertStringToDate(dateString: string): Date | null {
+    //debuger
+    const format = 'DD/MM/yyyy HH:mm:ss';
+    const parsedDate = moment(dateString, format);
+    if (parsedDate.isValid()) {
+      return parsedDate.toDate();
+    } else {
+      return null;
+    }
+  }
+  static convertDateToString(date: Date): string {
+    //debuger
+    const format = 'dd/MM/yyyy HH:mm:ss';
+    const datePipe = new DatePipe('en-US');
+    return datePipe.transform(date, format) || ''; // Use empty string as default if transformation fails
+  }
 }

@@ -28,7 +28,6 @@ export class TableDatasourceCustomComponent implements OnInit {
   @Input() datasBySearchType: any;
   @Input() hasMorePagesTBySearchType: boolean = false;
   @Input() typeOfSearchBySearchType?: String;
-
   allColumns = ['acciones', ...this.defaultColumnsBySearchType];
   dataSource: NbTreeGridDataSource<any>;
   sortColumn?: string;
@@ -56,7 +55,6 @@ export class TableDatasourceCustomComponent implements OnInit {
     this.hasMorePagesTBySearchType;
     if (changes['customColumnBySearchType'] || changes['defaultColumnsBySearchType'] || changes['datasBySearchType']) {
       this.allColumns = [...this.defaultColumnsBySearchType];
-    
         if (
           changes['datasBySearchType'].currentValue &&
           changes['datasBySearchType'].currentValue !== null &&
@@ -73,7 +71,7 @@ export class TableDatasourceCustomComponent implements OnInit {
           this.buildTable();
 
         }else{
-          debugger;
+          //debuger;
           this.defaultColumnsBySearchType=this.defaultColumnsBySearchType
           this.datasBySearchType = this.datasBySearchType ;
           this.resetTable()
@@ -141,7 +139,7 @@ export class TableDatasourceCustomComponent implements OnInit {
 
   }
   onPageChangeBack(page: number): void {
-    debugger
+    //debuger
     this.currentPage = page;
     this.buildTable();
     this.hasMorePagesTBySearchType = true;
@@ -155,7 +153,7 @@ export class TableDatasourceCustomComponent implements OnInit {
   }
 
   onDelete(row: TreeNode<FSEntry>): void {
-    debugger
+    //debuger
     ;
     // Emit the delete action to the parent component
     this.deleteAction.emit(row);

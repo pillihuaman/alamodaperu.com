@@ -49,7 +49,7 @@ export class RegisterSystemComponent implements OnInit {
       // Call the saveSystem method in your service to save the system request
       this.supportService.saveSystem(systemRequest).subscribe(
         (value) => {
-          debugger;
+          //debuger;
           // Handle success
           let nbComponentStatus: NbComponentStatus = 'success';
           // this.router.navigate(['/auth/login']);
@@ -58,7 +58,7 @@ export class RegisterSystemComponent implements OnInit {
     
         },
         (error) => {
-          debugger;
+          //debuger;
           // Handle error
        
           if ((error.status === 422 || error.status === 500 )&& error.error && error.error.data && error.error.data.payload) {

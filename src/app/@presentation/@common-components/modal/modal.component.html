@@ -1,17 +1,38 @@
-<div *ngIf="!data.lazyLoad">
-
-
-    <div mat-dialog-content *ngIf="data.code === 3">
-    <img src="../../../../assets/imgs/warning-sign-9743.svg">
-    <span class="warning">{{ data.message }}</span>
-    <button nbButton fullWidth status="danger" (click)="deleteInformation()">Delete Information</button>
-</div>
-
-    <button nbButton fullWidth status="basic" (click)="cancelar()">Close </button>
-</div>
-
-<div *ngIf="data.lazyLoad" style="margin-left:10px">
-    <div mat-dialog-content>
-        <mat-spinner [diameter]="50"></mat-spinner>
-    </div>
+<div class="modal-container" *ngIf="rowData">
+  <nb-card>
+    <nb-card-header class="header">
+      <div class="icon-container" *ngIf="rowData.typeDescription === 'WARNING'">
+        <nb-icon icon="alert-triangle-outline" class="icon" [ngClass]="getIconClass(rowData.typeDescription)"></nb-icon>
+      </div>
+      <div class="icon-container" *ngIf="rowData.typeDescription === 'INFO'">
+        <nb-icon icon="info-outline" class="icon" [ngClass]="getIconClass(rowData.typeDescription)"></nb-icon>
+      </div>
+      <div class="icon-container" *ngIf="rowData.typeDescription === 'QUESTION'">
+        <nb-icon icon="question-mark-circle-outline" class="icon" [ngClass]="getIconClass(rowData.typeDescription)"></nb-icon>
+      </div>
+      <!-- Add similar conditions for other types -->
+    </nb-card-header>
+    <nb-card-body>
+      <!-- Modal Body Content Here -->
+      <ng-container *ngIf="rowData.typeDescription === 'WARNING'">
+        <!-- HTML content specific to WARNING type -->
+        Are you sure you want to delete?
+        <p>{{ rowData.description | json }}</p>
+      </ng-container>
+      <ng-container *ngIf="rowData.typeDescription === 'INFO'">
+        <!-- HTML content specific to INFO type -->
+        Information message here...
+      </ng-container>
+      <ng-container *ngIf="rowData.typeDescription === 'QUESTION'">
+        <!-- HTML content specific to WARNING type -->
+        Are you sure you want to delete?
+        <p>{{ rowData.description | json }}</p>
+      </ng-container>
+      <!-- Add similar ng-containers for other types -->
+    </nb-card-body>
+    <nb-card-footer>
+      <button class="primary" (click)="deleteInformation()">OK</button>
+      <button class="danger" (click)="cancelar()">Cancel</button>
+    </nb-card-footer>
+  </nb-card>
 </div>

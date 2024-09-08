@@ -38,7 +38,7 @@ export class RegisterControlComponent implements OnInit {
 
   searchUser() {}
   save() {
-debugger;
+//debuger;
     const control: Control = {
       description: this.myForm.get('description')?.value,
       iconClass: this.myForm.get('iconClass')?.value,
@@ -53,13 +53,13 @@ debugger;
     };
     this.supportService.saveControl(control).subscribe(
       (value) => {
-        debugger;
+        //debuger;
         let nbComponentStatus: NbComponentStatus = 'success';
        // this.router.navigate(['/auth/login']);
         this.modalRepository.showToast(nbComponentStatus, value+"Authenti interce","");
       },
       (error) => {
-debugger;
+//debuger;
         let nbComponentStatus: NbComponentStatus = 'danger';
        // this.router.navigate(['/auth/login']);
         this.modalRepository.showToast(nbComponentStatus, error.message+"Authenti interce","");

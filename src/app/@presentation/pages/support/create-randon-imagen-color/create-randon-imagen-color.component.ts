@@ -55,7 +55,7 @@ export class CreateRandonImagenColorComponent extends BaseImplementation impleme
   };
 
   onFileSelected(event: any) {
-    debugger;
+    //debuger;
     const files: FileList = event.target.files;
     this.selectedFile = files.item(0);
 
@@ -90,7 +90,7 @@ export class CreateRandonImagenColorComponent extends BaseImplementation impleme
   }
 
   private displayImage(base64String: string): void {
-    debugger;
+    //debuger;
     const byteCharacters = atob(base64String);
     const byteNumbers = new Array(byteCharacters.length);
 
@@ -108,7 +108,7 @@ export class CreateRandonImagenColorComponent extends BaseImplementation impleme
   }
   
   onSubmit() {
-    debugger;
+    //debuger;
     if (this.pageRequestForm.valid) {
       const formValues = this.pageRequestForm.value;
 

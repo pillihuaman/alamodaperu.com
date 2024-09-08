@@ -2,6 +2,7 @@ import { StringMapWithRename } from '@angular/compiler/src/compiler_facade_inter
 import { Component, EventEmitter, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
+import { Console } from 'console';
 import { GeneralConstans } from 'src/app/utils/generalConstant';
 interface TreeNode<T> {
   data: T;
@@ -38,12 +39,12 @@ export class TableDatasourceComponent implements OnInit {
   paginatedData: TreeNode<any>[] = [];
   initialData: any[] = []; // Initial 350 rows
   additionalData: any[] = []; // Dynamically added rows
-  @Input() hasMorePagesT: boolean = false;
   @Input() typeOfSearch?: String;
   showTable = false;
   showTableCustom = false;
   defaultColumnsBySearchType: any = [];
   datasBySearchType: any;
+  @Input() isdelelete: boolean = false;
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>) {
     this.datas = [...this.initialData, ...this.additionalData];
     this.dataSource = this.dataSourceBuilder.create(this.datas);
@@ -56,11 +57,14 @@ export class TableDatasourceComponent implements OnInit {
   }
   @Output() deleteAction: EventEmitter<TreeNode<any>> = new EventEmitter<TreeNode<any>>();
   @Output() editAction: EventEmitter<TreeNode<any>> = new EventEmitter<TreeNode<any>>();
+  @Input() hasMorePages: boolean = true;  // Recibe si hay más páginas
+
   ngOnChanges(changes: SimpleChanges): void {
-   
+    debugger
+
     if (changes['customColumn'] || changes['defaultColumns'] || changes['datas']) {
       this.allColumns = [...this.defaultColumns];
-  
+
       if (!changes['datas'].isFirstChange()) {
         if (
           changes['datas'].currentValue &&
@@ -72,18 +76,21 @@ export class TableDatasourceComponent implements OnInit {
             this.showTableCustom = true;
             this.showTable = false;
             this.additionalData = [];
-            this.defaultColumnsBySearchType=this.defaultColumns
-            if(this.datas.length>0){
-              this.hasMorePagesT=true;
-            }else{
-              this.hasMorePagesT=false;
+            this.defaultColumnsBySearchType = this.defaultColumns
+            if (this.datas.length > 0) {
+
+            } else {
             }
-            this.datasBySearchType = this.datas ;
+            this.datasBySearchType = this.datas;
           } else {
 
             this.showTableCustom = false;
             this.showTable = true;
-            this.additionalData = [...this.additionalData, ...changes['datas'].currentValue];
+            if (this.isdelelete) {
+              this.additionalData = [...changes['datas'].currentValue];
+            } else {
+              this.additionalData = [...this.additionalData, ...changes['datas'].currentValue];
+            }
             this.datas = [...this.initialData, ...this.additionalData];
             this.dataSource = this.dataSourceBuilder.create(this.datas);
             this.buildTable();
@@ -96,10 +103,11 @@ export class TableDatasourceComponent implements OnInit {
             this.datas = [...this.initialData, ...this.additionalData];
             this.dataSource = this.dataSourceBuilder.create(this.datas);
             this.buildTable();
-          }else{
-            this.defaultColumnsBySearchType=this.defaultColumns
-            this.datasBySearchType = this.datas ;
-            this.hasMorePagesT=false;
+            this.hasMorePages = false;
+
+          } else {
+            this.defaultColumnsBySearchType = this.defaultColumns
+            this.datasBySearchType = this.datas;
             this.resetTable()
           }
         }
@@ -129,7 +137,7 @@ export class TableDatasourceComponent implements OnInit {
     return NbSortDirection.NONE;
   }
   onEdit(row: TreeNode<any>): void {
-    debugger;
+    ;
     // Implement your edit logic here
     console.log('Edit:', row.data);
     this.editAction.emit(row);
@@ -154,28 +162,27 @@ export class TableDatasourceComponent implements OnInit {
     this.dataSource = this.dataSourceBuilder.create(this.paginatedData);
   }
   onPageChange(page: number): void {
-    if (this.hasMorePages()) {
+    if (this.hasMorePagest()) {
       this.currentPage = page;
       this.buildTable();
+      this.hasMorePages = true;
     }
     else {
       this.paginator++;
-      
-      this.pageChange.emit(this.paginator); // Emit the currentPage value
-      //this.pageSizeChange.emit(this.pageSize); // Emit the pageSize valu
+      this.pageChange.emit(this.paginator);
       this.currentPage = page;
     }
 
   }
   onPageChangeBack(page: number): void {
-    
+    this.hasMorePages = true;
     this.currentPage = page;
     this.buildTable();
-    this.hasMorePagesT = true;
+
 
   }
 
-  hasMorePages(): boolean {
+  hasMorePagest(): boolean {
     const totalItems = this.datas.length;
     const totalPages = Math.ceil(totalItems / this.pageSize);
     return this.currentPage < totalPages;
@@ -252,4 +259,3 @@ export class TableDatasourceComponent implements OnInit {
     return minWithForMultipleColumns + (nextColumnStep * index);
   }
 }
-

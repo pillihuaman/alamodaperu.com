@@ -106,7 +106,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     console.log(this.lstControl);
   }
   override ngOnInit(): void {
-    debugger;
+    //debuger;
     let us = this.authenticationService.getCurrentUserValue.id_user;
     let prod: Product = { idUser: us };
     this.imagenTempService.listProdutByUser(prod).subscribe(
@@ -134,7 +134,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
 
 
   createCOmponent() {
-    //debugger;
+    ////debuger;
     this.container?.clear;
     const componetFactory = this.componentFactoryResolver.resolveComponentFactory(DynamicComponent);
     const componentRef = componetFactory.create(this.injector);
@@ -151,7 +151,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
 
   }
   loadFile(event: any) {
-    //debugger;
+    ////debuger;
 
     this.count++;
     const file: File[] = event.target.files;
@@ -165,7 +165,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     //if (this.filePath1 === undefined) {
     const readers = new FileReader();
     readers.onload = () => {
-      ////debugger;
+      //////debuger;
       this.filePath1 = readers.result as string;
       this.listFilePath?.push(this.filePath1);
       this.img1 = {
@@ -180,7 +180,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     /*} else if (this.filePath2 === undefined) {
       const readers1 = new FileReader();
       readers1.onload = () => {
-        ////debugger;
+        //////debuger;
         this.filePath2 = readers1.result as string;
         this.img2 = {
           name: this.selectImagen?.name,
@@ -192,7 +192,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     } else if (this.filePath3 === undefined) {
       const readers1 = new FileReader();
       readers1.onload = () => {
-        ////debugger;
+        //////debuger;
         this.filePath3 = readers1.result as string;
         this.img3 = {
           name: this.selectImagen?.name,
@@ -204,7 +204,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     } else if (this.filePath4 === undefined) {
       const readers1 = new FileReader();
       readers1.onload = () => {
-        ////debugger;
+        //////debuger;
         this.filePath4 = readers1.result as string;
         this.img4 = {
           name: this.selectImagen?.name,
@@ -222,7 +222,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
   }
 
   getCatalog() {
-    //debugger
+    ////debuger
     if (this.listFilePath?.length) {
       if (this.listFilePath?.length > 0) {
         let cont = 0;
@@ -243,7 +243,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
   }
 
   close(close: any) {
-    ////debugger;
+    //////debuger;
     if (close === 1) {
       this.filePath1 = undefined;
     } else if (close === 2) {
@@ -258,7 +258,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     this.inputFile.nativeElement.value = null;
   }
   save() {
-    //debugger;
+    ////debuger;
     this.lstfilePath = [];
     if (this.filePath1 && this.filePath1 !== '') {
       this.lstfilePath?.push(this.img1!);
@@ -275,7 +275,7 @@ export class RegisterStockComponent extends BaseComponent implements OnInit {
     }
 
     if (this.lstfilePath && this.lstfilePath.length > 0) {
-      ////debugger;
+      //////debuger;
       let size: Size[] = [];
       let imageTem: Stock = {
         idProduct: this.idProductSelect,

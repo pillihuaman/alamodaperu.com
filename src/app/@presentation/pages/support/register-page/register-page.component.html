@@ -105,10 +105,14 @@
           </div>
 
           <app-table-datasource [datas]="datas" [defaultColumns]="defaultColumnsInput"
-            (pageChange)="onPageChange($event)"
-            (pageSizeChange)="onPageSizeChange($event)" [hasMorePagesT]="hasMorePagesT"
+            
+          (pageChange)="onPageChange($event)"
+            (pageSizeChange)="onPageSizeChange($event)" 
+
             (deleteAction)="handleActionClick($event)"
             [typeOfSearch]="typeOfSearch"></app-table-datasource>
+
+            
 
         </nb-accordion-item-body>
       </nb-accordion-item>

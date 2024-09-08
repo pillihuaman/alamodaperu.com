@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((err: any) => {
-        debugger;
+        //debuger;
         let errc = err as CustomHttpErrorResponse;
         if (err instanceof HttpErrorResponse) {
           const httpError: HttpErrorResponse = err;

@@ -16,7 +16,7 @@ export class ImagenCatchInformationComponent implements OnInit {
     `${Const.API_IMAGEN}` + `/v1/imagen/getImagen?codImagen=`;
   @Input() urlImagen?: any;
   ngOnInit(): void {
-    //debugger;
+    ////debuger;
     if (this.image) {
       console.log(this.image);
       console.log(this.image.firstObject);

@@ -133,7 +133,7 @@ export class MainPageComponent implements OnInit {
 
   @Output() updateImagen = new EventEmitter<CorouselImage>();
   ngOnInit(): void {
-    //debugger;
+    ////debuger;
     this.imagenTempService
       .listMainTopImagen(GeneralConstans.page, GeneralConstans.perPage)
       .subscribe(
@@ -198,7 +198,7 @@ export class MainPageComponent implements OnInit {
     let count = 0;
     let newImage: any;
     let newInndex = 0;
-    //debugger;
+    ////debuger;
     if (
       !Utils.empty(listImagenes) &&
       !Utils.empty(listImagenes.lstCorouseImages)

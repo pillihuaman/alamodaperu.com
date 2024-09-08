@@ -86,7 +86,7 @@ export class RegisterProductComponent implements OnInit {
     };
     this.re.getParameterbyIdCode(parame).subscribe(
       (value) => {
-        debugger;
+        //debuger;
         this.lisParameter = value;
 
       },

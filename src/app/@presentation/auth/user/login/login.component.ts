@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         .login(this.f['user'].value, this.f['password'].value)
         .pipe(first())
         .subscribe((user: User) => {
-          debugger;
+          //debuger;
           if (user) {
 
             this.router.navigate([this.returnUrl]);
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
       this.unsubscribe.push(loginSubscr);
     } catch (e) {
-      debugger;
+      //debuger;
       console.error("An error occurred:", e); // Log the error to the console
       throw e; // Rethrow
     } finally {
