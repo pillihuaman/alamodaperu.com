@@ -4,6 +4,7 @@
     <label class="search-label" for="search">Search:</label>
     <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input">
 
+
     <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
 
       <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="getHeaderColumns()"></tr>
@@ -60,8 +61,9 @@
   [defaultColumnsBySearchType]="defaultColumnsBySearchType"
   [datasBySearchType]="datasBySearchType"
   (pageChange)="onPageChange($event)"
+  (pageChange)="onPageChangeBack($event)"
   [typeOfSearchBySearchType]="typeOfSearch"
   (deleteAction)="handleDeleteAction($event)"
-  
+  [isdelelete]="isdelelete"
 
 ></app-table-datasource-custom>

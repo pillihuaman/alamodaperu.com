@@ -28,13 +28,14 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
   employeRequest?: EmployeeRequest;
   datas?: TreeNode<EmployeeResponse>[] = [];
   teestMod: string = "tees";
-  page?: number = GeneralConstans.page
-  pageSize?: number = GeneralConstans.perPage;
+  //page?: number = GeneralConstans.page
+  //pageSize?: number = GeneralConstans.perPage;
   isLoading = false;
-   isdelelete = false;
+   isdelelete : any;
   searchButtonDisabled = true;
   typeOfSearch: any;
   listError: any;
+  @Output() deleteAction = new EventEmitter<TreeNode<any>>();
   defaultColumnsInput: any = ['id', 'name', "lastName", "document",
     "startDate", "finishDate", "totalHours", "total"];
   columnMappin(): { [key: string]: string } {
@@ -70,7 +71,7 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
   ngOnInit(): void {
     this.page = 1;
     this.buildForm();
-    this.findByDefualtg()
+    this. findEmproyeeProcess()
  
     this.employeeService.employees$.subscribe((employees) => {
       
@@ -92,7 +93,7 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
     const lastName = this.employeRequestForm.value.lastNameToFind || '';
     const document = this.employeRequestForm.value.documentToFind || '';
     this.employeeService.fetchEmployees(this.page ?? GeneralConstans.page, this.pageSize ?? GeneralConstans.perPage, id, name, lastName, document);
-    //this.employeeService.fetchEmployees(this.page, this.pageSize, id, name, lastName, document);
+
   }
 
   deleting(event: any) {
@@ -108,8 +109,6 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
       } as any
 
     });
-
-    this.isdelelete=true;
     //debuger
     dialogRef.componentRef.instance.deleteConfirmed.subscribe(() => {
       this.handleDeleteAction(event); // Implement logic to delete data
@@ -222,7 +221,8 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
         //this.findEmproyeeProcess()
         this.spinnerService.hide();
         this.isRegisterEmployeeExpanded=true
-        this.findByDefualtg();
+        window.location.reload();
+ 
       },
       (error) => {
         ;
@@ -253,10 +253,12 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
           // Handl.e success
           let nbComponentStatus: NbComponentStatus = 'success';
           this.modalRepository.showToast(nbComponentStatus, "delete Succes", "Succes");
-          this.employeRequestForm.reset();
+          //this.employeRequestForm.reset();
         // this.employeeService.reloadEmployees();
           this.spinnerService.hide();
-         // this.findByDefualtg();
+          this.isdelelete=row;
+          //this.findEmproyeeProcess()
+         //this.findByDefualtg();
         },
         (error) => {
           ;
@@ -278,7 +280,6 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
     }
 
   }
-
   handleEditicionAction(row: TreeNode<any>): void {
     ////////debuger;
     const rowData = row.data;
@@ -302,23 +303,17 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
 
 
   override onPageChange(page: number): void {
-    ;
-    this.page = page;
-    console.log("emiter pageChange->>>emploeee "+ this.page);
-
-   this.findByDefualt()
+    super.onPageChange(page); // Call the implementation in BaseImplementation
+    console.log("EmployeeComponent onPageChange called with page:", page);
   }
 
   override onPageSizeChange(pageSize: number): void {
-    ;
-    //this.pageSize = pageSize;
-    //this.findPages();
+    
   }
 
   checkInputs() {
     //declare input to find 
     //////////////debuger;
-
     const idToFind = this.employeRequestForm.get('idToFind')?.value || '';
     const nameToFind = this.employeRequestForm.get('nameToFind')?.value || '';
     const lastNameToFind = this.employeRequestForm.get('lastNameToFind')?.value || '';

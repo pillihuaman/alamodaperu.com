@@ -27,8 +27,8 @@ export class RegisterPageComponent  extends BaseImplementation implements OnInit
   pageRequest?: PageRequest;
   datas?: TreeNode<PageResponse>[] = [];
   teestMod: string = "tees";
-  page?: number = GeneralConstans.page
-  pageSize?: number = GeneralConstans.perPage;
+  //page?: number = GeneralConstans.page
+ // pageSize?: number = GeneralConstans.perPage;
   isLoading = false;
   hasMorePagesT = false;
   searchButtonDisabled = true;

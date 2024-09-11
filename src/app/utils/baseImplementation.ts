@@ -1,9 +1,11 @@
 import { Observable } from "rxjs";
 import { BaseRepository } from "./baseRepository";
 import { TreeNode } from "../@data/model/general/treeNode";
+import { GeneralConstans } from "./generalConstant";
 
 export class BaseImplementation implements BaseRepository {
-
+  page: number = GeneralConstans.page;
+  pageSize: number = GeneralConstans.perPage;
   result?:any;
   customizePropertyNames(data: any[], columnNamesMapping: { [key: string]: string }): TreeNode<any>[] {
     
@@ -35,18 +37,17 @@ export class BaseImplementation implements BaseRepository {
   }
   
 
-
-  onPageChange(page: number): void {
-    /*
-    this.page = page;
-    this.findByDefualt()*/
-  }
-
   onPageSizeChange(pageSize: number): void {
     ;
     //this.pageSize = pageSize;
     //this.findPages();
   }
+   onPageChange(page: number): void {
+    this.page = page;
+    console.log("emitter pageChange->>>employee " + this.page);
+    this.findByDefualt(); // Adjust as needed
+  }
+
   /*
 
   checkInputs() {

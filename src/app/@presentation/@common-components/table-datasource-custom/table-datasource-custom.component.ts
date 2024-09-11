@@ -51,6 +51,9 @@ export class TableDatasourceCustomComponent implements OnInit {
     this.datasBySearchType = data;
     this.buildTable();
   }
+  @Input() isdelelete: any;
+  @Output() dataChange: EventEmitter<TreeNode<any>[]> = new EventEmitter<TreeNode<any>[]>(); // Emits updated data
+
   ngOnChanges(changes: SimpleChanges): void {
     this.hasMorePagesTBySearchType;
     if (changes['customColumnBySearchType'] || changes['defaultColumnsBySearchType'] || changes['datasBySearchType']) {
@@ -77,9 +80,29 @@ export class TableDatasourceCustomComponent implements OnInit {
           this.resetTable()
         }
       
+    }else{
+      if (this.isdelelete && this.isdelelete.data && this.isdelelete.data.ID !== undefined) {
+        this.deleteItem();
+      }
+        
     }
   }
 
+  deleteItem(): void {
+    const id: string = this.isdelelete.data.ID;
+
+    // Filter the list to remove the item with the given ID
+    this.datasBySearchType = this.datasBySearchType.filter((dataItem: { data: { ID: any } }) => dataItem.data.ID !== id);
+
+    // Update the dataSource with the new data
+    this.dataSource = this.dataSourceBuilder.create(this.datasBySearchType);
+    this.dataChange.emit(this.datasBySearchType);
+    // Rebuild the table
+    this.buildTable();
+
+    // Emit the updated data to other components or services
+
+  }
 
   resetTable(): void {
     // Reset all relevant properties

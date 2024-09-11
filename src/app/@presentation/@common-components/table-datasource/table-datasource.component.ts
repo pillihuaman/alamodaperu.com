@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output, SimpleChanges, ViewChild } fro
 import { Input } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { Console } from 'console';
+import { debounce, debounceTime } from 'rxjs';
 import { GeneralConstans } from 'src/app/utils/generalConstant';
 interface TreeNode<T> {
   data: T;
@@ -44,10 +45,12 @@ export class TableDatasourceComponent implements OnInit {
   showTableCustom = false;
   defaultColumnsBySearchType: any = [];
   datasBySearchType: any;
-  @Input() isdelelete: boolean = false;
+  @Input() isdelelete: any;
+  @Output() dataChange: EventEmitter<TreeNode<any>[]> = new EventEmitter<TreeNode<any>[]>(); // Emits updated data
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>) {
     this.datas = [...this.initialData, ...this.additionalData];
     this.dataSource = this.dataSourceBuilder.create(this.datas);
+    this.filteredDataSource = this.datas;
 
   }
   @Input()
@@ -58,6 +61,8 @@ export class TableDatasourceComponent implements OnInit {
   @Output() deleteAction: EventEmitter<TreeNode<any>> = new EventEmitter<TreeNode<any>>();
   @Output() editAction: EventEmitter<TreeNode<any>> = new EventEmitter<TreeNode<any>>();
   @Input() hasMorePages: boolean = true;  // Recibe si hay más páginas
+  searchTerm: string = ''; // Variable for search input
+  filteredDataSource: any[] = [];  // Filtered data
 
   ngOnChanges(changes: SimpleChanges): void {
     debugger
@@ -77,17 +82,19 @@ export class TableDatasourceComponent implements OnInit {
             this.showTable = false;
             this.additionalData = [];
             this.defaultColumnsBySearchType = this.defaultColumns
-            if (this.datas.length > 0) {
-
-            } else {
-            }
             this.datasBySearchType = this.datas;
           } else {
 
             this.showTableCustom = false;
             this.showTable = true;
-            if (this.isdelelete) {
+            debugger
+            if (this.isdelelete !== undefined) {
+              if (this.isdelelete.data === undefined) {
               this.additionalData = [...changes['datas'].currentValue];
+              }else{
+                this.additionalData = [...this.additionalData, ...changes['datas'].currentValue];
+
+              }
             } else {
               this.additionalData = [...this.additionalData, ...changes['datas'].currentValue];
             }
@@ -112,7 +119,83 @@ export class TableDatasourceComponent implements OnInit {
           }
         }
       }
+    }else{
+      debugger
+
+
+    if (this.isdelelete && this.isdelelete.data && this.isdelelete.data.ID !== undefined) {
+      this.deleteItem();
     }
+
+     /* console.log(this.isdelelete)
+      if (this.isdelelete.data.ID !== undefined) {
+        const id: String = this.isdelelete.data.ID;
+          // Filtrar la lista de datos para eliminar el item con ese ID
+      this.datas = this.datas.filter((dataItem: { data: { ID: any; }; }) => dataItem.data.ID !== id);
+
+      // Actualizar el dataSource con la nueva lista de datos
+      this.dataSource = this.dataSourceBuilder.create(this.datas);
+      this.buildTable();
+      }*/
+
+        
+    }
+  }
+  /*
+  onSearchChange(searchValue: any): void {
+    debugger
+    // Safely access searchValue and ensure it's a string
+    const searchTerm = searchValue?.data?.toLowerCase() ?? ''; // Default to empty string if null or undefined
+    
+    // Check if searchTerm is empty
+    if (searchTerm) {
+      // Filter the data based on searchTerm
+      this.filteredDataSource = this.datas.filter((item: TreeNode<any>) =>
+        Object.values(item.data).some(value => {
+          // Handle 'unknown' type with type assertion
+          if (value !== undefined && value !== null) {
+            // Check if value is a string
+            if (typeof value === 'string') {
+              return value.toLowerCase().includes(searchTerm);
+            }
+            // Use type assertion for toString() method
+            try {
+              return (value as any).toString().toLowerCase().includes(searchTerm);
+            } catch {
+              // If toString() fails, return false
+              return false;
+            }
+          }
+          return false;
+        })
+      );
+    } else {
+      // Restore the original data when searchTerm is empty
+      this.filteredDataSource = [...this.datas];
+    }
+  
+    // Update the dataSource with the filtered data
+    this.dataSource = this.dataSourceBuilder.create(this.filteredDataSource);
+  }*/
+  
+  
+  
+  
+
+  deleteItem(): void {
+    const id: string = this.isdelelete.data.ID;
+
+    // Filter the list to remove the item with the given ID
+    this.datas = this.datas.filter((dataItem: { data: { ID: any } }) => dataItem.data.ID !== id);
+    this.dataChange.emit(this.datas);
+    // Update the dataSource with the new data
+    this.dataSource = this.dataSourceBuilder.create(this.datas);
+
+    // Rebuild the table
+    this.buildTable();
+
+    // Emit the updated data to other components or services
+
   }
 
 
@@ -160,6 +243,8 @@ export class TableDatasourceComponent implements OnInit {
 
     // Recreate the dataSource with the updated paginated data
     this.dataSource = this.dataSourceBuilder.create(this.paginatedData);
+    //this.dataSource = this.dataSourceBuilder.create(this.datas);
+
   }
   onPageChange(page: number): void {
     if (this.hasMorePagest()) {
@@ -207,7 +292,13 @@ export class TableDatasourceComponent implements OnInit {
     this.deleteAction.emit(row);
     // Implement your deletion logic
   }
+  onItemDeleted(item: TreeNode<any>): void {
+    // Filtrar el ítem eliminado de la lista
+    this.datas = this.datas.filter((dataItem: { data: { ID: any; }; }) => dataItem.data.ID !== item.data.ID);
 
+    // Volver a construir la tabla con la lista actualizada
+    this.buildTable();
+  }
   /*
    private data: TreeNode<FSEntry>[] = [
      {
