@@ -17,6 +17,7 @@ import { ModalComponent } from 'src/app/@presentation/@common-components/modal/m
 import { BaseImplementation } from 'src/app/utils/baseImplementation';
 import { GeneralConstans } from 'src/app/utils/generalConstant';
 import { Utils } from 'src/app/utils/utils';
+import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 
 @Component({
   selector: 'app-employee',
@@ -28,6 +29,7 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
   employeRequest?: EmployeeRequest;
   datas?: TreeNode<EmployeeResponse>[] = [];
   teestMod: string = "tees";
+  isModalVisible: boolean = false;
   //page?: number = GeneralConstans.page
   //pageSize?: number = GeneralConstans.perPage;
   isLoading = false;
@@ -199,51 +201,7 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
       );
   }
 
-  onSubmit() {
-    //debuger
-    const startDateFormatted = this.datePipe.transform(this.employeRequestForm.value.startDate, 'dd/MM/yyyy HH:mm:ss');
-    const finishDateFormatted = this.datePipe.transform(this.employeRequestForm.value.finishDate, 'dd/MM/yyyy HH:mm:ss');
 
-    // Assign the formatted dates and other form values to formValues
-    const formValues = {
-      ...this.employeRequestForm.value,
-      startDate: startDateFormatted,
-      finishDate: finishDateFormatted
-    };
-
-    this.spinnerService.show();
-    this.supportService.saveEmployee(formValues).subscribe(
-      (value) => {
-        // Handle success
-        let nbComponentStatus: NbComponentStatus = 'success';
-        this.modalRepository.showToast(nbComponentStatus, "Save Succes", "Succes");
-        this.employeRequestForm.reset();
-        //this.findEmproyeeProcess()
-        this.spinnerService.hide();
-        this.isRegisterEmployeeExpanded=true
-        window.location.reload();
- 
-      },
-      (error) => {
-        ;
-        // Handle error
-
-        if ((error.status === 422 || error.status === 500) && error.error && error.error.data && error.error.data.payload) {
-          // Map the errors to the form controls
-          error.error.data.payload.forEach((errorItem: any) => {
-            const controlName = errorItem.propertyPath;
-            const errorMesagge = errorItem.valExceptionDescription;
-
-            this.employeRequestForm.get(controlName)?.setErrors({ invalid: true, customError: errorMesagge });
-          });
-        }
-        this.spinnerService.hide();
-      }
-
-    );
-    console.log('Form values:', formValues);
-
-  }
   handleDeleteAction(row: TreeNode<any>): void {
     console.log('Deleting:', row);
     if (row.data.ID !== undefined) {
@@ -371,7 +329,26 @@ export class EmployeeComponent extends BaseImplementation implements OnInit {
    // this.hasMorePagesT = hasMorePages;
 
   }
-}
+
+
+  onNewClick(): void {
+    this.dialogService.open(RegisterEmployeeComponent, {
+      context: {
+        // Optional: Pass any data you need for the modal (context)
+      },
+      closeOnBackdropClick: false, // Prevent closing on clicking outside the modal
+      hasBackdrop: true,           // Ensure the backdrop is enabled
+      backdropClass: 'custom-backdrop', // Optionally, customize the backdrop class
+      dialogClass: 'custom-dialog'  // Customize the dialog class for the entire modal
+    }).onClose.subscribe(result => {
+      // Actions to take after the modal is closed, if necessary
+      console.log('Dialog closed', result);
+    });
+  }
+  
+  }
+
+
 
 function getIndexForModalType(WARNING: ModalType): ModalType | undefined {
   throw new Error('Function not implemented.');

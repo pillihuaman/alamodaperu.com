@@ -1,65 +1,6 @@
 <div class="container">
-  <form [formGroup]="employeRequestForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="employeRequestForm">
     <nb-accordion multi=true>
-      <nb-accordion-item [expanded]="isRegisterEmployeeExpanded">
-        <nb-accordion-item-header>
-          Register New Employee
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <div class="form-group" *ngIf="!isNewPage()">
-            <mat-form-field class="wide-input">
-              <input matInput type="text" placeholder="ID" required formControlName="id" readonly />
-            </mat-form-field>
-          </div>
-
-          <div class="form-group">
-            <mat-form-field>
-              <input matInput type="text" placeholder="Name" required formControlName="name" />
-            </mat-form-field>
-          </div>
-          <div class="form-group">
-            <mat-form-field>
-              <input matInput type="text" placeholder="Last Name" required formControlName="lastName" />
-            </mat-form-field>
-          </div>
-          <div class="form-group">
-            <div class="datepicker-container">
-              <input nbInput placeholder="Start date" formControlName="startDate" [nbDatepicker]="startDate">
-              <nb-date-timepicker #startDate withSeconds [format]="'dd/MM/yyyy HH:mm:ss'"
-              ></nb-date-timepicker>
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <div class="datepicker-container">
-              <input nbInput placeholder="End Date" formControlName="finishDate" [nbDatepicker]="finishDate" >
-              <nb-date-timepicker withSeconds #finishDate withSeconds [format]="'dd/MM/yyyy HH:mm:ss'"
-              ></nb-date-timepicker>
-            </div>
-          </div>
-          <div class="form-group">
-            <mat-form-field>
-              <input matInput type="text" placeholder="typeDocument" formControlName="typeDocument" />
-            </mat-form-field>
-          </div>
-          <div class="form-group">
-            <mat-form-field>
-              <input matInput type="numbebu" placeholder="Salary Hours" formControlName="salaryHours" />
-            </mat-form-field>
-          </div>
-          <div class="form-group">
-            <mat-form-field>
-              <input matInput type="text" placeholder="Document" formControlName="document" />
-            </mat-form-field>
-          </div>
-
-
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-
-        </nb-accordion-item-body>
-      </nb-accordion-item>
 
       <nb-accordion-item expanded=true disabled="false">
         <nb-accordion-item-header>
@@ -103,23 +44,28 @@
               </div>
             </div>
 
-            <div class="col-md-3 col-sm-6">
-              <div class="form-group">
+            <div class="row">
+              <div class="col-12 d-flex justify-content-between">
+                <!-- Search Button aligned to the left -->
                 <button type="button" class="btn btn-primary" (click)="findByparameter()"
                   [disabled]="searchButtonDisabled">Search</button>
-
+  
+                <!-- New Button aligned to the right -->
+                <button type="button" class="btn btn-primary" (click)="onNewClick()">New</button>
               </div>
             </div>
           </div>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
+    <app-table-datasource [datas]="datas" [defaultColumns]="defaultColumnsInput"
+    (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"
+    (deleteAction)="deleting($event)"  [isdelelete]="isdelelete" [hasMorePages]="hasMorePagesT"
+    (editAction)="handleEditicionAction($event)" [typeOfSearch]="typeOfSearch"
+    >
+  </app-table-datasource>
+
   </form>
 
-  <app-table-datasource [datas]="datas" [defaultColumns]="defaultColumnsInput"
-  (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"
-  (deleteAction)="deleting($event)"  [isdelelete]="isdelelete" [hasMorePages]="hasMorePagesT"
-  (editAction)="handleEditicionAction($event)" [typeOfSearch]="typeOfSearch"
-  >
-</app-table-datasource>
+
 </div>

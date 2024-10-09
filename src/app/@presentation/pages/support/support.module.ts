@@ -31,6 +31,7 @@ import { RegisterSystemComponent } from './register-system/register-system.compo
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { CreateRandonImagenColorComponent } from './create-randon-imagen-color/create-randon-imagen-color.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { RegisterEmployeeComponent } from './employee/register-employee/register-employee.component';
 @NgModule({
   declarations: [
     RegisterProductComponent,
@@ -42,6 +43,7 @@ import { EmployeeComponent } from './employee/employee.component';
     RegisterPageComponent,
     CreateRandonImagenColorComponent,
     EmployeeComponent,
+    RegisterEmployeeComponent,
     
   ],
   imports: [
